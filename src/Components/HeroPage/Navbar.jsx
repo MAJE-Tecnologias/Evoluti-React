@@ -38,29 +38,25 @@ export default function Navbar(){
       </ul>
 
       <div className='block sm:hidden' onClick={controlNav}>
-      {nav ?  <IoClose size={20}/> : <IoMenu size={20}/>}
+      {nav ?  <IoClose size={30}/> : <IoMenu size={30}/>}
 
     </div>
 
-      <ul className={nav ? 'fixed left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500' : 'ease-in-out duration-500 fixed left-[-100%]'}>
+      <ul className={nav ? 'fixed left-0 top-0 w-[40%] h-full border-r border-r-gray-900 bg-white ease-in-out duration-500' : 'ease-in-out duration-500 fixed top-0 left-[-100%] h-full w-[40%]'}>
           <li className='p-4 border-b border-gray-600'>
-            <a href="#Home">Home</a>
+            <a href="#Home">Início</a>
           </li>
 
           <li className='p-4 border-b border-gray-600'>
-            <a href="#Programador">Programador</a>
+            <a href="#Programador">Serviços</a>
           </li>
 
           <li className='p-4 border-b border-gray-600'>
-            <a href="#Gamedev">Game-Dev</a>
+            <a href="#Gamedev">Nosso propósito</a>
           </li>
 
           <li className='p-4 border-b border-gray-600'>
-            <a href="#Designer">Designer</a>
-          </li>
-
-          <li className='p-4 border-b border-gray-600'>
-            <a href="#Sobre">Sobre</a>
+            <a href="#Designer">Sobre nós</a>
           </li>
 
           <li className='p-4 border-b border-gray-600'>
