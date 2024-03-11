@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Hero from './Components/HeroPage/Hero'
+import Home from './Components/HeroPage/Home'
 import Login from './Components/Login/Login'
 import Cadastro from './Components/Login/Cadastro'
 import NotFound from './Components/NotFound'
@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Hero></Hero>}></Route>
+        <Route path='/' element={<Home></Home>}></Route>
         <Route path='/Login' element={<Login></Login>}></Route>
         <Route path='/Cadastro' element={<Cadastro></Cadastro>}></Route>
         <Route path='*' element={<NotFound></NotFound>}></Route>

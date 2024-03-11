@@ -10,29 +10,29 @@ export default function Navbar(){
     setNav(!nav)
   }
   return (
-    <nav className="fixed w-full flex px-20 justify-between items-center z-20 border-b-2 shadow-md shadow-green-300"> 
+    <nav className="bg-white fixed w-full flex px-20 justify-between items-center z-20 border-b-2 border-gray-400"> 
       
       <img src={Logo} className="w-fit h-20 flex items-center py-3"></img>
 
       <ul className='list-none sm:flex hidden justify-end items-center flex-1 gap-x-10'>
           <li>
-            <a href='#hero'>Início</a>
+            <a href='#Hero'>Início</a>
           </li>
 
           <li>
-            <a href='#servicos'>Serviços</a>
+            <a href='#Servicos'>Serviços</a>
           </li>
 
           <li>
-            <a href='#proposito'>Nosso Propósito</a>
+            <a href='#Proposito'>Nosso Propósito</a>
           </li>
 
           <li>
-            <a href='#quemSomos'>Quem somos?</a>
+            <a href='#QuemSomos'>Quem somos?</a>
           </li>
 
           <li>
-            <a href='/cadastro' className='border-2 border-black rounded-md border p-1'>Cadastrar</a>
+            <a href='/cadastro' className='border-2 border-black rounded-md p-1'>Cadastrar</a>
           </li>
 
       </ul>
