@@ -7,6 +7,7 @@ module.exports = {
       colors: {
         evolutiDarkBlue: "#132941",
         evolutiLightGreen: "#45D496",
+        evolutiGolden: "#D7D588",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
