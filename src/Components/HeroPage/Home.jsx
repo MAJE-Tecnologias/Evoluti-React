@@ -5,6 +5,7 @@ import Servicos from '/src/Components/HeroPage/Servicos'
 import Transicao from '/src/Components/HeroPage/Transicao'
 import QuemSomos from '/src/Components/HeroPage/QuemSomos'
 import SobreNos from '/src/Components/HeroPage/SobreNos'
+import Footer from '/src/Components/HeroPage/Footer'
 
 export default function Home() {
 
@@ -44,6 +45,12 @@ export default function Home() {
     <div className='bg-evolutiDarkBlue flex justify-center items-start'>
         <div className=' w-full'>
           <SobreNos/>
+        </div>
+      </div>
+
+      <div className=' flex justify-center items-start'>
+        <div className=' w-full'>
+          <Footer/>
         </div>
       </div>
 

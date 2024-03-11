@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Home from './Components/HeroPage/Home'
-import Login from './Components/Login/Login'
-import Cadastro from './Components/Login/Cadastro'
+import Login from './Components/Acesso/Login'
+import Cadastro from './Components/Acesso/Cadastro'
 import NotFound from './Components/NotFound'
 import { Route, Routes } from 'react-router-dom';
 
