@@ -1,0 +1,50 @@
+{
+  "Endereco": [
+    {
+      "Id": 1,
+      "CEP": 13220110,
+      "Logradouro": "Bell Alliance",
+      "TipoLogradouro": "Rua",
+      "Numero": 10,
+      "Bairro": "Jardim SCS",
+      "Cidade": "Sao Paulo",
+      "Estado": "SP",
+      "id": "d990"
+    }
+  ],
+  "Clinica": [
+    {
+      "Id": 1,
+      "Nome": "Cirurtec",
+      "Email": "cirurtec@contato.com",
+      "id": "49ef"
+    },
+    {
+      "id": "6810",
+      "Id": 2,
+      "Nome": "Poggers",
+      "Email": "Teste"
+    },
+    {
+      "id": "7474",
+      "Id": 2,
+      "Nome": "Poggers",
+      "Email": "teste@gmail.com"
+    }
+  ],
+  "Admin": [
+    {
+      "Id": 1,
+      "Nome": "Adapter Souza",
+      "Email": "adapter@souza.com",
+      "Senha": "1234",
+      "Telefone": 12345678910,
+      "Cpf": 12345678901,
+      "RG": 123456789,
+      "Genero": "Homem-Cis",
+      "fk_endereco": 1,
+      "fk_clinica": 1,
+      "id": "b97c"
+    }
+  ]
+}

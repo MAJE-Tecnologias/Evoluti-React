@@ -11,12 +11,15 @@
   },
   "dependencies": {
     "@carefully-coded/react-text-gradient": "^1.0.6",
+    "json": "^11.0.0",
+    "json-server": "^1.0.0-alpha.23",
     "mongodb": "6.4",
     "mongosh": "^0.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.22.2",
+    "server": "^1.0.38",
     "swiper": "^11.0.7"
   },
   "devDependencies": {
