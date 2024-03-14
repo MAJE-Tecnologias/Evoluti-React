@@ -28,7 +28,7 @@ export default function Navbar(){
           </li>
 
           <li>
-            <a href='#QuemSomos'>Quem somos?</a>
+            <a href='#SobreNos'>Sobre Nós</a>
           </li>
 
           <li>

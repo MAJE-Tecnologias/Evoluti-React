@@ -1,7 +1,7 @@
 export default function Cadastro() {
     return (
         <>
-            <main className='bg-azulmarinho w-screen h-screen flex items-center justify-center'>
+            <main className='bg-evolutiDarkBlue w-screen h-screen flex items-center justify-center'>
                 <section className="bg-white w-3/5 h-3/4 rounded flex items-center justify-center   ">
                     <div className="w-1/2 h-full rounded flex flex-col items-center justify-center space-y-6">
                         <h1 className="font-bold text-3xl ">Cadastre-se</h1>
