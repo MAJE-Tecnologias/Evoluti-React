@@ -1,4 +1,6 @@
 export default function CadastroAdmKey() {
+  console.log(sessionStorage.getItem("idClinica"))
+
   return (
     <>
       <main className="bg-evolutiDarkBlue w-screen h-screen flex items-center justify-center px-24">

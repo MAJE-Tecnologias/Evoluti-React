@@ -14,27 +14,24 @@
   ],
   "Clinica": [
     {
-      "Id": 1,
+      "id": 1,
       "Nome": "Cirurtec",
-      "Email": "cirurtec@contato.com",
-      "id": "49ef"
+      "Email": "cirurtec@contato.com"
     },
     {
-      "id": "6810",
-      "Id": 2,
-      "Nome": "Poggers",
-      "Email": "Teste"
+      "id": 2,
+      "Nome": "Evoluti",
+      "Email": "evoluti@gmail.com"
     },
     {
-      "id": "7474",
-      "Id": 2,
-      "Nome": "Poggers",
-      "Email": "teste@gmail.com"
+      "id": 3,
+      "Nome": "Duracel",
+      "Email": "duracel@gmail.com"
     }
   ],
   "Admin": [
     {
-      "Id": 1,
+      "id": "1",
       "Nome": "Adapter Souza",
       "Email": "adapter@souza.com",
       "Senha": "1234",
@@ -43,8 +40,7 @@
       "RG": 123456789,
       "Genero": "Homem-Cis",
       "fk_endereco": 1,
-      "fk_clinica": 1,
-      "id": "b97c"
+      "fk_clinica": 1
     }
   ]
 }
