@@ -3,9 +3,9 @@ import Navbar from '/src/Components/HeroPage/Navbar'
 import Hero from '/src/Components/HeroPage/Hero'
 import Servicos from '/src/Components/HeroPage/Servicos'
 import Transicao from '/src/Components/HeroPage/Transicao'
-import QuemSomos from '/src/Components/HeroPage/QuemSomos'
 import SobreNos from '/src/Components/HeroPage/SobreNos'
 import Footer from '/src/Components/HeroPage/Footer'
+import Proposito from '/src/Components/HeroPage/Proposito'
 
 export default function Home() {
 
@@ -37,7 +37,7 @@ export default function Home() {
 
     <div className='relative flex justify-center items-start'>
         <div className='w-full'>
-            <QuemSomos/>
+            <Proposito/>
         </div>
         
     </div>

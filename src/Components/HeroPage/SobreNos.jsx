@@ -4,7 +4,7 @@ import { FaLinkedin, FaGithub, FaInstagram, FaDribbble } from "react-icons/fa";
 export default function SobreNos() {
 
     return (
-        <section id="SobreNos" className='flex md:flex-col flex-col h-full py-8'>
+        <section id="SobreNos" className='flex md:flex-col flex-col h-full py-8 pt-20'>
             <div className='grid grid-cols-3 gap-y-8 h-full w-full justify-center items-center'>
                 <div className='flex justify-center items-center flex-col'>
                     <img src="src\assets\Juliana.png" alt="" className='w-9/12'/>
