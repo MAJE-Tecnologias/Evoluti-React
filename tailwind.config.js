@@ -8,6 +8,10 @@ module.exports = {
         evolutiDarkBlue: "#132941",
         evolutiLightGreen: "#45D496",
         evolutiGolden: "#D7D588",
+        evolutiGoldenDarker: "#c7bf58",
+        evolutiGoldenSuperDarker: "#72562e",
+        evolutiGoldenLighter: "#e1e1a6",
+        evolutiGoldenSuperLight: "#f1f1d4",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
