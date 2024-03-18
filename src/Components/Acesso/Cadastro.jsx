@@ -111,7 +111,7 @@ export default function Cadastro() {
               />
             </form>
           </div>
-          <div className="bg-gradient-to-r from-[#45D496] to-[#51F680] w-1/2 h-full rounded rounded flex flex-col items-center justify-center space-y-6">
+          <div className="bg-gradient-to-r from-[#45D496] to-[#51F680] w-1/2 h-full rounded flex flex-col items-center justify-center space-y-6">
             <h1 className="font-bold text-3xl ">Já possuí login?</h1>
             <p>Pronto para retomar o controle? Faça login na sua conta agora</p>
             <form onSubmit={redirectLogin}>

@@ -6,8 +6,15 @@ module.exports = {
     extend: {
       colors: {
         evolutiDarkBlue: "#132941",
+        EvolutiLightGreenLighter: '#70e5af',
         evolutiLightGreen: "#45D496",
+        evolutiGreen: '#13b675',
+        evolutiGreenDarker: '#07945e',
         evolutiGolden: "#D7D588",
+        evolutiGoldenDarker: "#c7bf58",
+        evolutiGoldenSuperDarker: "#72562e",
+        evolutiGoldenLighter: "#e1e1a6",
+        evolutiGoldenSuperLight: "#f1f1d4",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
