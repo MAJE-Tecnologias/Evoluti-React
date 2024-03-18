@@ -49,7 +49,7 @@ export default function AdminHomeSidebar({ children }) {
             !expandido ? "flex-col justify-center items-center gap-y-1" : ""
           }`}
         >
-          <img src="https://picsum.photos/48" className="w-12 h-12 rounded-md bg-white"></img>
+          <img src="https://picsum.photos/48" className="w-12 h-12 rounded-md border-2 border-white bg-white"></img>
           <div
             className={`flex ${
               expandido ? "justify-between items-center" : "justify-center"

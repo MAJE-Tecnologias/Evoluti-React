@@ -23,7 +23,7 @@ export default function AdminHome() {
           text="Cadastros"
           alert
         />
-        <ItemsSidebar icon={<FaUsers size={30} />} text="Usuários" ativo />
+        <ItemsSidebar icon={<FaUsers size={30} />} text="Usuários" />
         <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
         <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
         <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
