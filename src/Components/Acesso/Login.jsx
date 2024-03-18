@@ -1,4 +1,4 @@
-import { useState, React } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -22,7 +22,7 @@ export default function Login() {
           } else {
             if (resultado[0].Senha === senha) {
               sessionStorage.setItem("idClinica", resultado[0].fk_clinica)
-              usenavigate("/menu");
+              usenavigate("/CadastroAdmKey");
             } else {
               alert("Senha incorreta");
             }

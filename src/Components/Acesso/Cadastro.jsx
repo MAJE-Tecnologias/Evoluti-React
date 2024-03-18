@@ -1,9 +1,10 @@
-import { useRef, useEffect, useState, React } from "react";
+// Importando os hooks e componentes necessários do React
+import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Componente para o cadastro de uma nova clínica
 export default function Cadastro() {
-  // Declaração de estado para o email e o nome da clínica
+  // Declaração de estado para o email, id, emailValidacao e nome da clínica
   const [email, setEmail] = useState("");
   const [id, setId] = useState();
   const [emailValidacao, setEmailValidacao] = useState([]);
@@ -12,8 +13,10 @@ export default function Cadastro() {
   // Hook para navegação de rotas
   const usenavigate = useNavigate();
 
+  // Hook useRef para verificar se o componente está montado
   const mounted = useRef(false);
 
+  // Hook useEffect para carregar dados iniciais quando o componente é montado
   useEffect(() => {
     if (!mounted.current) {
       let variaveisAPI = {
@@ -34,7 +37,6 @@ export default function Cadastro() {
     }
   }, []);
 
-  console.log(emailValidacao);
   // Função para criar uma nova clínica
   const criarClinica = (e) => {
     e.preventDefault();
@@ -51,12 +53,13 @@ export default function Cadastro() {
 
       fetch(`http://localhost:3000/Clinica?_sort=`, variaveisAPI) // Envia a requisição POST
         .then((response) => response.json()) // Converte a resposta em JSON
-        .then(alert("Cadastrado com sucesso"))
-        .then(usenavigate("/CadastroAdmKey"))
+        .then(alert("Cadastrado com sucesso")) // Exibe mensagem de sucesso
+        .then(usenavigate("/CadastroAdmKey")) // Redireciona para a página de cadastro de administrador
         .catch((error) => console.log("error", error)); // Trata erros
     }
   };
 
+  // Função para validar o cadastro
   const validaCadastro = () => {
     let resultados = true;
     if (nome.length === 0 || email.length === 0) {
@@ -72,14 +75,18 @@ export default function Cadastro() {
     return resultados;
   };
 
-  const redirectLogin = () =>{
+  // Função para redirecionar para a página de login
+  const redirectLogin = () => {
     usenavigate("/Login");
-  }
+  };
 
+  // Armazenando o ID da clínica na sessionStorage
   sessionStorage.setItem("idClinica", id + 1);
 
+  // Renderização do componente
   return (
     <>
+      {/* Estrutura do formulário de cadastro */}
       <main className="bg-evolutiDarkBlue w-screen h-screen flex items-center justify-center">
         <section className="bg-white w-3/5 h-3/4 rounded flex items-center justify-center">
           <div className="w-1/2 h-full rounded flex flex-col items-center justify-center">
@@ -88,6 +95,7 @@ export default function Cadastro() {
               className="flex flex-col items-center justify-center space-y-6"
             >
               <h1 className="font-bold text-3xl ">Cadastre-se</h1>
+              {/* Input para o nome da clínica */}
               <input
                 type="text"
                 placeholder="Nome da Clínica"
@@ -95,6 +103,7 @@ export default function Cadastro() {
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
               />
+              {/* Input para o email da clínica */}
               <input
                 type="email"
                 placeholder="Insira o email"
@@ -104,6 +113,7 @@ export default function Cadastro() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+              {/* Botão para submeter o formulário */}
               <input
                 type="submit"
                 value="Cadastrar"
@@ -114,6 +124,7 @@ export default function Cadastro() {
           <div className="bg-gradient-to-r from-[#45D496] to-[#51F680] w-1/2 h-full rounded flex flex-col items-center justify-center space-y-6">
             <h1 className="font-bold text-3xl ">Já possuí login?</h1>
             <p>Pronto para retomar o controle? Faça login na sua conta agora</p>
+            {/* Formulário para redirecionar para a página de login */}
             <form onSubmit={redirectLogin}>
               <input
                 type="submit"
