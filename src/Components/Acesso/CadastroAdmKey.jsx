@@ -11,7 +11,7 @@ export default function CadastroAdmKey() {
   const [telefone, setTelefone] = useState("");
   const [rg, setRG] = useState("");
   const [cpf, setCpf] = useState("");
-  const [senha, setSenha] = useState("")
+  const [senha, setSenha] =   useState("")
 
   // Hook para navegação de rotas
   const usenavigate = useNavigate();
