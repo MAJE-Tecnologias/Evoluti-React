@@ -322,121 +322,122 @@ export default function AdminCadastro() {
                     </div>
                   </div>
                   {/* FIM DA LINHA 1 */}
-                {/* FIM DO CONTAINER */}
+                  {/* FIM DO CONTAINER */}
 
-                <h1 className="font-bold text-2xl border-b-2 border-evolutiGoldenSuperDarker text-evolutiGoldenDarker mb-3">
-                  Endereço
-                </h1>
+                  <h1 className="font-bold text-2xl border-b-2 border-evolutiGoldenSuperDarker text-evolutiGoldenDarker mb-3">
+                    Endereço
+                  </h1>
 
-                {/* Container Endereço */}
-                <div className="flex flex-col gap-y-4 mb-8">
-                  {/* LINHA 1 */}
-                  <div className="flex gap-x-4">
-                    <div className="w-1/3">
-                      <label htmlFor="Rua" className="text-xl font-bold">
-                        Rua
-                      </label>
-                      <br></br>
-                      <input
-                        id="Rua"
-                        type="text"
-                        placeholder="Digite a rua"
-                        className="w-full border rounded-md bg-white shadow py-3 px-5"
-                      />
+                  {/* Container Endereço */}
+                  <div className="flex flex-col gap-y-4 mb-8">
+                    {/* LINHA 1 */}
+                    <div className="flex gap-x-4">
+                      <div className="w-1/3">
+                        <label htmlFor="Rua" className="text-xl font-bold">
+                          Rua
+                        </label>
+                        <br></br>
+                        <input
+                          id="Rua"
+                          type="text"
+                          placeholder="Digite a rua"
+                          className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        />
+                      </div>
+
+                      <div className="w-1/3">
+                        <label
+                          htmlFor="CEP"
+                          className="text-xl font-bold whitespace-nowrap"
+                        >
+                          CEP
+                        </label>
+                        <input
+                          id="CEP"
+                          type="number"
+                          placeholder="Digite o CEP"
+                          className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        />
+                      </div>
+
+                      <div className="w-1/3">
+                        <label
+                          htmlFor="Numero"
+                          className="text-xl font-bold whitespace-nowrap"
+                        >
+                          Número
+                        </label>
+                        <input
+                          id="Numero"
+                          type="number"
+                          placeholder="Digite o número"
+                          className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        />
+                      </div>
                     </div>
+                    {/* FIM DA LINHA 1 */}
 
-                    <div className="w-1/3">
-                      <label
-                        htmlFor="CEP"
-                        className="text-xl font-bold whitespace-nowrap"
-                      >
-                        CEP
-                      </label>
-                      <input
-                        id="CEP"
-                        type="number"
-                        placeholder="Digite o CEP"
-                        className="w-full border rounded-md bg-white shadow py-3 px-5"
-                      />
-                    </div>
+                    {/* LINHA 2 */}
+                    <div className="flex gap-x-4">
+                      <div className="w-1/3">
+                        <label
+                          htmlFor="Complemento"
+                          className="text-xl font-bold"
+                        >
+                          Complemento
+                        </label>
+                        <br></br>
+                        <input
+                          id="Complemento"
+                          type="text"
+                          placeholder="Digite o complemento"
+                          className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        />
+                      </div>
 
-                    <div className="w-1/3">
-                      <label
-                        htmlFor="Numero"
-                        className="text-xl font-bold whitespace-nowrap"
-                      >
-                        Número
-                      </label>
-                      <input
-                        id="Numero"
-                        type="number"
-                        placeholder="Digite o número"
-                        className="w-full border rounded-md bg-white shadow py-3 px-5"
-                      />
+                      <div className="w-1/3">
+                        <label
+                          htmlFor="Bairro"
+                          className="text-xl font-bold whitespace-nowrap"
+                        >
+                          Bairro
+                        </label>
+                        <input
+                          id="Bairro"
+                          type="text"
+                          placeholder="Digite o bairro"
+                          className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        />
+                      </div>
+
+                      <div className="w-1/3">
+                        <label
+                          htmlFor="Cidade"
+                          className="text-xl font-bold whitespace-nowrap"
+                        >
+                          Cidade
+                        </label>
+                        <input
+                          id="Cidade"
+                          type="text"
+                          placeholder="Digite a cidade"
+                          className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        />
+                      </div>
                     </div>
+                    {/* FIM DA LINHA 2 */}
                   </div>
-                  {/* FIM DA LINHA 1 */}
+                  {/* Fim Container Endereço */}
 
-                  {/* LINHA 2 */}
-                  <div className="flex gap-x-4">
-                    <div className="w-1/3">
-                      <label
-                        htmlFor="Complemento"
-                        className="text-xl font-bold"
-                      >
-                        Complemento
-                      </label>
-                      <br></br>
-                      <input
-                        id="Complemento"
-                        type="text"
-                        placeholder="Digite o complemento"
-                        className="w-full border rounded-md bg-white shadow py-3 px-5"
-                      />
-                    </div>
-
-                    <div className="w-1/3">
-                      <label
-                        htmlFor="Bairro"
-                        className="text-xl font-bold whitespace-nowrap"
-                      >
-                        Bairro
-                      </label>
-                      <input
-                        id="Bairro"
-                        type="text"
-                        placeholder="Digite o bairro"
-                        className="w-full border rounded-md bg-white shadow py-3 px-5"
-                      />
-                    </div>
-
-                    <div className="w-1/3">
-                      <label
-                        htmlFor="Cidade"
-                        className="text-xl font-bold whitespace-nowrap"
-                      >
-                        Cidade
-                      </label>
-                      <input
-                        id="Cidade"
-                        type="text"
-                        placeholder="Digite a cidade"
-                        className="w-full border rounded-md bg-white shadow py-3 px-5"
-                      />
-                    </div>
-                  </div>
-                  {/* FIM DA LINHA 2 */}
-                </div>
-                {/* Fim Container Endereço */}
-
-                {/* Container Botao Submit */}
-                <div className="flex w-full justify-center">
-                  <input
-                    type="submit"
-                    className="border-0 rounded-md font-bold bg-evolutiLightGreen text-white py-3 px-5 
+                  {/* Container Botao Submit */}
+                  <div className="flex w-full justify-center">
+                    <input
+                      type="submit"
+                      className="border-0 rounded-md font-bold bg-evolutiLightGreen text-white py-3 px-5 
                     shadow-sm shadow-black hover:bg-evolutiGreenDarker transition-all"
-                    value="Cadastrar"
-                  />
+                      value="Cadastrar"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
