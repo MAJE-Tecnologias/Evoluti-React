@@ -21,9 +21,15 @@ export default function AdminCadastro() {
   const [user, setUser] = useState("");
   const [telefone, setTelefone] = useState("");
 
+  const [tipoUsuario, setTipoUsuario] = useState("administrador");
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
+  };
+
+  const mudarTipoUsuario = (tipo) => {
+    setTipoUsuario(tipo);
   };
 
   return (
@@ -43,19 +49,52 @@ export default function AdminCadastro() {
       </AdminHomeSidebar>
       <section
         id="AdminCadastro"
-        className="flex md:flex-col flex-col h-fit pt-20 pl-[78px] justify-center items-center"
+        className="flex md:flex-col flex-col h-fit pt-20 pl-[78px] justify-center items-center dark:bg-neutral-800 transition-all"
       >
         <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">
           <FiPlusCircle size={40} /> Cadastro de Usuários
         </h1>
+
+        <div className="flex mt-10 bg-white rounded-2xl shadow-lg">
+          <button
+            className={`py-2 px-16 rounded-l-2xl transition-all hover:bg-evolutiLightGreen hover:font-bold dark:hover:text-white ${
+              tipoUsuario === "administrador"
+                ? "bg-evolutiLightGreen font-bold dark:text-white"
+                : ""
+            }`}
+            onClick={() => mudarTipoUsuario("administrador")}
+          >
+            Administrador
+          </button>
+          <button
+            className={`py-2 px-16 transition-all hover:bg-evolutiLightGreen hover:font-bold dark:hover:text-white ${
+              tipoUsuario === "fisioterapeuta"
+                ? "bg-evolutiLightGreen font-bold dark:text-white"
+                : ""
+            }`}
+            onClick={() => mudarTipoUsuario("fisioterapeuta")}
+          >
+            Fisioterapeuta
+          </button>
+          <button
+            className={`py-2 px-16 rounded-r-2xl transition-all hover:bg-evolutiLightGreen hover:font-bold dark:hover:text-white ${
+              tipoUsuario === "estagiario"
+                ? "bg-evolutiLightGreen font-bold dark:text-white"
+                : ""
+            }`}
+            onClick={() => mudarTipoUsuario("estagiario")}
+          >
+            Estagiário
+          </button>
+        </div>
 
         {/* Container Principal */}
         <div className="w-full h-full px-20 pt-10">
           {/* Container Forms */}
           <form>
             <div
-              className="flex border-2 border-b-0 w-full h-full rounded-3xl 
-          rounded-bl-none rounded-br-none shadow-black shadow-md p-5 gap-x-8"
+              className="bg-neutral-100 flex border-2 border-b-0 w-full h-full rounded-3xl 
+          rounded-bl-none rounded-br-none shadow-black shadow-md p-5 gap-x-8 dark:bg-neutral-900 dark:border-gray-800"
             >
               {/* Formulário - Parte Esquerda */}
               <div className="w-1/4">
@@ -63,7 +102,7 @@ export default function AdminCadastro() {
                   <img
                     src="https://picsum.photos/300/300"
                     alt="FotoUsuario"
-                    className="rounded-full mb-4"
+                    className="rounded-full mb-4 border-2"
                   />
                 </div>
                 <div className="flex flex-col justify-center gap-y-2">
@@ -81,7 +120,10 @@ export default function AdminCadastro() {
                     onChange={handleFileChange}
                   />
 
-                  <span id="NomeArquivo" className="text-center">
+                  <span
+                    id="NomeArquivo"
+                    className="text-center dark:text-white"
+                  >
                     {selectedFile ? (
                       <>
                         <strong>Arquivo:</strong> {selectedFile.name}
@@ -91,7 +133,7 @@ export default function AdminCadastro() {
                     )}
                   </span>
 
-                  <span className="border-2 p-4 border-black rounded-xl mt-8 shadow-md">
+                  <span className=" bg-neutral-100 border-2 p-4 border-black rounded-xl mt-8 shadow-md dark:border-neutral-300">
                     <b>Formatos aceitos:</b> JPG, JPEG, PNG.{" "}
                   </span>
                 </div>
@@ -104,7 +146,7 @@ export default function AdminCadastro() {
                 </h1>
 
                 {/* Container Dados Pessoais */}
-                <div className="flex flex-col gap-y-4 mb-8">
+                <div className="flex flex-col gap-y-4 mb-8 dark:text-white">
                   {/* LINHA 1 */}
                   <div className="flex gap-x-4">
                     <div className="w-1/2">
@@ -136,7 +178,7 @@ export default function AdminCadastro() {
                         id="dtNasc"
                         type="date"
                         placeholder="Insira o nome completo"
-                        className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        className="w-full border rounded-md bg-white shadow py-3 px-5 text-black"
                         value={nascimento}
                         onChange={(e) => setNascimento(e.target.value)}
                       />
@@ -200,7 +242,7 @@ export default function AdminCadastro() {
                 </h1>
 
                 {/* Container Contato */}
-                <div className="flex flex-col gap-y-4 mb-8">
+                <div className="flex flex-col gap-y-4 mb-8 dark:text-white">
                   {/* LINHA 1 */}
                   <div className="flex gap-x-4">
                     <div className="w-1/2">
@@ -275,7 +317,137 @@ export default function AdminCadastro() {
                 {/* Fim Container Contato */}
 
                 {/* CONTAINER REGISTRO PROFISSIONAL - SÓ FICARÁ VISIVEL AO CLICAR NO BOTÃO "FISIOTERAPEUTA" */}
-                <div className="flex flex-col gap-y-4 mb-8">
+
+                {tipoUsuario === "fisioterapeuta" && (
+                  <>
+                    <h1 className="font-bold text-2xl border-b-2 border-evolutiGoldenSuperDarker text-evolutiGoldenDarker mb-3">
+                      Registro Profissional
+                    </h1>
+
+                    <div className="flex flex-col gap-y-4 mb-8 dark:text-white">
+                      {/* LINHA 1 */}
+                      <div className="flex gap-x-4">
+                        <div className="w-1/3">
+                          <label
+                            htmlFor="CREFITO"
+                            className="text-xl font-bold"
+                          >
+                            CREFITO
+                          </label>
+                          <br></br>
+                          <input
+                            id="CREFITO"
+                            type="text"
+                            placeholder="12345678"
+                            className="w-full border rounded-md bg-white shadow py-3 px-5"
+                          />
+                        </div>
+
+                        <div className="w-1/3">
+                          <label
+                            htmlFor="dtEmissao"
+                            className="text-xl font-bold whitespace-nowrap"
+                          >
+                            Data de emissão
+                          </label>
+                          <input
+                            id="dtEmissao"
+                            type="date"
+                            className="w-full border rounded-md bg-white shadow py-3 px-5 text-black"
+                          />
+                        </div>
+
+                        <div className="w-1/3">
+                          <label
+                            htmlFor="Especialidade"
+                            className="text-xl font-bold"
+                          >
+                            Especialidade
+                          </label>
+                          <br></br>
+                          <input
+                            id="Especialidade"
+                            type="text"
+                            placeholder="Insira a especialidade"
+                            className="w-full border rounded-md bg-white shadow py-3 px-5"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    {/* FIM DA LINHA 1 */}
+                  </>
+                )}
+
+                {/* FIM DO CONTAINER */}
+
+                {/* CONTAINER REGISTRO PROFISSIONAL - SÓ FICARÁ VISIVEL AO CLICAR NO BOTÃO "ESTAGIÁRIO" */}
+
+                {tipoUsuario === "estagiario" && (
+                  <>
+                    <h1 className="font-bold text-2xl border-b-2 border-evolutiGoldenSuperDarker text-evolutiGoldenDarker mb-3">
+                      Registro Profissional
+                    </h1>
+
+                    <div className="flex flex-col gap-y-4 mb-8 dark:text-white">
+                      {/* LINHA 1 */}
+                      <div className="flex gap-x-4">
+                        <div className="w-1/3">
+                          <label
+                            htmlFor="instituicao"
+                            className="text-xl font-bold"
+                          >
+                            Instituição
+                          </label>
+                          <br></br>
+                          <input
+                            id="instituicao"
+                            type="text"
+                            placeholder="12345678"
+                            className="w-full border rounded-md bg-white shadow py-3 px-5"
+                          />
+                        </div>
+
+                        <div className="w-1/3">
+                          <label
+                            htmlFor="inicioContrato"
+                            className="text-xl font-bold whitespace-nowrap"
+                          >
+                            Início do contrato
+                          </label>
+                          <input
+                            id="inicioContrato"
+                            type="date"
+                            className="w-full border rounded-md bg-white shadow py-3 px-5 text-black"
+                          />
+                        </div>
+
+                        <div className="w-1/3">
+                          <label
+                            htmlFor="fimContrato"
+                            className="text-xl font-bold whitespace-nowrap"
+                          >
+                            Fim do contrato
+                          </label>
+                          <input
+                            id="fimContrato"
+                            type="date"
+                            className="w-full border rounded-md bg-white shadow py-3 px-5 text-black"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    {/* FIM DA LINHA 1 */}
+                  </>
+                )}
+
+                {/* FIM DO CONTAINER */}
+
+                <h1 className="font-bold text-2xl border-b-2 border-evolutiGoldenSuperDarker text-evolutiGoldenDarker mb-3">
+                  Endereço
+                </h1>
+
+                {/* Container Endereço */}
+                <div className="flex flex-col gap-y-4 mb-8 dark:text-white">
                   {/* LINHA 1 */}
                   <div className="flex gap-x-4">
                     <div className="w-1/3">
@@ -322,122 +494,67 @@ export default function AdminCadastro() {
                     </div>
                   </div>
                   {/* FIM DA LINHA 1 */}
-                  {/* FIM DO CONTAINER */}
 
-                  <h1 className="font-bold text-2xl border-b-2 border-evolutiGoldenSuperDarker text-evolutiGoldenDarker mb-3">
-                    Endereço
-                  </h1>
-
-                  {/* Container Endereço */}
-                  <div className="flex flex-col gap-y-4 mb-8">
-                    {/* LINHA 1 */}
-                    <div className="flex gap-x-4">
-                      <div className="w-1/3">
-                        <label htmlFor="Rua" className="text-xl font-bold">
-                          Rua
-                        </label>
-                        <br></br>
-                        <input
-                          id="Rua"
-                          type="text"
-                          placeholder="Digite a rua"
-                          className="w-full border rounded-md bg-white shadow py-3 px-5"
-                        />
-                      </div>
-
-                      <div className="w-1/3">
-                        <label
-                          htmlFor="CEP"
-                          className="text-xl font-bold whitespace-nowrap"
-                        >
-                          CEP
-                        </label>
-                        <input
-                          id="CEP"
-                          type="number"
-                          placeholder="Digite o CEP"
-                          className="w-full border rounded-md bg-white shadow py-3 px-5"
-                        />
-                      </div>
-
-                      <div className="w-1/3">
-                        <label
-                          htmlFor="Numero"
-                          className="text-xl font-bold whitespace-nowrap"
-                        >
-                          Número
-                        </label>
-                        <input
-                          id="Numero"
-                          type="number"
-                          placeholder="Digite o número"
-                          className="w-full border rounded-md bg-white shadow py-3 px-5"
-                        />
-                      </div>
+                  {/* LINHA 2 */}
+                  <div className="flex gap-x-4">
+                    <div className="w-1/3">
+                      <label
+                        htmlFor="Complemento"
+                        className="text-xl font-bold"
+                      >
+                        Complemento
+                      </label>
+                      <br></br>
+                      <input
+                        id="Complemento"
+                        type="text"
+                        placeholder="Digite o complemento"
+                        className="w-full border rounded-md bg-white shadow py-3 px-5"
+                      />
                     </div>
-                    {/* FIM DA LINHA 1 */}
 
-                    {/* LINHA 2 */}
-                    <div className="flex gap-x-4">
-                      <div className="w-1/3">
-                        <label
-                          htmlFor="Complemento"
-                          className="text-xl font-bold"
-                        >
-                          Complemento
-                        </label>
-                        <br></br>
-                        <input
-                          id="Complemento"
-                          type="text"
-                          placeholder="Digite o complemento"
-                          className="w-full border rounded-md bg-white shadow py-3 px-5"
-                        />
-                      </div>
-
-                      <div className="w-1/3">
-                        <label
-                          htmlFor="Bairro"
-                          className="text-xl font-bold whitespace-nowrap"
-                        >
-                          Bairro
-                        </label>
-                        <input
-                          id="Bairro"
-                          type="text"
-                          placeholder="Digite o bairro"
-                          className="w-full border rounded-md bg-white shadow py-3 px-5"
-                        />
-                      </div>
-
-                      <div className="w-1/3">
-                        <label
-                          htmlFor="Cidade"
-                          className="text-xl font-bold whitespace-nowrap"
-                        >
-                          Cidade
-                        </label>
-                        <input
-                          id="Cidade"
-                          type="text"
-                          placeholder="Digite a cidade"
-                          className="w-full border rounded-md bg-white shadow py-3 px-5"
-                        />
-                      </div>
+                    <div className="w-1/3">
+                      <label
+                        htmlFor="Bairro"
+                        className="text-xl font-bold whitespace-nowrap"
+                      >
+                        Bairro
+                      </label>
+                      <input
+                        id="Bairro"
+                        type="text"
+                        placeholder="Digite o bairro"
+                        className="w-full border rounded-md bg-white shadow py-3 px-5"
+                      />
                     </div>
-                    {/* FIM DA LINHA 2 */}
+
+                    <div className="w-1/3">
+                      <label
+                        htmlFor="Cidade"
+                        className="text-xl font-bold whitespace-nowrap"
+                      >
+                        Cidade
+                      </label>
+                      <input
+                        id="Cidade"
+                        type="text"
+                        placeholder="Digite a cidade"
+                        className="w-full border rounded-md bg-white shadow py-3 px-5"
+                      />
+                    </div>
                   </div>
-                  {/* Fim Container Endereço */}
+                  {/* FIM DA LINHA 2 */}
+                </div>
+                {/* Fim Container Endereço */}
 
-                  {/* Container Botao Submit */}
-                  <div className="flex w-full justify-center">
-                    <input
-                      type="submit"
-                      className="border-0 rounded-md font-bold bg-evolutiLightGreen text-white py-3 px-5 
+                {/* Container Botao Submit */}
+                <div className="flex w-full justify-center">
+                  <input
+                    type="submit"
+                    className="border-0 rounded-md font-bold bg-evolutiLightGreen text-white py-3 px-5 
                     shadow-sm shadow-black hover:bg-evolutiGreenDarker transition-all"
-                      value="Cadastrar"
-                    />
-                  </div>
+                    value="Cadastrar"
+                  />
                 </div>
               </div>
             </div>

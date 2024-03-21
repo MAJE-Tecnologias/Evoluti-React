@@ -6,6 +6,7 @@ import NotFound from './Components/NotFound'
 import CadastroAdmKey from './Components/Acesso/CadastroAdmKey'
 import AdminHome from './Components/Admin/AdminHome'
 import AdminCadastro from './Components/Admin/AdminCadastro'
+import AdminUsuarios from './Components/Admin/AdminUsuarios'
 
 // Importando componentes e métodos necessários do React Router
 import { Route, Routes } from 'react-router-dom';
@@ -28,6 +29,8 @@ function App() {
         <Route path='/AdminHome' element={<AdminHome></AdminHome>}></Route>
         {/* Rota para a página de cadastro de administrador */}
         <Route path='/AdminCadastro' element={<AdminCadastro></AdminCadastro>}></Route>
+        {/* Rota para a página de usuários do administrador */}
+        <Route path='/AdminUsuarios' element={<AdminUsuarios></AdminUsuarios>}></Route>
         {/* Rota para página de erro (404 Not Found) */}
         <Route path='*' element={<NotFound></NotFound>}></Route>
       </Routes>
