@@ -12,6 +12,14 @@ import { VscGraph } from "react-icons/vsc";
 
 export default function AdminCadastro() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [nome, setNome] = useState("");
+  const [nascimento, setNascimento] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [rg, setRG] = useState("");
+  const [genero, setGenero] = useState("");
+  const [email, setEmail] = useState("");
+  const [user, setUser] = useState("");
+  const [telefone, setTelefone] = useState("");
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -60,7 +68,7 @@ export default function AdminCadastro() {
                 </div>
                 <div className="flex flex-col justify-center gap-y-2">
                   <label
-                    for="Arquivo"
+                    htmlFor="Arquivo"
                     className="flex justify-center items-center gap-x-2 border rounded-md bg-white shadow py-3 px-5 whitespace-nowrap 
                     transition-all hover:bg-zinc-200"
                   >
@@ -100,7 +108,10 @@ export default function AdminCadastro() {
                   {/* LINHA 1 */}
                   <div className="flex gap-x-4">
                     <div className="w-1/2">
-                      <label for="NomeCompleto" className="text-xl font-bold">
+                      <label
+                        htmlFor="NomeCompleto"
+                        className="text-xl font-bold"
+                      >
                         Nome completo
                       </label>
                       <br></br>
@@ -109,12 +120,14 @@ export default function AdminCadastro() {
                         type="text"
                         placeholder="Insira o nome completo"
                         className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        value={nome}
+                        onChange={(e) => setNome(e.target.value)}
                       />
                     </div>
 
                     <div className="w-1/2">
                       <label
-                        for="dtNasc"
+                        htmlFor="dtNasc"
                         className="text-xl font-bold whitespace-nowrap"
                       >
                         Data de nascimento
@@ -124,6 +137,8 @@ export default function AdminCadastro() {
                         type="date"
                         placeholder="Insira o nome completo"
                         className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        value={nascimento}
+                        onChange={(e) => setNascimento(e.target.value)}
                       />
                     </div>
                   </div>
@@ -132,7 +147,7 @@ export default function AdminCadastro() {
                   {/* LINHA 2 */}
                   <div className="flex gap-x-4">
                     <div className="w-1/3">
-                      <label for="CPF" className="text-xl font-bold">
+                      <label htmlFor="CPF" className="text-xl font-bold">
                         CPF
                       </label>
                       <input
@@ -140,11 +155,13 @@ export default function AdminCadastro() {
                         type="number"
                         placeholder="123.456.789-10"
                         className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        value={cpf}
+                        onChange={(e) => setCpf(e.target.value)}
                       />
                     </div>
 
                     <div className="w-1/3">
-                      <label for="RG" className="text-xl font-bold">
+                      <label htmlFor="RG" className="text-xl font-bold">
                         RG
                       </label>
                       <input
@@ -152,16 +169,20 @@ export default function AdminCadastro() {
                         type="number"
                         placeholder="12.345.678-9"
                         className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        value={rg}
+                        onChange={(e) => setRG(e.target.value)}
                       />
                     </div>
 
                     <div className="w-1/3">
-                      <label for="Genero" className="text-xl font-bold">
+                      <label htmlFor="Genero" className="text-xl font-bold">
                         Gênero
                       </label>
                       <select
                         id="Genero"
                         className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        value={genero}
+                        onChange={(e) => setGenero(e.target.value)}
                       >
                         <option defaultValue="">Selecione o gênero</option>
                         <option value="1">Masculino</option>
@@ -183,7 +204,7 @@ export default function AdminCadastro() {
                   {/* LINHA 1 */}
                   <div className="flex gap-x-4">
                     <div className="w-1/2">
-                      <label for="Email" className="text-xl font-bold">
+                      <label htmlFor="Email" className="text-xl font-bold">
                         E-mail
                       </label>
                       <br></br>
@@ -193,12 +214,14 @@ export default function AdminCadastro() {
                         placeholder="Digite o e-mail"
                         className="w-full border rounded-md bg-white shadow py-3 px-5"
                         autoComplete="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
 
                     <div className="w-1/2">
                       <label
-                        for="NomeUser"
+                        htmlFor="NomeUser"
                         className="text-xl font-bold whitespace-nowrap"
                       >
                         Nome de usuário
@@ -208,6 +231,8 @@ export default function AdminCadastro() {
                         type="text"
                         placeholder="Crie um nome de usuário"
                         className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        value={user}
+                        onChange={(e) => setUser(e.target.value)}
                       />
                     </div>
                   </div>
@@ -216,7 +241,7 @@ export default function AdminCadastro() {
                   {/* LINHA 2 */}
                   <div className="flex gap-x-4">
                     <div className="w-1/2">
-                      <label for="Telefone" className="text-xl font-bold">
+                      <label htmlFor="Telefone" className="text-xl font-bold">
                         Telefone
                       </label>
                       <br></br>
@@ -225,12 +250,14 @@ export default function AdminCadastro() {
                         type="tel"
                         placeholder="11 3456-7890"
                         className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        value={telefone}
+                        onChange={(e) => setTelefone(e.target.value)}
                       />
                     </div>
 
                     <div className="w-1/2">
                       <label
-                        for="Senha"
+                        htmlFor="Senha"
                         className="text-xl font-bold whitespace-nowrap"
                       >
                         Senha
@@ -247,16 +274,12 @@ export default function AdminCadastro() {
                 </div>
                 {/* Fim Container Contato */}
 
-                <h1 className="font-bold text-2xl border-b-2 border-evolutiGoldenSuperDarker text-evolutiGoldenDarker mb-3">
-                  Endereço
-                </h1>
-
-                {/* Container Endereço */}
+                {/* CONTAINER REGISTRO PROFISSIONAL - SÓ FICARÁ VISIVEL AO CLICAR NO BOTÃO "FISIOTERAPEUTA" */}
                 <div className="flex flex-col gap-y-4 mb-8">
                   {/* LINHA 1 */}
                   <div className="flex gap-x-4">
                     <div className="w-1/3">
-                      <label for="Rua" className="text-xl font-bold">
+                      <label htmlFor="Rua" className="text-xl font-bold">
                         Rua
                       </label>
                       <br></br>
@@ -270,7 +293,7 @@ export default function AdminCadastro() {
 
                     <div className="w-1/3">
                       <label
-                        for="CEP"
+                        htmlFor="CEP"
                         className="text-xl font-bold whitespace-nowrap"
                       >
                         CEP
@@ -285,7 +308,7 @@ export default function AdminCadastro() {
 
                     <div className="w-1/3">
                       <label
-                        for="Numero"
+                        htmlFor="Numero"
                         className="text-xl font-bold whitespace-nowrap"
                       >
                         Número
@@ -299,64 +322,122 @@ export default function AdminCadastro() {
                     </div>
                   </div>
                   {/* FIM DA LINHA 1 */}
+                  {/* FIM DO CONTAINER */}
 
-                  {/* LINHA 2 */}
-                  <div className="flex gap-x-4">
-                    <div className="w-1/3">
-                      <label for="Complemento" className="text-xl font-bold">
-                        Complemento
-                      </label>
-                      <br></br>
-                      <input
-                        id="Complemento"
-                        type="text"
-                        placeholder="Digite o complemento"
-                        className="w-full border rounded-md bg-white shadow py-3 px-5"
-                      />
-                    </div>
+                  <h1 className="font-bold text-2xl border-b-2 border-evolutiGoldenSuperDarker text-evolutiGoldenDarker mb-3">
+                    Endereço
+                  </h1>
 
-                    <div className="w-1/3">
-                      <label
-                        for="Bairro"
-                        className="text-xl font-bold whitespace-nowrap"
-                      >
-                        Bairro
-                      </label>
-                      <input
-                        id="Bairro"
-                        type="text"
-                        placeholder="Digite o bairro"
-                        className="w-full border rounded-md bg-white shadow py-3 px-5"
-                      />
-                    </div>
+                  {/* Container Endereço */}
+                  <div className="flex flex-col gap-y-4 mb-8">
+                    {/* LINHA 1 */}
+                    <div className="flex gap-x-4">
+                      <div className="w-1/3">
+                        <label htmlFor="Rua" className="text-xl font-bold">
+                          Rua
+                        </label>
+                        <br></br>
+                        <input
+                          id="Rua"
+                          type="text"
+                          placeholder="Digite a rua"
+                          className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        />
+                      </div>
 
-                    <div className="w-1/3">
-                      <label
-                        for="Cidade"
-                        className="text-xl font-bold whitespace-nowrap"
-                      >
-                        Cidade
-                      </label>
-                      <input
-                        id="Cidade"
-                        type="text"
-                        placeholder="Digite a cidade"
-                        className="w-full border rounded-md bg-white shadow py-3 px-5"
-                      />
+                      <div className="w-1/3">
+                        <label
+                          htmlFor="CEP"
+                          className="text-xl font-bold whitespace-nowrap"
+                        >
+                          CEP
+                        </label>
+                        <input
+                          id="CEP"
+                          type="number"
+                          placeholder="Digite o CEP"
+                          className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        />
+                      </div>
+
+                      <div className="w-1/3">
+                        <label
+                          htmlFor="Numero"
+                          className="text-xl font-bold whitespace-nowrap"
+                        >
+                          Número
+                        </label>
+                        <input
+                          id="Numero"
+                          type="number"
+                          placeholder="Digite o número"
+                          className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        />
+                      </div>
                     </div>
+                    {/* FIM DA LINHA 1 */}
+
+                    {/* LINHA 2 */}
+                    <div className="flex gap-x-4">
+                      <div className="w-1/3">
+                        <label
+                          htmlFor="Complemento"
+                          className="text-xl font-bold"
+                        >
+                          Complemento
+                        </label>
+                        <br></br>
+                        <input
+                          id="Complemento"
+                          type="text"
+                          placeholder="Digite o complemento"
+                          className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        />
+                      </div>
+
+                      <div className="w-1/3">
+                        <label
+                          htmlFor="Bairro"
+                          className="text-xl font-bold whitespace-nowrap"
+                        >
+                          Bairro
+                        </label>
+                        <input
+                          id="Bairro"
+                          type="text"
+                          placeholder="Digite o bairro"
+                          className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        />
+                      </div>
+
+                      <div className="w-1/3">
+                        <label
+                          htmlFor="Cidade"
+                          className="text-xl font-bold whitespace-nowrap"
+                        >
+                          Cidade
+                        </label>
+                        <input
+                          id="Cidade"
+                          type="text"
+                          placeholder="Digite a cidade"
+                          className="w-full border rounded-md bg-white shadow py-3 px-5"
+                        />
+                      </div>
+                    </div>
+                    {/* FIM DA LINHA 2 */}
                   </div>
-                  {/* FIM DA LINHA 2 */}
-                </div>
-                {/* Fim Container Endereço */}
+                  {/* Fim Container Endereço */}
 
-                {/* Container Botao Submit */}
-                <div className="flex w-full justify-center">
-                  <input
-                    type="submit"
-                    className="border-0 rounded-md font-bold bg-evolutiLightGreen text-white py-3 px-5 
+                  {/* Container Botao Submit */}
+                  <div className="flex w-full justify-center">
+                    <input
+                      type="submit"
+                      className="border-0 rounded-md font-bold bg-evolutiLightGreen text-white py-3 px-5 
                     shadow-sm shadow-black hover:bg-evolutiGreenDarker transition-all"
-                    value="Cadastrar"
-                  />
+                      value="Cadastrar"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

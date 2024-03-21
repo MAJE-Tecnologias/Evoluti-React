@@ -1,4 +1,5 @@
-import React from "react";
+import { useRef, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import MainNavbar from "../Suplementares/MainNavbar";
 import AdminHomeSidebar, {
   ItemsSidebar,
@@ -7,12 +8,28 @@ import "../CSS/AnimacaoFlutuar.css";
 
 import { FiPlusCircle } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa6";
-import { FaUserInjured, FaFileAlt, FaCog } from "react-icons/fa";
+import { FaUserInjured, FaFileAlt } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 
 import { FaQuestion } from "react-icons/fa";
 
 export default function AdminHome() {
+    // Hook para navegação de rotas
+    const navigate = useNavigate();
+
+    // Hook useRef para verificar se o componente está montado
+    const mounted = useRef(false);
+  
+  useEffect(() => {
+    if (!mounted.current) {
+      console.log(sessionStorage.getItem('acess'))
+      if (sessionStorage.getItem('acess') != 1){
+        navigate("/aba");
+      }
+      mounted.current = true;
+    }
+  }, []);
+
   return (
     <>
       <MainNavbar></MainNavbar>

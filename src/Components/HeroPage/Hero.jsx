@@ -2,6 +2,7 @@ import React from 'react'
 import FancyText from '@carefully-coded/react-text-gradient';
 
 export default function Hero() {
+  sessionStorage.setItem('acess', 0)
 
     return (
         
@@ -10,7 +11,7 @@ export default function Hero() {
         <div className='w-full'>
             <img src="src\assets\Logo_Sem_fundo.png" alt="" className='mb-8'/>
       <h1 className="mb-4 text-3xl font-extrabold leading-none tracking-tight
-       text-gray-900 md:text-4xl lg:text-5xl dark:text-white whitespace-nowrap">Seja bem-vindo(a) ao <FancyText
+        md:text-4xl lg:text-5xl text-white whitespace-nowrap">Seja bem-vindo(a) ao <FancyText
        gradient={{from: '#30EED6', to: '#30A8EE', type: 'linear'}} animate animateDuration={1000} 
        >Evoluti</FancyText>.</h1>
 
