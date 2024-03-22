@@ -29,18 +29,60 @@
       "Email": "duracel@gmail.com"
     }
   ],
-  "Admin": [
+  "Usuario": [
     {
-      "id": "1",
-      "Nome": "Adapter Souza",
-      "Email": "adapter@souza.com",
-      "Senha": "1234",
-      "Telefone": 12345678910,
-      "Cpf": 12345678901,
-      "RG": 123456789,
-      "Genero": "Homem-Cis",
-      "fk_endereco": 1,
-      "fk_clinica": 1
+      "id": "cf20",
+      "nome": "testeteste",
+      "nascimento": "",
+      "cpf": "",
+      "rg": "",
+      "genero": "",
+      "email": "",
+      "user": "",
+      "telefone": "",
+      "tipoUsuario": "administrador"
+    },
+    {
+      "id": "13f4",
+      "nome": "",
+      "nascimento": "",
+      "cpf": "",
+      "rg": "",
+      "genero": "",
+      "email": "",
+      "user": "",
+      "senha": "yes",
+      "telefone": "",
+      "tipoUsuario": "administrador"
+    },
+    {
+      "id": "9010",
+      "nome": "teste",
+      "nascimento": "2005-01-30",
+      "cpf": "123456",
+      "rg": "",
+      "genero": "",
+      "email": "",
+      "user": "",
+      "telefone": "",
+      "senha": "",
+      "tipoUsuario": "administrador"
+    },
+    {
+      "id": "d7ac",
+      "nome": "teste",
+      "nascimento": "2005-01-30",
+      "cpf": "123456",
+      "rg": "123456",
+      "genero": "2",
+      "email": "a@gmail.com",
+      "user": "aa",
+      "telefone": "11971103001",
+      "senha": "123",
+      "tipoUsuario": "fisioterapeuta",
+      "crefito": "12234",
+      "especialidade": "Fisio",
+      "emissao": "2004-01-20"
     }
   ]
 }

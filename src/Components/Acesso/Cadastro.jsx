@@ -19,23 +19,42 @@ export default function Cadastro() {
   // Hook useEffect para carregar dados iniciais quando o componente é montado
   useEffect(() => {
     if (!mounted.current) {
-      let variaveisAPI = {
-        method: "GET",
-      };
-      fetch(`http://localhost:3000/Clinica?_sort=-id`, variaveisAPI)
-        .then((response) => response.json())
-        .then((respostas) => {
-          for (let index = 0; index < respostas.length; index++) {
-            setEmailValidacao((prevList) => [
-              ...prevList,
-              respostas[index].Email,
-            ]);
-          }
-          setId(respostas[0].id);
-        });
-      mounted.current = true;
+      console.log(sessionStorage.getItem("user"));
+      if (sessionStorage.getItem("user") != "0") {
+        alert("Você já está logado, redirecionando para a home");
+        let acesso = sessionStorage.getItem("acess");
+        switch (acesso) {
+          case "1":
+            usenavigate("/AdminHome");
+            break;
+          case "2":
+            usenavigate("/fisioHome");
+            break;
+          case "3":
+            usenavigate("/estagioHome");
+            break;
+          default:
+            console.log("Erro no acesso!");
+            break;
+        }
+        let variaveisAPI = {
+          method: "GET",
+        };
+        fetch(`http://localhost:3000/Clinica?_sort=-id`, variaveisAPI)
+          .then((response) => response.json())
+          .then((respostas) => {
+            for (let index = 0; index < respostas.length; index++) {
+              setEmailValidacao((prevList) => [
+                ...prevList,
+                respostas[index].Email,
+              ]);
+            }
+            setId(respostas[0].id);
+          });
+        mounted.current = true;
+      }
     }
-  }, []);
+  });
 
   // Função para criar uma nova clínica
   const criarClinica = (e) => {

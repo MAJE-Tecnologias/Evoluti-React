@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MainNavbar from "../Suplementares/MainNavbar";
 import AdminHomeSidebar, {
   ItemsSidebar,
@@ -7,7 +8,7 @@ import "../CSS/AnimacaoFlutuar.css";
 
 import { FiPlusCircle } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa6";
-import { FaUserInjured, FaFileAlt, FaCog, FaFileUpload } from "react-icons/fa";
+import { FaUserInjured, FaFileAlt, FaFileUpload } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 
 export default function AdminCadastro() {
@@ -20,8 +21,122 @@ export default function AdminCadastro() {
   const [email, setEmail] = useState("");
   const [user, setUser] = useState("");
   const [telefone, setTelefone] = useState("");
+  const [senha, setSenha] = useState("");
+  const [crefito, setCrefito] = useState("");
+  const [emissao, setEmissao] = useState("");
+  const [especialidade, setEspecialidade] = useState("");
 
   const [tipoUsuario, setTipoUsuario] = useState("administrador");
+
+  // Hook para navegação de rotas
+  const usenavigate = useNavigate();
+
+  // Hook useRef para verificar se o componente está montado
+  const mounted = useRef(false);
+
+  useEffect(() => {
+    if (!mounted.current) {
+      console.log(sessionStorage.getItem("acess"));
+      if (sessionStorage.getItem("acess") != 1) {
+        usenavigate("/aba");
+      }
+      mounted.current = true;
+    }
+  }, []);
+
+  // Função para criar uma nova clínica
+  const criarUser = (e) => {
+    e.preventDefault();
+    if (validaCadastro()) {
+      variaveisAPI = {};
+      switch (tipoUsuario) {
+        case "administrador":
+          var variaveisAPI = {
+            method: "POST",
+            body: JSON.stringify({
+              nome: nome,
+              nascimento: nascimento,
+              cpf: cpf,
+              rg: rg,
+              genero: genero,
+              email: email,
+              user: user,
+              telefone: telefone,
+              senha: senha,
+              tipoUsuario: tipoUsuario,
+            }),
+          };
+          break;
+        case "fisioterapeuta":
+          var variaveisAPI = {
+            method: "POST",
+            body: JSON.stringify({
+              nome: nome,
+              nascimento: nascimento,
+              cpf: cpf,
+              rg: rg,
+              genero: genero,
+              email: email,
+              user: user,
+              telefone: telefone,
+              senha: senha,
+              tipoUsuario: tipoUsuario,
+              crefito: crefito,
+              especialidade: especialidade,
+              emissao: emissao,
+            }),
+          };
+          break;
+        case "estagiario":
+          var variaveisAPI = {
+            method: "POST",
+            body: JSON.stringify({
+              nome: nome,
+              nascimento: nascimento,
+              cpf: cpf,
+              rg: rg,
+              genero: genero,
+              email: email,
+              user: user,
+              telefone: telefone,
+              senha: senha,
+              tipoUsuario: tipoUsuario,
+              especialidade: especialidade,
+              emissao: emissao,
+            }),
+          };
+          break;
+        default:
+          alert("Erro ao definir o perfil!");
+      }
+
+      fetch(`http://localhost:3000/Usuario`, variaveisAPI) // Envia a requisição POST
+        .then((response) => response.json()) // Converte a resposta em JSON
+        .then(alert("Cadastrado com sucesso")) // Exibe mensagem de sucesso
+        .then(usenavigate("")) // Redireciona para a página de cadastro de administrador
+        .catch((error) => console.log("error", error)); // Trata erros
+    }
+  };
+
+  // Função para validar o cadastro
+  const validaCadastro = () => {
+    let resultados = true;
+    if (
+      nome.length === 0 ||
+      email.length === 0 ||
+      nascimento.length === 0 ||
+      cpf.length === 0 ||
+      rg.length === 0 ||
+      genero.length === 0 ||
+      user.length === 0 ||
+      telefone.length === 0 ||
+      senha.length === 0
+    ) {
+      resultados = false;
+      alert("Preencha todos os campos");
+    }
+    return resultados;
+  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -91,7 +206,7 @@ export default function AdminCadastro() {
         {/* Container Principal */}
         <div className="w-full h-full px-20 pt-10">
           {/* Container Forms */}
-          <form>
+          <form onSubmit={criarUser}>
             <div
               className="bg-neutral-100 flex border-2 border-b-0 w-full h-full rounded-3xl 
           rounded-bl-none rounded-br-none shadow-black shadow-md p-5 gap-x-8 dark:bg-neutral-900 dark:border-gray-800"
@@ -146,13 +261,13 @@ export default function AdminCadastro() {
                 </h1>
 
                 {/* Container Dados Pessoais */}
-                <div className="flex flex-col gap-y-4 mb-8 dark:text-white">
+                <div className="flex flex-col gap-y-4 mb-8 ">
                   {/* LINHA 1 */}
                   <div className="flex gap-x-4">
                     <div className="w-1/2">
                       <label
                         htmlFor="NomeCompleto"
-                        className="text-xl font-bold"
+                        className="text-xl font-bold dark:text-white"
                       >
                         Nome completo
                       </label>
@@ -170,7 +285,7 @@ export default function AdminCadastro() {
                     <div className="w-1/2">
                       <label
                         htmlFor="dtNasc"
-                        className="text-xl font-bold whitespace-nowrap"
+                        className="text-xl font-bold whitespace-nowrap dark:text-white"
                       >
                         Data de nascimento
                       </label>
@@ -189,7 +304,10 @@ export default function AdminCadastro() {
                   {/* LINHA 2 */}
                   <div className="flex gap-x-4">
                     <div className="w-1/3">
-                      <label htmlFor="CPF" className="text-xl font-bold">
+                      <label
+                        htmlFor="CPF"
+                        className="text-xl font-bold dark:text-white"
+                      >
                         CPF
                       </label>
                       <input
@@ -203,7 +321,10 @@ export default function AdminCadastro() {
                     </div>
 
                     <div className="w-1/3">
-                      <label htmlFor="RG" className="text-xl font-bold">
+                      <label
+                        htmlFor="RG"
+                        className="text-xl font-bold dark:text-white"
+                      >
                         RG
                       </label>
                       <input
@@ -217,7 +338,10 @@ export default function AdminCadastro() {
                     </div>
 
                     <div className="w-1/3">
-                      <label htmlFor="Genero" className="text-xl font-bold">
+                      <label
+                        htmlFor="Genero"
+                        className="text-xl font-bold dark:text-white"
+                      >
                         Gênero
                       </label>
                       <select
@@ -242,11 +366,14 @@ export default function AdminCadastro() {
                 </h1>
 
                 {/* Container Contato */}
-                <div className="flex flex-col gap-y-4 mb-8 dark:text-white">
+                <div className="flex flex-col gap-y-4 mb-8">
                   {/* LINHA 1 */}
                   <div className="flex gap-x-4">
                     <div className="w-1/2">
-                      <label htmlFor="Email" className="text-xl font-bold">
+                      <label
+                        htmlFor="Email"
+                        className="text-xl font-bold dark:text-white"
+                      >
                         E-mail
                       </label>
                       <br></br>
@@ -264,7 +391,7 @@ export default function AdminCadastro() {
                     <div className="w-1/2">
                       <label
                         htmlFor="NomeUser"
-                        className="text-xl font-bold whitespace-nowrap"
+                        className="text-xl font-bold whitespace-nowrap dark:text-white"
                       >
                         Nome de usuário
                       </label>
@@ -283,7 +410,10 @@ export default function AdminCadastro() {
                   {/* LINHA 2 */}
                   <div className="flex gap-x-4">
                     <div className="w-1/2">
-                      <label htmlFor="Telefone" className="text-xl font-bold">
+                      <label
+                        htmlFor="Telefone"
+                        className="text-xl font-bold dark:text-white"
+                      >
                         Telefone
                       </label>
                       <br></br>
@@ -300,7 +430,7 @@ export default function AdminCadastro() {
                     <div className="w-1/2">
                       <label
                         htmlFor="Senha"
-                        className="text-xl font-bold whitespace-nowrap"
+                        className="text-xl font-bold whitespace-nowrap dark:text-white"
                       >
                         Senha
                       </label>
@@ -308,6 +438,8 @@ export default function AdminCadastro() {
                         id="Senha"
                         type="password"
                         placeholder="Crie uma senha"
+                        value={senha}
+                        onChange={(e) => setSenha(e.target.value)}
                         className="w-full border rounded-md bg-white shadow py-3 px-5"
                       />
                     </div>
@@ -324,13 +456,13 @@ export default function AdminCadastro() {
                       Registro Profissional
                     </h1>
 
-                    <div className="flex flex-col gap-y-4 mb-8 dark:text-white">
+                    <div className="flex flex-col gap-y-4 mb-8">
                       {/* LINHA 1 */}
                       <div className="flex gap-x-4">
                         <div className="w-1/3">
                           <label
                             htmlFor="CREFITO"
-                            className="text-xl font-bold"
+                            className="text-xl font-bold dark:text-white"
                           >
                             CREFITO
                           </label>
@@ -339,6 +471,8 @@ export default function AdminCadastro() {
                             id="CREFITO"
                             type="text"
                             placeholder="12345678"
+                            value={crefito}
+                            onChange={(e) => setCrefito(e.target.value)}
                             className="w-full border rounded-md bg-white shadow py-3 px-5"
                           />
                         </div>
@@ -346,13 +480,15 @@ export default function AdminCadastro() {
                         <div className="w-1/3">
                           <label
                             htmlFor="dtEmissao"
-                            className="text-xl font-bold whitespace-nowrap"
+                            className="text-xl font-bold whitespace-nowrap dark:text-white"
                           >
                             Data de emissão
                           </label>
                           <input
                             id="dtEmissao"
                             type="date"
+                            value={emissao}
+                            onChange={(e) => setEmissao(e.target.value)}
                             className="w-full border rounded-md bg-white shadow py-3 px-5 text-black"
                           />
                         </div>
@@ -360,7 +496,7 @@ export default function AdminCadastro() {
                         <div className="w-1/3">
                           <label
                             htmlFor="Especialidade"
-                            className="text-xl font-bold"
+                            className="text-xl font-bold dark:text-white"
                           >
                             Especialidade
                           </label>
@@ -369,6 +505,8 @@ export default function AdminCadastro() {
                             id="Especialidade"
                             type="text"
                             placeholder="Insira a especialidade"
+                            value={especialidade}
+                            onChange={(e) => setEspecialidade(e.target.value)}
                             className="w-full border rounded-md bg-white shadow py-3 px-5"
                           />
                         </div>
@@ -388,13 +526,13 @@ export default function AdminCadastro() {
                       Registro Profissional
                     </h1>
 
-                    <div className="flex flex-col gap-y-4 mb-8 dark:text-white">
+                    <div className="flex flex-col gap-y-4 mb-8">
                       {/* LINHA 1 */}
                       <div className="flex gap-x-4">
                         <div className="w-1/3">
                           <label
                             htmlFor="instituicao"
-                            className="text-xl font-bold"
+                            className="text-xl font-bold dark:text-white"
                           >
                             Instituição
                           </label>
@@ -410,7 +548,7 @@ export default function AdminCadastro() {
                         <div className="w-1/3">
                           <label
                             htmlFor="inicioContrato"
-                            className="text-xl font-bold whitespace-nowrap"
+                            className="text-xl font-bold whitespace-nowrap dark:text-white"
                           >
                             Início do contrato
                           </label>
@@ -424,7 +562,7 @@ export default function AdminCadastro() {
                         <div className="w-1/3">
                           <label
                             htmlFor="fimContrato"
-                            className="text-xl font-bold whitespace-nowrap"
+                            className="text-xl font-bold whitespace-nowrap dark:text-white"
                           >
                             Fim do contrato
                           </label>
@@ -447,11 +585,14 @@ export default function AdminCadastro() {
                 </h1>
 
                 {/* Container Endereço */}
-                <div className="flex flex-col gap-y-4 mb-8 dark:text-white">
+                <div className="flex flex-col gap-y-4 mb-8">
                   {/* LINHA 1 */}
                   <div className="flex gap-x-4">
                     <div className="w-1/3">
-                      <label htmlFor="Rua" className="text-xl font-bold">
+                      <label
+                        htmlFor="Rua"
+                        className="text-xl font-bold dark:text-white"
+                      >
                         Rua
                       </label>
                       <br></br>
@@ -466,7 +607,7 @@ export default function AdminCadastro() {
                     <div className="w-1/3">
                       <label
                         htmlFor="CEP"
-                        className="text-xl font-bold whitespace-nowrap"
+                        className="text-xl font-bold whitespace-nowrap dark:text-white"
                       >
                         CEP
                       </label>
@@ -481,7 +622,7 @@ export default function AdminCadastro() {
                     <div className="w-1/3">
                       <label
                         htmlFor="Numero"
-                        className="text-xl font-bold whitespace-nowrap"
+                        className="text-xl font-bold whitespace-nowrap dark:text-white"
                       >
                         Número
                       </label>
@@ -500,7 +641,7 @@ export default function AdminCadastro() {
                     <div className="w-1/3">
                       <label
                         htmlFor="Complemento"
-                        className="text-xl font-bold"
+                        className="text-xl font-bold dark:text-white"
                       >
                         Complemento
                       </label>
@@ -516,7 +657,7 @@ export default function AdminCadastro() {
                     <div className="w-1/3">
                       <label
                         htmlFor="Bairro"
-                        className="text-xl font-bold whitespace-nowrap"
+                        className="text-xl font-bold whitespace-nowrap dark:text-white"
                       >
                         Bairro
                       </label>
@@ -531,7 +672,7 @@ export default function AdminCadastro() {
                     <div className="w-1/3">
                       <label
                         htmlFor="Cidade"
-                        className="text-xl font-bold whitespace-nowrap"
+                        className="text-xl font-bold whitespace-nowrap dark:text-white"
                       >
                         Cidade
                       </label>
