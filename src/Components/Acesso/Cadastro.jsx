@@ -2,14 +2,14 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaMoon, FaSun } from "react-icons/fa";
-import FancyText from '@carefully-coded/react-text-gradient';
+import FancyText from "@carefully-coded/react-text-gradient";
 
 // Componente para o cadastro de uma nova clínica
 export default function Cadastro() {
   // Declaração de estado para o email, id, emailValidacao e nome da clínica
   const [email, setEmail] = useState("");
-  const [id, setId] = useState();
   const [emailValidacao, setEmailValidacao] = useState([]);
+  const [cnpj, setCNPJ] = useState();
   const [nome, setNome] = useState("");
   const [modoEscuro, setModoEscuro] = useState(
     window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -36,40 +36,21 @@ export default function Cadastro() {
   // Hook useEffect para carregar dados iniciais quando o componente é montado
   useEffect(() => {
     if (!mounted.current) {
-      console.log(sessionStorage.getItem("user"));
-      if (sessionStorage.getItem("user") != "0") {
-        alert("Você já está logado, redirecionando para a home");
-        let acesso = sessionStorage.getItem("acess");
-        switch (acesso) {
-          case "1":
-            usenavigate("/AdminHome");
-            break;
-          case "2":
-            usenavigate("/fisioHome");
-            break;
-          case "3":
-            usenavigate("/estagioHome");
-            break;
-          default:
-            console.log("Erro no acesso!");
-            break;
-        }
-        let variaveisAPI = {
-          method: "GET",
-        };
-        fetch(`http://localhost:3000/Clinica?_sort=-id`, variaveisAPI)
-          .then((response) => response.json())
-          .then((respostas) => {
-            for (let index = 0; index < respostas.length; index++) {
-              setEmailValidacao((prevList) => [
-                ...prevList,
-                respostas[index].Email,
-              ]);
-            }
-            setId(respostas[0].id);
-          });
-        mounted.current = true;
-      }
+      let variaveisAPI = {
+        method: "GET",
+      };
+      fetch(`http://localhost:3000/Clinica?_sort=-id`, variaveisAPI)
+        .then((response) => response.json())
+        .then((respostas) => {
+          for (let index = 0; index < respostas.length; index++) {
+            setEmailValidacao((prevList) => [
+              ...prevList,
+              respostas[index].Email,
+            ]);
+          }
+          setId(respostas[0].id);
+        });
+      mounted.current = true;
     }
   });
 
@@ -81,7 +62,7 @@ export default function Cadastro() {
       var variaveisAPI = {
         method: "POST",
         body: JSON.stringify({
-          id: id + 1, // ID da clínica
+          cnpj: cnpj, // ID da clínica
           Nome: nome, // Nome da clínica
           Email: email, // Email da clínica
         }),
@@ -98,7 +79,7 @@ export default function Cadastro() {
   // Função para validar o cadastro
   const validaCadastro = () => {
     let resultados = true;
-    if (nome.length === 0 || email.length === 0) {
+    if (nome.length === 0 || email.length === 0 || cnpj.length === 0) {
       resultados = false;
       alert("Preencha todos os campos");
     }
@@ -115,9 +96,6 @@ export default function Cadastro() {
   const redirectLogin = () => {
     usenavigate("/Login");
   };
-
-  // Armazenando o ID da clínica na sessionStorage
-  sessionStorage.setItem("idClinica", id + 1);
 
   // Renderização do componente
   return (
@@ -145,7 +123,6 @@ export default function Cadastro() {
                   >
                     Evoluti.
                   </FancyText>
-                  
                 </h1>
                 <p className="font-medium text-2xl md:text-nowrap dark:text-white">
                   Otimize sua gestão fisioterápica.
@@ -211,6 +188,8 @@ export default function Cadastro() {
                   className="peer w-full placeholder-transparent bg-loginButtonsBackground 
                 border border-evolutiLightGreen placeholder-evolutiGreen 
                 p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker"
+                  value={cnpj}
+                  onChange={(e) => setCNPJ(e.target.value)}
                 />
                 {/* Label flutuante */}
                 <label

@@ -4,14 +4,58 @@ import AdminHomeSidebar, {
 } from "../Suplementares/AdminHomeSidebar";
 import "../CSS/AnimacaoFlutuar.css";
 
+import { useRef, useEffect, useState } from "react";
+
 import { FiPlusCircle } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa6";
 import { FaUserInjured, FaFileAlt, FaSearch } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
-import { useState } from "react";
 
 export default function AdminHome() {
   const [tipoUsuario, setTipoUsuario] = useState("tudo");
+  const [usuarios, setUsuarios] = useState([]);
+
+  const mounted = useRef(false);
+
+  useEffect(() => {
+    if (!mounted.current) {
+      let variaveisAPI = {
+        method: "GET",
+      };
+      fetch(`http://localhost:3000/Usuario`, variaveisAPI)
+        .then((response) => response.json())
+        .then((respostas) => {
+          const usuariosArray = respostas.map((usuario) => ({
+            nome: usuario.nome,
+            tipoUsuario: usuario.tipoUsuario,
+          }));
+          setUsuarios(usuariosArray);
+          mounted.current = true;
+        });
+    }
+  });
+
+  function showUsuarios(usuarios) {
+    return (
+      <div>
+        {usuarios.map((usuario, index) => (
+          <div
+            key={index}
+            className="flex justify-between items-center p-4 border-b"
+          >
+            <div>
+              <span className="font-bold">Nome:</span> {usuario.nome}
+            </div>
+            <div>
+              <span className="font-bold">Tipo de Usuário:</span>{" "}
+              {usuario.tipoUsuario}
+            </div>
+            {/* Se necessário, adicione mais informações do usuário aqui */}
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   const mudarTipoUsuario = (tipo) => {
     setTipoUsuario(tipo);
@@ -85,9 +129,15 @@ export default function AdminHome() {
             </button>
           </div>
           <div className=" flex mt-10 justify-center items-center gap-x-3 dark:text-white">
-            <FaSearch size={20}/><input type="text" className="w-1/2 rounded py-1 px-4" placeholder="Pesquisar usuário"></input>
+            <FaSearch size={20} />
+            <input
+              type="text"
+              className="w-1/2 rounded py-1 px-4"
+              placeholder="Pesquisar usuário"
+            ></input>
           </div>
         </div>
+        {showUsuarios(usuarios)}
       </section>
     </>
   );
