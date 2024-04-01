@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 export default function CadastroAdmKey() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -12,6 +13,22 @@ export default function CadastroAdmKey() {
   const [rg, setRG] = useState("");
   const [cpf, setCpf] = useState("");
   const [senha, setSenha] = useState("");
+
+  const [modoEscuro, setModoEscuro] = useState(
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  );
+
+  useEffect(() => {
+    if (modoEscuro) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [modoEscuro]);
+
+  const toggleDarkMode = () => {
+    setModoEscuro(!modoEscuro);
+  };
 
   // Hook para navegação de rotas
   const usenavigate = useNavigate();
@@ -84,7 +101,10 @@ export default function CadastroAdmKey() {
 
   return (
     <>
-      <main className="bg-[url('src/assets/Fundo.png')] bg-cover w-screen h-screen flex items-center justify-center ">
+      <main
+        className="bg-[url('src/assets/Fundo.png')] dark:bg-[url('src/assets/FundoInverso.png')] bg-cover transition-all
+      w-screen h-screen flex items-center justify-center "
+      >
         <img
           src="src\assets\Logo_Sem_fundo.png"
           className="absolute w-1/12 top-0 left-0 m-5"
@@ -94,21 +114,21 @@ export default function CadastroAdmKey() {
             <form action="" method="POST">
               <div className="flex flex-wrap flex-col w-full">
                 <div className="flex w-full justify-between items-center">
-                  <h1 className="text-evolutiDarkBlueText font-medium text-4xl">
+                  <h1 className="text-evolutiDarkBlueText font-medium text-4xl dark:text-evolutiLightBlueText">
                     Dados do Administrador
                   </h1>
                   <div className="flex items-center gap-x-4">
-                    <p className="text-xl font-medium">Nome da Clínica: </p>
-                    <p>Placeholder</p>
+                    <p className="text-xl font-medium dark:text-white">Nome da Clínica: </p>
+                    <p className="dark:text-white">Placeholder</p>
                   </div>
                 </div>
 
-                <span className="w-full border border-black rounded-3xl mt-5 mb-5"></span>
+                <span className="w-full border border-black rounded-3xl mt-5 mb-5 dark:border-white"></span>
 
                 <div className="flex flex-wrap flex-col w-full gap-y-10">
                   <div className="flex w-full gap-x-5 h-fit justify-evenly">
                     <div className="w-full">
-                      <label htmlFor="cadastroNomeAdmin">Nome Completo</label>
+                      <label htmlFor="cadastroNomeAdmin" className="dark:text-white">Nome Completo</label>
                       <input
                         type="text"
                         name="nomeAdmin"
@@ -121,7 +141,7 @@ export default function CadastroAdmKey() {
                     </div>
 
                     <div className="w-full">
-                      <label htmlFor="cadastroEmailAdmin">E-mail</label>
+                      <label htmlFor="cadastroEmailAdmin" className="dark:text-white">E-mail</label>
                       <input
                         type="email"
                         name="email"
@@ -136,7 +156,7 @@ export default function CadastroAdmKey() {
 
                   <div className="flex w-full gap-x-5 h-fit justify-between">
                     <div>
-                      <label htmlFor="dtNascClinica">Data de nascimento</label>
+                      <label htmlFor="dtNascClinica" className="dark:text-white">Data de nascimento</label>
                       <input
                         type="date"
                         name="nasc"
@@ -150,7 +170,7 @@ export default function CadastroAdmKey() {
                     </div>
 
                     <div>
-                      <label htmlFor="cadastroGeneroClinica">Gênero</label>
+                      <label htmlFor="cadastroGeneroClinica" className="dark:text-white">Gênero</label>
                       <select
                         id="cadastroGeneroClinica"
                         name="genero"
@@ -180,7 +200,7 @@ export default function CadastroAdmKey() {
                     </div>
 
                     <div>
-                      <label htmlFor="telefoneClinica">Telefone</label>
+                      <label htmlFor="telefoneClinica" className="dark:text-white">Telefone</label>
                       <input
                         type="text"
                         name="telefone"
@@ -197,7 +217,7 @@ export default function CadastroAdmKey() {
 
                   <div className="flex w-full gap-x-5 h-fit justify-evenly">
                     <div className="w-full">
-                      <label htmlFor="cadastroRGClinica">RG</label>
+                      <label htmlFor="cadastroRGClinica" className="dark:text-white">RG</label>
                       <input
                         type="text"
                         name="rg"
@@ -212,7 +232,7 @@ export default function CadastroAdmKey() {
                     </div>
 
                     <div className="w-full">
-                      <label htmlFor="cadastroCPFClinica">CPF</label>
+                      <label htmlFor="cadastroCPFClinica" className="dark:text-white">CPF</label>
                       <input
                         type="text"
                         name="cpf"
@@ -241,6 +261,21 @@ export default function CadastroAdmKey() {
               </div>
             </form>
           </div>
+          <button
+            onClick={toggleDarkMode}
+            className="fixed flex justify-center transition-all items-center top-0 right-0 m-5 font-bold 
+            bg-gray-800 text-white px-4 py-2 rounded-full shadow-md dark:bg-white dark:text-evolutiDarkBlueText"
+          >
+            {modoEscuro ? (
+              <>
+                <FaSun className="mr-2" /> Modo Claro
+              </>
+            ) : (
+              <>
+                <FaMoon className="mr-2" /> Modo Escuro
+              </>
+            )}
+          </button>
         </section>
       </main>
     </>

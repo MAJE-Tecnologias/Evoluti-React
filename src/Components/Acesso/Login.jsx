@@ -1,12 +1,29 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { FaMoon, FaSun } from "react-icons/fa";
+import FancyText from '@carefully-coded/react-text-gradient';
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
   const [tipo, setTipo] = useState("password");
+  const [modoEscuro, setModoEscuro] = useState(
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  );
+
+  useEffect(() => {
+    if (modoEscuro) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [modoEscuro]);
+
+  const toggleDarkMode = () => {
+    setModoEscuro(!modoEscuro);
+  };
 
   // FUNÇÃO PARA ESCONDER OU MOSTRAR SENHA
   const esconderSenha = () => {
@@ -102,7 +119,10 @@ export default function Login() {
   return (
     <>
       {/* Estrutura do formulário de cadastro */}
-      <main className="bg-[url('src/assets/Fundo.png')] bg-cover w-screen h-screen flex items-center justify-center">
+      <main
+        className="bg-[url('src/assets/Fundo.png')] dark:bg-[url('src/assets/FundoInverso.png')] transition-all bg-cover w-screen 
+        h-screen flex items-center justify-center"
+      >
         <img
           src="src\assets\Logo_Sem_fundo.png"
           className="absolute w-1/12 top-0 left-0 m-5"
@@ -111,16 +131,27 @@ export default function Login() {
           <div className="w-1/2 py-24 px-12 h-full rounded flex flex-col items-center justify-center gap-y-4">
             <div className="w-full md:w-4/5">
               <div className="flex-col space-y-4">
-                <h1 className="text-evolutiDarkBlueText font-semibold text-5xl sm:text-nowrap">
+                <h1 className="text-evolutiDarkBlueText font-semibold text-5xl sm:text-nowrap dark:text-evolutiLightBlueText">
                   Bem-vindo de volta!
                 </h1>
-                <p className="font-medium text-2xl md:text-nowrap">
-                  Transforme com o Evoluti.
+                <p className="font-medium text-2xl md:text-nowrap dark:text-white">
+                  Transforme com o{" "}
+                  <FancyText
+                    gradient={{
+                      from: "#30EED6",
+                      to: "#30A8EE",
+                      type: "linear",
+                    }}
+                    animate
+                    animateDuration={1000}
+                  >
+                    Evoluti.
+                  </FancyText>
                 </p>
               </div>
 
               <div className="flex flex-col w-full justify-center gap-y-2">
-                <p className="mt-10">É sua primeira vez?</p>
+                <p className="mt-10 dark:text-white">É sua primeira vez?</p>
                 {/* Formulário para redirecionar para a página de login */}
                 <form onSubmit={redirectCadastro} className="w-full">
                   <input
@@ -138,7 +169,7 @@ export default function Login() {
               onSubmit={passarLogin}
               className="flex flex-col w-full items-center justify-center space-y-8 md:w-2/3"
             >
-              <h1 className="font-medium text-4xl text-center md:text-nowrap">
+              <h1 className="font-medium text-4xl text-center md:text-nowrap dark:text-white">
                 Entrar
               </h1>
 
@@ -211,7 +242,10 @@ export default function Login() {
                   </label>
                 </div>
                 <div className="flex justify-end">
-                  <p className="w-fit mt-4 text-xs cursor-pointer transition-all text-right md:text-nowrap hover:font-bold hover:underline">
+                  <p
+                    className="w-fit mt-4 text-xs cursor-pointer transition-all text-right md:text-nowrap 
+                  hover:font-bold hover:underline dark:text-white"
+                  >
                     Esqueceu a senha?
                   </p>
                 </div>
@@ -225,6 +259,21 @@ export default function Login() {
               />
             </form>
           </div>
+          <button
+            onClick={toggleDarkMode}
+            className="fixed flex justify-center transition-all items-center top-0 right-0 m-5 font-bold 
+            bg-gray-800 text-white px-4 py-2 rounded-full shadow-md dark:bg-white dark:text-evolutiDarkBlueText"
+          >
+            {modoEscuro ? (
+              <>
+                <FaSun className="mr-2" /> Modo Claro
+              </>
+            ) : (
+              <>
+                <FaMoon className="mr-2" /> Modo Escuro
+              </>
+            )}
+          </button>
         </section>
       </main>
     </>

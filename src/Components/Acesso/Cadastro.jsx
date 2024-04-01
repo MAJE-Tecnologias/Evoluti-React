@@ -1,6 +1,8 @@
 // Importando os hooks e componentes necessários do React
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaMoon, FaSun } from "react-icons/fa";
+import FancyText from '@carefully-coded/react-text-gradient';
 
 // Componente para o cadastro de uma nova clínica
 export default function Cadastro() {
@@ -9,6 +11,21 @@ export default function Cadastro() {
   const [id, setId] = useState();
   const [emailValidacao, setEmailValidacao] = useState([]);
   const [nome, setNome] = useState("");
+  const [modoEscuro, setModoEscuro] = useState(
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  );
+
+  useEffect(() => {
+    if (modoEscuro) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [modoEscuro]);
+
+  const toggleDarkMode = () => {
+    setModoEscuro(!modoEscuro);
+  };
 
   // Hook para navegação de rotas
   const usenavigate = useNavigate();
@@ -106,7 +123,7 @@ export default function Cadastro() {
   return (
     <>
       {/* Estrutura do formulário de cadastro */}
-      <main className="bg-[url('src/assets/Fundo.png')] bg-cover w-screen h-screen flex items-center justify-center">
+      <main className="bg-[url('src/assets/Fundo.png')] dark:bg-[url('src/assets/FundoInverso.png')] transition-all bg-cover w-screen h-screen flex items-center justify-center">
         <img
           src="src\assets\Logo_Sem_fundo.png"
           className="absolute w-1/12 top-0 left-0 m-5"
@@ -115,16 +132,30 @@ export default function Cadastro() {
           <div className="w-1/2 py-24 px-12 h-full rounded flex flex-col items-center justify-center gap-y-4">
             <div className="w-full md:w-4/5">
               <div className="flex-col space-y-4">
-                <h1 className="text-evolutiDarkBlueText font-semibold text-5xl sm:text-nowrap">
-                  Seja Bem-vindo ao Evoluti.
+                <h1 className="text-evolutiDarkBlueText font-semibold text-5xl sm:text-nowrap dark:text-evolutiLightBlueText">
+                  Seja Bem-vindo ao{" "}
+                  <FancyText
+                    gradient={{
+                      from: "#30EED6",
+                      to: "#30A8EE",
+                      type: "linear",
+                    }}
+                    animate
+                    animateDuration={1000}
+                  >
+                    Evoluti.
+                  </FancyText>
+                  
                 </h1>
-                <p className="font-medium text-2xl md:text-nowrap">
+                <p className="font-medium text-2xl md:text-nowrap dark:text-white">
                   Otimize sua gestão fisioterápica.
                 </p>
               </div>
 
               <div className="flex flex-col w-full justify-center gap-y-2">
-                <p className="mt-10">Caso já tenha uma conta, </p>
+                <p className="mt-10 dark:text-white">
+                  Caso já tenha uma conta,{" "}
+                </p>
                 {/* Formulário para redirecionar para a página de login */}
                 <form onSubmit={redirectLogin} className="w-full">
                   <input
@@ -142,7 +173,7 @@ export default function Cadastro() {
               onSubmit={criarClinica}
               className="flex flex-col w-full items-center justify-center space-y-8 md:w-2/3"
             >
-              <h1 className="font-medium text-4xl text-center md:text-nowrap">
+              <h1 className="font-medium text-4xl text-center md:text-nowrap dark:text-white">
                 Cadastre sua clínica
               </h1>
 
@@ -218,7 +249,7 @@ export default function Cadastro() {
                 </label>
               </div>
 
-              <p className="text-xs underline underline-offset-2 cursor-pointer md:text-nowrap hover:font-bold">
+              <p className="text-xs underline underline-offset-2 cursor-pointer md:text-nowrap hover:font-bold dark:text-white">
                 Ao criar uma conta, você concorda com os nossos Termos de Uso.
               </p>
 
@@ -230,6 +261,21 @@ export default function Cadastro() {
               />
             </form>
           </div>
+          <button
+            onClick={toggleDarkMode}
+            className="fixed flex justify-center transition-all items-center top-0 right-0 m-5 font-bold 
+            bg-gray-800 text-white px-4 py-2 rounded-full shadow-md dark:bg-white dark:text-evolutiDarkBlueText"
+          >
+            {modoEscuro ? (
+              <>
+                <FaSun className="mr-2" /> Modo Claro
+              </>
+            ) : (
+              <>
+                <FaMoon className="mr-2" /> Modo Escuro
+              </>
+            )}
+          </button>
         </section>
       </main>
     </>

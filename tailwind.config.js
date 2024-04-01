@@ -7,6 +7,7 @@ module.exports = {
       colors: {
         loginButtonsBackground: "#EFF8FF",
         evolutiDarkBlueText: "#1A334E",
+        evolutiLightBlueText: "#5c9dd4",
         evolutiDarkBlue: "#132941",
         EvolutiLightGreenLighter: '#70e5af',
         evolutiLightGreen: "#45D496",
