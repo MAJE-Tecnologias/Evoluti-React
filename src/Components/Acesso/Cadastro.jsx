@@ -106,49 +106,127 @@ export default function Cadastro() {
   return (
     <>
       {/* Estrutura do formulário de cadastro */}
-      <main className="bg-evolutiDarkBlue w-screen h-screen flex items-center justify-center">
-        <section className="bg-white w-3/5 h-3/4 rounded flex items-center justify-center">
-          <div className="w-1/2 h-full rounded flex flex-col items-center justify-center">
+      <main className="bg-[url('src/assets/Fundo.png')] bg-cover w-screen h-screen flex items-center justify-center">
+        <img
+          src="src\assets\Logo_Sem_fundo.png"
+          className="absolute w-1/12 top-0 left-0 m-5"
+        ></img>
+        <section className="flex w-full h-full">
+          <div className="w-1/2 py-24 px-12 h-full rounded flex flex-col items-center justify-center gap-y-4">
+            <div className="w-full md:w-4/5">
+              <div className="flex-col space-y-4">
+                <h1 className="text-evolutiDarkBlueText font-semibold text-5xl sm:text-nowrap">
+                  Seja Bem-vindo ao Evoluti.
+                </h1>
+                <p className="font-medium text-2xl md:text-nowrap">
+                  Otimize sua gestão fisioterápica.
+                </p>
+              </div>
+
+              <div className="flex flex-col w-full justify-center gap-y-2">
+                <p className="mt-10">Caso já tenha uma conta, </p>
+                {/* Formulário para redirecionar para a página de login */}
+                <form onSubmit={redirectLogin} className="w-full">
+                  <input
+                    type="submit"
+                    value="Faça login aqui!"
+                    className="border-2 cursor-pointer border-evolutiLightGreen text-evolutiGreen w-full h-12 rounded font-medium 
+                  transition-all hover:bg-evolutiLightGreen hover:text-white"
+                  />
+                </form>
+              </div>
+            </div>
+          </div>
+          <div className="w-1/2 py-24 px-12 h-full flex flex-col items-center justify-center">
             <form
               onSubmit={criarClinica}
-              className="flex flex-col items-center justify-center space-y-6"
+              className="flex flex-col w-full items-center justify-center space-y-8 md:w-2/3"
             >
-              <h1 className="font-bold text-3xl ">Cadastre-se</h1>
+              <h1 className="font-medium text-4xl text-center md:text-nowrap">
+                Cadastre sua clínica
+              </h1>
+
               {/* Input para o nome da clínica */}
-              <input
-                type="text"
-                placeholder="Nome da Clínica"
-                className="bg-cinza rounded-lg text-sm h-9 px-2"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-              />
+              <div className="w-full relative">
+                <input
+                  type="text"
+                  name="nomeClinica"
+                  placeholder="Nome da Clínica"
+                  className="peer w-full placeholder-transparent bg-loginButtonsBackground 
+                  border border-evolutiLightGreen placeholder-evolutiGreen 
+                  p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                />
+                {/* Label flutuante */}
+                <label
+                  htmlFor="nomeClinica"
+                  className="absolute left-0 text-evolutiGreen text-sm -top-5 select-none pointer-events-none transition-all 
+                  peer-placeholder-shown:text-base peer-placeholder-shown:text-evolutiGreen 
+                  peer-placeholder-shown:top-3.5 peer-placeholder-shown:pl-3.5 
+                  peer-focus:-top-5 peer-focus:text-sm peer-focus:pl-0 peer-focus:text-evolutiGreenDarker"
+                >
+                  Nome da Clínica
+                </label>
+              </div>
+
+              {/* Input para o CNPJ da clínica */}
+              <div className="w-full relative">
+                <input
+                  type="number"
+                  placeholder="CNPJ da Clínica"
+                  name="CNPJClinica"
+                  id=""
+                  className="peer w-full placeholder-transparent bg-loginButtonsBackground 
+                border border-evolutiLightGreen placeholder-evolutiGreen 
+                p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker"
+                />
+                {/* Label flutuante */}
+                <label
+                  htmlFor="CNPJClinica"
+                  className="absolute left-0 text-evolutiGreen text-sm -top-5 select-none pointer-events-none transition-all 
+                  peer-placeholder-shown:text-base peer-placeholder-shown:text-evolutiGreen 
+                  peer-placeholder-shown:top-3.5 peer-placeholder-shown:pl-3.5 
+                  peer-focus:-top-5 peer-focus:text-sm peer-focus:pl-0 peer-focus:text-evolutiGreenDarker"
+                >
+                  CNPJ da Clínica
+                </label>
+              </div>
+
               {/* Input para o email da clínica */}
-              <input
-                type="email"
-                placeholder="Insira o email"
-                name=""
-                id=""
-                className="bg-cinza rounded-lg text-sm h-9 px-2"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <div className="w-full relative">
+                <input
+                  type="email"
+                  placeholder="E-mail da Clínica"
+                  name="emailClinica"
+                  id=""
+                  className="peer w-full placeholder-transparent bg-loginButtonsBackground 
+                border border-evolutiLightGreen placeholder-evolutiGreen 
+                p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {/* Label flutuante */}
+                <label
+                  htmlFor="emailClinica"
+                  className="absolute left-0 text-evolutiGreen text-sm -top-5 select-none pointer-events-none transition-all 
+                  peer-placeholder-shown:text-base peer-placeholder-shown:text-evolutiGreen 
+                  peer-placeholder-shown:top-3.5 peer-placeholder-shown:pl-3.5 
+                  peer-focus:-top-5 peer-focus:text-sm peer-focus:pl-0 peer-focus:text-evolutiGreenDarker"
+                >
+                  E-mail da Clínica
+                </label>
+              </div>
+
+              <p className="text-xs underline underline-offset-2 cursor-pointer md:text-nowrap hover:font-bold">
+                Ao criar uma conta, você concorda com os nossos Termos de Uso.
+              </p>
+
               {/* Botão para submeter o formulário */}
               <input
                 type="submit"
-                value="Cadastrar"
-                className="bg-[#45D496] w-32 h-12 rounded font-bold"
-              />
-            </form>
-          </div>
-          <div className="bg-gradient-to-r from-[#45D496] to-[#51F680] w-1/2 h-full rounded flex flex-col items-center justify-center space-y-6">
-            <h1 className="font-bold text-3xl ">Já possuí login?</h1>
-            <p>Pronto para retomar o controle? Faça login na sua conta agora</p>
-            {/* Formulário para redirecionar para a página de login */}
-            <form onSubmit={redirectLogin}>
-              <input
-                type="submit"
-                value="Clique Aqui"
-                className="bg-[#45D496] w-32 h-12 rounded font-bold"
+                value="Cadastro administrativo"
+                className="bg-evolutiLightGreen text-white w-full h-12 rounded font-medium transition-all hover:bg-evolutiGreenDarker hover:shadow-xl"
               />
             </form>
           </div>

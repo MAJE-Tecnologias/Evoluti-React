@@ -1,9 +1,21 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+
+  const [tipo, setTipo] = useState("password");
+
+  // FUNÇÃO PARA ESCONDER OU MOSTRAR SENHA
+  const esconderSenha = () => {
+    if (tipo === "password") {
+      setTipo("text");
+    } else {
+      setTipo("password");
+    }
+  };
 
   // Hook para navegação de rotas
   const usenavigate = useNavigate();
@@ -18,13 +30,13 @@ export default function Login() {
         alert("Você já está logado, redirecionando para a home");
         let acesso = sessionStorage.getItem("acess");
         switch (acesso) {
-          case '1':
+          case "1":
             usenavigate("/AdminHome");
             break;
-          case '2':
+          case "2":
             usenavigate("/fisioHome");
             break;
-          case '3':
+          case "3":
             usenavigate("/estagioHome");
             break;
           default:
@@ -89,46 +101,127 @@ export default function Login() {
 
   return (
     <>
-      <main className="bg-evolutiDarkBlue w-screen h-screen flex  items-center justify-center">
-        <section className="bg-white w-3/5 h-3/4 rounded flex items-center justify-center">
-          <div className="w-1/2 h-full rounded flex flex-col items-center justify-center space-y-6">
+      {/* Estrutura do formulário de cadastro */}
+      <main className="bg-[url('src/assets/Fundo.png')] bg-cover w-screen h-screen flex items-center justify-center">
+        <img
+          src="src\assets\Logo_Sem_fundo.png"
+          className="absolute w-1/12 top-0 left-0 m-5"
+        ></img>
+        <section className="flex w-full h-full">
+          <div className="w-1/2 py-24 px-12 h-full rounded flex flex-col items-center justify-center gap-y-4">
+            <div className="w-full md:w-4/5">
+              <div className="flex-col space-y-4">
+                <h1 className="text-evolutiDarkBlueText font-semibold text-5xl sm:text-nowrap">
+                  Bem-vindo de volta!
+                </h1>
+                <p className="font-medium text-2xl md:text-nowrap">
+                  Transforme com o Evoluti.
+                </p>
+              </div>
+
+              <div className="flex flex-col w-full justify-center gap-y-2">
+                <p className="mt-10">É sua primeira vez?</p>
+                {/* Formulário para redirecionar para a página de login */}
+                <form onSubmit={redirectCadastro} className="w-full">
+                  <input
+                    type="submit"
+                    value="Cadastre sua clínica aqui!"
+                    className="border-2 cursor-pointer border-evolutiLightGreen text-evolutiGreen w-full h-12 rounded font-medium 
+                transition-all hover:bg-evolutiLightGreen hover:text-white"
+                  />
+                </form>
+              </div>
+            </div>
+          </div>
+          <div className="w-1/2 py-24 px-12 h-full flex flex-col items-center justify-center">
             <form
               onSubmit={passarLogin}
-              className="flex flex-col items-center justify-center space-y-6"
+              className="flex flex-col w-full items-center justify-center space-y-8 md:w-2/3"
             >
-              <h1 className="font-bold text-3xl ">Login</h1>
-              <input
-                type="email"
-                placeholder="Insira o email"
-                name=""
-                id=""
-                className="bg-cinza rounded-lg text-sm h-9 px-2"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <input
-                type="password"
-                placeholder="Insira a senha"
-                id=""
-                className="bg-cinza rounded-lg text-sm h-9 px-2"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-              />
+              <h1 className="font-medium text-4xl text-center md:text-nowrap">
+                Entrar
+              </h1>
+
+              {/* Input para o email */}
+              <div className="w-full relative">
+                <input
+                  type="email"
+                  placeholder="E-mail"
+                  name="emailLogin"
+                  id=""
+                  className="peer w-full placeholder-transparent bg-loginButtonsBackground 
+                border border-evolutiLightGreen placeholder-evolutiGreen 
+                p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {/* Label flutuante */}
+                <label
+                  htmlFor="emailLogin"
+                  className="absolute left-0 text-evolutiGreen text-sm -top-5 select-none pointer-events-none transition-all 
+                peer-placeholder-shown:text-base peer-placeholder-shown:text-evolutiGreen 
+                peer-placeholder-shown:top-3.5 peer-placeholder-shown:pl-3.5 
+                peer-focus:-top-5 peer-focus:text-sm peer-focus:pl-0 peer-focus:text-evolutiGreenDarker"
+                >
+                  E-mail
+                </label>
+              </div>
+
+              {/* Input para a senha */}
+              <div className="w-full relative">
+                <div className="relative flex">
+                  <input
+                    type={tipo}
+                    placeholder="Insira a senha"
+                    name="senhaLogin"
+                    id=""
+                    className="peer w-full placeholder-transparent bg-loginButtonsBackground 
+                border border-evolutiLightGreen placeholder-evolutiGreen 
+                p-3.5 pr-16 rounded-lg shadow-md focus:outline-evolutiGreenDarker"
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
+                  />
+                  <div
+                    className="absolute inset-y-0 right-0 flex items-center cursor-pointer transition-all m-[1px] 
+                    border-l rounded-tr-lg rounded-br-lg border-evolutiLightGreen px-3 text-evolutiGreen
+                    hover:text-evolutiGreenDarker hover:bg-gray-200"
+                    onClick={esconderSenha}
+                  >
+                    {tipo === "password" ? (
+                      <IoEyeOff
+                        size={24}
+                        className="cursor-pointer transition-colors"
+                      />
+                    ) : (
+                      <IoEye
+                        size={24}
+                        className="cursor-pointer transition-colors"
+                      />
+                    )}
+                  </div>
+                  {/* Label flutuante */}
+                  <label
+                    htmlFor="senhaLogin"
+                    className="absolute left-0 text-evolutiGreen text-sm -top-5 select-none pointer-events-none transition-all 
+                peer-placeholder-shown:text-base peer-placeholder-shown:text-evolutiGreen 
+                peer-placeholder-shown:top-3.5 peer-placeholder-shown:pl-3.5 
+                peer-focus:-top-5 peer-focus:text-sm peer-focus:pl-0 peer-focus:text-evolutiGreenDarker"
+                  >
+                    Senha
+                  </label>
+                </div>
+                <div className="flex justify-end">
+                  <p className="w-fit mt-4 text-xs cursor-pointer transition-all text-right md:text-nowrap hover:font-bold hover:underline">
+                    Esqueceu a senha?
+                  </p>
+                </div>
+              </div>
+
+              {/* Botão para submeter o formulário */}
               <input
                 type="submit"
                 value="Entrar"
-                className="bg-[#45D496] w-32 h-12 rounded font-bold"
-              />
-            </form>
-          </div>
-          <div className="bg-gradient-to-r from-[#45D496] to-[#51F680] w-1/2 h-full rounded flex flex-col items-center justify-center space-y-6">
-            <h1 className="font-bold text-3xl ">Cadastre seu clínica</h1>
-            <p>Não perca tempo e otimize sua gestão fisioterápica</p>
-            <form onSubmit={redirectCadastro}>
-              <input
-                type="submit"
-                value="Cadastrar-se"
-                className="bg-[#45D496] w-32 h-12 rounded font-bold"
+                className="bg-evolutiLightGreen text-white w-full h-12 rounded font-medium transition-all hover:bg-evolutiGreenDarker hover:shadow-xl"
               />
             </form>
           </div>

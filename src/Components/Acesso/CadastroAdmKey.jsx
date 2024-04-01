@@ -11,7 +11,7 @@ export default function CadastroAdmKey() {
   const [telefone, setTelefone] = useState("");
   const [rg, setRG] = useState("");
   const [cpf, setCpf] = useState("");
-  const [senha, setSenha] =   useState("")
+  const [senha, setSenha] = useState("");
 
   // Hook para navegação de rotas
   const usenavigate = useNavigate();
@@ -84,89 +84,103 @@ export default function CadastroAdmKey() {
 
   return (
     <>
-      <main className="bg-evolutiDarkBlue w-screen h-screen flex items-center justify-center px-24">
-        <section className="bg-white h-full w-full rounded-3xl flex items-center justify-center   ">
-          <div className="w-full h-full rounded-3xl p-10 flex flex-col items-center">
-            <img src="src/assets/Logo_Sem_fundo.png" alt="" className="w-1/6" />
-
-            <div>
-              <form>
-                <div className="flex w-full items-center justify-center gap-x-16 mt-5">
-                  <div className="flex gap-x-5">
-                    <label className="font-bold">Nome Completo: </label>
-                    <input
-                      type="text"
-                      value={nome}
-                      onChange={(e) => setNome(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="flex gap-x-5">
-                    <label className="font-bold">Nome da Clínica: </label>
-                    <input type="text" />
+      <main className="bg-[url('src/assets/Fundo.png')] bg-cover w-screen h-screen flex items-center justify-center ">
+        <img
+          src="src\assets\Logo_Sem_fundo.png"
+          className="absolute w-1/12 top-0 left-0 m-5"
+        ></img>
+        <section className=" h-full w-full rounded-3xl flex items-center justify-center px-12 ">
+          <div className="w-full rounded-3xl p-10 flex flex-col items-center">
+            <form action="" method="POST">
+              <div className="flex flex-wrap flex-col w-full">
+                <div className="flex w-full justify-between items-center">
+                  <h1 className="text-evolutiDarkBlueText font-medium text-4xl">
+                    Dados do Administrador
+                  </h1>
+                  <div className="flex items-center gap-x-4">
+                    <p className="text-xl font-medium">Nome da Clínica: </p>
+                    <p>Placeholder</p>
                   </div>
                 </div>
 
-                <div className="flex w-full items-center justify-center gap-x-16 mt-5">
-                  <div className="flex gap-x-5">
-                    <label className="font-bold">E-mail: </label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
+                <span className="w-full border border-black rounded-3xl mt-5 mb-5"></span>
+
+                <div className="flex flex-wrap flex-col w-full gap-y-10">
+                  <div className="flex w-full gap-x-5 h-fit justify-evenly">
+                    <div className="w-full">
+                      <label htmlFor="cadastroNomeAdmin">Nome Completo</label>
+                      <input
+                        type="text"
+                        name="nomeAdmin"
+                        id="cadastroNomeAdmin"
+                        placeholder="Nome completo"
+                        className="w-full bg-loginButtonsBackground 
+                        border border-evolutiLightGreen placeholder-evolutiGreen 
+                        p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
+                      />
+                    </div>
+
+                    <div className="w-full">
+                      <label htmlFor="cadastroEmailAdmin">E-mail</label>
+                      <input
+                        type="email"
+                        name="email"
+                        id="cadastroEmailAdmin"
+                        placeholder="E-mail"
+                        className="w-full bg-loginButtonsBackground 
+                        border border-evolutiLightGreen placeholder-evolutiGreen 
+                        p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
+                      />
+                    </div>
                   </div>
-                </div>
-              </form>
-            </div>
 
-            <span className="w-full border bg-evolutiLightGreen rounded-3xl mt-5 mb-5"></span>
-
-            <div className="flex w-full h-full justify-center items-center">
-              <form action="" method="POST">
-                <div className="flex flex-wrap flex-col w-full gap-y-5">
                   <div className="flex w-full gap-x-5 h-fit justify-between">
                     <div>
-                      <label className="font-bold" htmlFor="dtNascClinica">
-                        Data de nascimento
-                      </label>
+                      <label htmlFor="dtNascClinica">Data de nascimento</label>
                       <input
                         type="date"
                         name="nasc"
                         id="dtNascClinica"
                         value={data}
                         onChange={(e) => setData(e.target.value)}
-                        className="rounded-md bg-[#D9D9D9] py-3 px-5 my-2 w-full"
+                        className="w-full bg-loginButtonsBackground 
+                        border border-evolutiLightGreen placeholder-evolutiGreen 
+                        p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
                       />
                     </div>
 
                     <div>
-                      <label
-                        className="font-bold"
-                        htmlFor="cadastroGeneroClinica"
-                      >
-                        Gênero
-                      </label>
+                      <label htmlFor="cadastroGeneroClinica">Gênero</label>
                       <select
                         id="cadastroGeneroClinica"
                         name="genero"
                         value={genero}
                         onChange={(e) => setGenero(e.target.value)}
-                        className="rounded-md bg-[#D9D9D9] py-3 px-5 my-2 w-full"
+                        className="w-full bg-loginButtonsBackground 
+                        border border-evolutiLightGreen 
+                        p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker"
                       >
                         <option defaultValue="">Selecione o gênero</option>
-                        <option value="1">Homem-Cis</option>
-                        <option value="2">Mulher-Cis</option>
-                        <option value="3">Homem-Trans</option>
-                        <option value="4">Mulher-Trans</option>
-                        <option value="5">Outro</option>
+                        <option value="1" className="text-black">
+                          Homem-Cis
+                        </option>
+                        <option value="2" className="text-black">
+                          Mulher-Cis
+                        </option>
+                        <option value="3" className="text-black">
+                          Homem-Trans
+                        </option>
+                        <option value="4" className="text-black">
+                          Mulher-Trans
+                        </option>
+                        <option value="5" className="text-black">
+                          Outro
+                        </option>
                       </select>
                     </div>
 
                     <div>
-                      <label className="font-bold" htmlFor="telefoneClinica">
-                        Telefone
-                      </label>
+                      <label htmlFor="telefoneClinica">Telefone</label>
                       <input
                         type="text"
                         name="telefone"
@@ -174,16 +188,16 @@ export default function CadastroAdmKey() {
                         placeholder="(00) 0000-0000"
                         value={telefone}
                         onChange={(e) => setTelefone(e.target.value)}
-                        className="rounded-md bg-[#D9D9D9] py-3 px-5 my-2 w-full"
+                        className="w-full bg-loginButtonsBackground 
+                        border border-evolutiLightGreen placeholder-evolutiGreen 
+                        p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
                       />
                     </div>
                   </div>
 
                   <div className="flex w-full gap-x-5 h-fit justify-evenly">
                     <div className="w-full">
-                      <label className="font-bold" htmlFor="cadastroRGClinica">
-                        RG
-                      </label>
+                      <label htmlFor="cadastroRGClinica">RG</label>
                       <input
                         type="text"
                         name="rg"
@@ -191,14 +205,14 @@ export default function CadastroAdmKey() {
                         placeholder="Digite o RG"
                         value={rg}
                         onChange={(e) => setRG(e.target.value)}
-                        className="rounded-md bg-[#D9D9D9] py-3 px-5 my-2 w-full"
+                        className="w-full bg-loginButtonsBackground 
+                        border border-evolutiLightGreen placeholder-evolutiGreen 
+                        p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
                       />
                     </div>
 
                     <div className="w-full">
-                      <label className="font-bold" htmlFor="cadastroCPFClinica">
-                        CPF
-                      </label>
+                      <label htmlFor="cadastroCPFClinica">CPF</label>
                       <input
                         type="text"
                         name="cpf"
@@ -206,41 +220,9 @@ export default function CadastroAdmKey() {
                         placeholder="Digite o CPF"
                         value={cpf}
                         onChange={(e) => setCpf(e.target.value)}
-                        className="rounded-md bg-[#D9D9D9] py-3 px-5 my-2 w-full"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex w-full gap-x-5 h-fit justify-evenly">
-                    <div className="w-full">
-                      <label
-                        className="font-bold"
-                        htmlFor="cadastroCNPJClinica"
-                      >
-                        CNPJ da clínica
-                      </label>
-                      <input
-                        type="text"
-                        name="cnpj"
-                        id="cadastroCNPJClinica"
-                        placeholder="Digite CNPJ"
-                        className="rounded-md bg-[#D9D9D9] py-3 px-5 my-2 w-[calc(100%)]"
-                      />
-                    </div>
-
-                    <div className="w-full">
-                      <label
-                        className="font-bold"
-                        htmlFor="cadastroEmailClinica"
-                      >
-                        E-mail da clínica
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        id="cadastroEmailClinica"
-                        placeholder="Digite o E-mail"
-                        className="rounded-md bg-[#D9D9D9] py-3 px-5 my-2 w-[calc(100%)]"
+                        className="w-full bg-loginButtonsBackground 
+                        border border-evolutiLightGreen placeholder-evolutiGreen 
+                        p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
                       />
                     </div>
                   </div>
@@ -251,12 +233,13 @@ export default function CadastroAdmKey() {
                       name="botaoCadastroClinica"
                       id="btnCadastroClinica"
                       value="Cadastrar"
-                      className="rounded-md bg-evolutiLightGreen py-3 px-5 my-2 w-auto font-bold"
+                      className="bg-evolutiLightGreen text-white w-1/3 h-12 rounded-lg font-medium cursor-pointer transition-all 
+                        hover:bg-evolutiGreenDarker hover:shadow-xl"
                     ></input>
                   </div>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </section>
       </main>
