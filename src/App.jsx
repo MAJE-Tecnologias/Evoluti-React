@@ -11,6 +11,7 @@ import CadastroFunc from './Components/Acesso/CadastroFunc'
 
 // Importando componentes e métodos necessários do React Router
 import { Route, Routes } from 'react-router-dom';
+import CadastroCod from './Components/Acesso/CadastroCod'
 
 // Definindo a função App, componente principal da aplicação
 function App() {
@@ -33,6 +34,7 @@ function App() {
         {/* Rota para a página de usuários do administrador */}
         <Route path='/AdminUsuarios' element={<AdminUsuarios></AdminUsuarios>}></Route>
         <Route path='/CadastroFunc' element={<CadastroFunc></CadastroFunc>}></Route>
+        <Route path='/CadastroCod' element={<CadastroCod></CadastroCod>}></Route>
         {/* Rota para página de erro (404 Not Found) */}
         <Route path='*' element={<NotFound></NotFound>}></Route>
       </Routes>

@@ -12,6 +12,7 @@ import { FaUserInjured, FaFileAlt, FaSearch } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 
 export default function AdminHome() {
+  const idClinica = localStorage.getItem("idClinica");
   const [tipoUsuario, setTipoUsuario] = useState("tudo");
   const [usuarios, setUsuarios] = useState([]);
 
@@ -22,12 +23,13 @@ export default function AdminHome() {
       let variaveisAPI = {
         method: "GET",
       };
-      fetch(`http://localhost:3000/Usuario`, variaveisAPI)
+      fetch(`http://localhost:3000/Usuario?fk_clinica=${idClinica}`, variaveisAPI)
         .then((response) => response.json())
         .then((respostas) => {
+          console.log(respostas)
           const usuariosArray = respostas.map((usuario) => ({
-            nome: usuario.nome,
-            tipoUsuario: usuario.tipoUsuario,
+            nome: usuario.Nome,
+            Profissao: usuario.verificadorProf,
           }));
           setUsuarios(usuariosArray);
           mounted.current = true;
@@ -36,6 +38,9 @@ export default function AdminHome() {
   });
 
   function showUsuarios(usuarios) {
+
+    console.log(usuarios)
+
     return (
       <div>
         {usuarios.map((usuario, index) => (
@@ -48,7 +53,7 @@ export default function AdminHome() {
             </div>
             <div>
               <span className="font-bold">Tipo de Usuário:</span>{" "}
-              {usuario.tipoUsuario}
+              {usuario.Profissao}
             </div>
             {/* Se necessário, adicione mais informações do usuário aqui */}
           </div>
@@ -62,8 +67,6 @@ export default function AdminHome() {
   };
   return (
     <>
-      <MainNavbar></MainNavbar>
-
       <AdminHomeSidebar>
         <ItemsSidebar
           icon={<FiPlusCircle size={30} />}
