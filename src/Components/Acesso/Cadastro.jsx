@@ -1,100 +1,99 @@
-// Importando os hooks e componentes necessários do React
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaMoon, FaSun } from "react-icons/fa";
 import FancyText from "@carefully-coded/react-text-gradient";
 
-// Componente para o cadastro de uma nova clínica
 export default function Cadastro() {
-  // Declaração de estado para o email, id, emailValidacao e nome da clínica
+  localStorage.setItem("idClinica", null)
   const [email, setEmail] = useState("");
   const [emailValidacao, setEmailValidacao] = useState([]);
-  const [cnpj, setCNPJ] = useState();
+  const [cnpj, setCNPJ] = useState(""); // Changed to string
   const [nome, setNome] = useState("");
   const [modoEscuro, setModoEscuro] = useState(
     window.matchMedia("(prefers-color-scheme: dark)").matches
   );
 
+  const navigate = useNavigate();
+  const mounted = useRef(true);
+
   useEffect(() => {
-    if (modoEscuro) {
-      document.body.classList.add("dark");
-    } else {
+    document.body.classList.toggle("dark", modoEscuro);
+    return () => {
       document.body.classList.remove("dark");
-    }
+    };
   }, [modoEscuro]);
 
   const toggleDarkMode = () => {
     setModoEscuro(!modoEscuro);
   };
 
-  // Hook para navegação de rotas
-  const usenavigate = useNavigate();
-
-  // Hook useRef para verificar se o componente está montado
-  const mounted = useRef(false);
-
-  // Hook useEffect para carregar dados iniciais quando o componente é montado
   useEffect(() => {
-    if (!mounted.current) {
-      let variaveisAPI = {
-        method: "GET",
-      };
-      fetch(`http://localhost:3000/Clinica?_sort=-id`, variaveisAPI)
+    if (mounted.current) {
+      fetch(`http://localhost:3000/Clinica?_sort=-id`, { method: "GET" })
         .then((response) => response.json())
         .then((respostas) => {
-          for (let index = 0; index < respostas.length; index++) {
-            setEmailValidacao((prevList) => [
-              ...prevList,
-              respostas[index].Email,
-            ]);
+          setEmailValidacao(respostas.map((resp) => resp.Email));
+          if (respostas.length > 0) {
+            setCNPJ(respostas[0].cnpj); // Assuming you want to set the CNPJ from the response
           }
-          setId(respostas[0].id);
-        });
-      mounted.current = true;
+        })
+        .catch((error) => console.error("Failed to fetch data:", error));
     }
-  });
+    return () => {
+      mounted.current = false;
+    };
+  }, []); // Added empty dependency array
 
-  // Função para criar uma nova clínica
+  const guardarIdClinica = () => {
+    fetch(`http://localhost:3000/Clinica?_sort=-adicionadoEm`, { method: "GET" })
+      .then((response) => response.json())
+      .then((respostas) => {
+        localStorage.setItem("idClinica", respostas[0].id)
+      })
+      .catch((error) => console.error("Failed to fetch data:", error));
+  };
+
   const criarClinica = (e) => {
     e.preventDefault();
-    // Configuração da requisição POST para criar uma nova clínica
     if (validaCadastro()) {
-      var variaveisAPI = {
+      const dataAtual = new Date().toISOString(); // Cria um timestamp ISO para o momento atual
+      const variaveisAPI = {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          cnpj: cnpj, // ID da clínica
-          Nome: nome, // Nome da clínica
-          Email: email, // Email da clínica
+          cnpj,
+          nome,
+          email,
+          adicionadoEm: dataAtual, // Adiciona o campo createdAt ao corpo da requisição
         }),
       };
 
-      fetch(`http://localhost:3000/Clinica?_sort=`, variaveisAPI) // Envia a requisição POST
-        .then((response) => response.json()) // Converte a resposta em JSON
-        .then(alert("Cadastrado com sucesso")) // Exibe mensagem de sucesso
-        .then(usenavigate("/CadastroAdmKey")) // Redireciona para a página de cadastro de administrador
-        .catch((error) => console.log("error", error)); // Trata erros
+
+      fetch(`http://localhost:3000/Clinica`, variaveisAPI)
+        .then((response) => response.json())
+        .then(() => {
+          alert("Cadastrado com sucesso");
+          guardarIdClinica();
+          navigate("/CadastroAdmKey"); // Assegure-se de que navigate está definido corretamente, geralmente deve ser: const navigate = useNavigate();
+        })
+        .catch((error) => console.error("Error:", error));
     }
   };
 
-  // Função para validar o cadastro
   const validaCadastro = () => {
-    let resultados = true;
-    if (nome.length === 0 || email.length === 0 || cnpj.length === 0) {
-      resultados = false;
+    if (!nome || !email || !cnpj) {
       alert("Preencha todos os campos");
+      return false;
     }
-    emailValidacao.forEach((valid) => {
-      if (email === valid) {
-        resultados = false;
-        alert("Email já cadastrado");
-      }
-    });
-    return resultados;
+    if (emailValidacao.includes(email)) {
+      alert("Email já cadastrado");
+      return false;
+    }
+    return true;
   };
 
-  // Função para redirecionar para a página de login
   const redirectLogin = () => {
-    usenavigate("/Login");
+    navigate("/Login");
   };
 
   // Renderização do componente
@@ -188,7 +187,6 @@ export default function Cadastro() {
                   className="peer w-full placeholder-transparent bg-loginButtonsBackground 
                 border border-evolutiLightGreen placeholder-evolutiGreen 
                 p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker"
-                  value={cnpj}
                   onChange={(e) => setCNPJ(e.target.value)}
                 />
                 {/* Label flutuante */}

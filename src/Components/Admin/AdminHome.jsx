@@ -20,15 +20,15 @@ export default function AdminHome() {
     // Hook useRef para verificar se o componente está montado
     const mounted = useRef(false);
   
-  useEffect(() => {
-    if (!mounted.current) {
-      console.log(sessionStorage.getItem('acess'))
-      if (sessionStorage.getItem('acess') != 1){
-        navigate("/aba");
-      }
-      mounted.current = true;
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!mounted.current) {
+  //     console.log(sessionStorage.getItem('acess'))
+  //     if (sessionStorage.getItem('acess') != 1){
+  //       navigate("/aba");
+  //     }
+  //     mounted.current = true;
+  //   }
+  // }, []);
 
   return (
     <>
@@ -60,9 +60,8 @@ export default function AdminHome() {
           Seja bem-vindo(a) a sua tela inicial!
         </h1>
         <p>
-          Sinta-se livre para abrir o menu lateral e escolher uma opção, ou
-          clique no botão na parte inferior direita da tela para ver os
-          tutoriais do sistema.
+          Codigo de clinica: {localStorage.getItem("idClinica")}<br></br>
+          Envie esse codio para seus funcionarios
         </p>
 
         <div className="absolute flex justify-center items-center right-0 bottom-0 p-5 gap-x-2">
