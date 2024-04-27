@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { IoArrowBackCircle, IoArrowForwardCircle } from "react-icons/io5";
 import { IoMdMore, IoIosMore } from "react-icons/io";
 import { FaMoon, FaSun } from "react-icons/fa";
@@ -152,7 +153,7 @@ export default function AdminHomeSidebar({ children }) {
   );
 }
 
-export function ItemsSidebar({ icon, text, ativo, alert }) {
+export function ItemsSidebar({ icon, text, ativo, aler, route }) {
   const { expandido } = useContext(SidebarContext);
   return (
     <li

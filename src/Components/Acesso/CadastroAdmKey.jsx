@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { FaMoon, FaSun } from "react-icons/fa";
 
 export default function CadastroAdmKey() {
-  const idClinica = sessionStorage.getItem("idClinica");
-  const [id, setId] = useState();
+  const idClinica = localStorage.getItem("idClinica");
+  const [id, setId] = useState(null);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [data, setData] = useState("");
@@ -14,104 +14,84 @@ export default function CadastroAdmKey() {
   const [cpf, setCpf] = useState("");
   const [senha, setSenha] = useState("");
 
-  const [modoEscuro, setModoEscuro] = useState(
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
+  console.log(idClinica)
+
+  const [modoEscuro, setModoEscuro] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   useEffect(() => {
-    if (modoEscuro) {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
-    }
+    document.body.classList.toggle("dark", modoEscuro);
   }, [modoEscuro]);
 
-  const toggleDarkMode = () => {
-    setModoEscuro(!modoEscuro);
-  };
+  const toggleDarkMode = () => setModoEscuro(!modoEscuro);
 
-  // Hook para navegação de rotas
-  const usenavigate = useNavigate();
-
-  // Hook useRef para verificar se o componente está montado
+  const navigate = useNavigate();
   const mounted = useRef(false);
 
-  // Hook useEffect para carregar dados iniciais quando o componente é montado
   useEffect(() => {
     if (!mounted.current) {
-      let variaveisAPI = {
-        method: "GET",
-      };
-      fetch(`http://localhost:3000/Admin?_sort=-id`, variaveisAPI)
-        .then((response) => response.json())
-        .then((respostas) => {
-          setId(respostas[0].id);
-        });
       mounted.current = true;
+      fetch(`http://localhost:3000/Usuario?_sort=-id`, { method: "GET" })
+        .then(response => response.json())
+        .then(respostas => {
+          if (respostas && respostas.length > 0) {
+            setId(respostas[0].id);
+          }
+        });
     }
+
+    return () => {
+      mounted.current = false;
+    };
   }, []);
 
   const criarAdm = (e) => {
     e.preventDefault();
-    // Configuração da requisição POST para criar um novo usuario
     if (validaCadastro()) {
-      var variaveisAPI = {
+      const variaveisAPI = {
         method: "POST",
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          id: id + 1,
+          id: parseInt(id) + 1,
           Nome: nome,
           Email: email,
-          Senha: senha,
           Telefone: telefone,
-          Cpf: cpf,
+          Senha: senha,
           RG: rg,
-          Genero: genero,
-          fk_endereco: 1,
+          DataNascimento: data,
           fk_clinica: idClinica,
         }),
       };
 
-      fetch(`http://localhost:3000/Clinica?_sort=`, variaveisAPI) // Envia a requisição POST
-        .then((response) => response.json()) // Converte a resposta em JSON
-        .then(alert("Cadastrado com sucesso")) // Exibe mensagem de sucesso
-        .then(usenavigate("/CadastroAdmKey")) // Redireciona para a página de cadastro de administrador
-        .catch((error) => console.log("error", error)); // Trata erros
+      fetch(`http://localhost:3000/Usuario`, variaveisAPI)
+        .then(response => response.json())
+        .then(() => {
+          alert("Cadastrado com sucesso");
+          navigate("/AdminHome");
+        })
+        .catch(error => console.log("error", error));
     }
   };
 
   const validaCadastro = () => {
-    // Verifica se todos os campos obrigatórios estão preenchidos
-    if (!nome || !email || !data || !genero || !telefone || !rg || !cpf) {
+    if (!nome || !email || !data || !genero || !telefone || !rg || !senha) {
       alert("Por favor, preencha todos os campos obrigatórios.");
       return false;
     }
-
-    // Verifica se o email tem um formato válido
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       alert("Por favor, insira um endereço de e-mail válido.");
       return false;
     }
-
-    // Outras validações podem ser adicionadas conforme necessário
-
-    // Retorna verdadeiro se todos os campos estiverem válidos
     return true;
   };
 
   return (
     <>
-      <main
-        className="bg-[url('src/assets/Fundo.png')] dark:bg-[url('src/assets/FundoInverso.png')] bg-cover transition-all
-      w-screen h-screen flex items-center justify-center "
-      >
-        <img
-          src="src\assets\Logo_Sem_fundo.png"
-          className="absolute w-1/12 top-0 left-0 m-5"
-        ></img>
-        <section className=" h-full w-full rounded-3xl flex items-center justify-center px-12 ">
+      <main className="bg-[url('src/assets/Fundo.png')] dark:bg-[url('src/assets/FundoInverso.png')] bg-cover transition-all w-screen h-screen flex items-center justify-center">
+        <img src="src/assets/Logo_Sem_fundo.png" alt="Logo da Clínica" className="absolute w-1/12 top-0 left-0 m-5" />
+        <section className="h-full w-full rounded-3xl flex items-center justify-center px-12">
           <div className="w-full rounded-3xl p-10 flex flex-col items-center">
-            <form action="" method="POST">
+            <form onSubmit={criarAdm}>
               <div className="flex flex-wrap flex-col w-full">
                 <div className="flex w-full justify-between items-center">
                   <h1 className="text-evolutiDarkBlueText font-medium text-4xl dark:text-evolutiLightBlueText">
@@ -134,6 +114,7 @@ export default function CadastroAdmKey() {
                         name="nomeAdmin"
                         id="cadastroNomeAdmin"
                         placeholder="Nome completo"
+                        onChange={(e) => setNome(e.target.value)}
                         className="w-full bg-loginButtonsBackground 
                         border border-evolutiLightGreen placeholder-evolutiGreen 
                         p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
@@ -147,6 +128,7 @@ export default function CadastroAdmKey() {
                         name="email"
                         id="cadastroEmailAdmin"
                         placeholder="E-mail"
+                        onChange={(e) => setEmail(e.target.value)}
                         className="w-full bg-loginButtonsBackground 
                         border border-evolutiLightGreen placeholder-evolutiGreen 
                         p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
@@ -232,14 +214,13 @@ export default function CadastroAdmKey() {
                     </div>
 
                     <div className="w-full">
-                      <label htmlFor="cadastroCPFClinica" className="dark:text-white">CPF</label>
+                      <label htmlFor="cadastroCPFClinica" className="dark:text-white">Senha</label>
                       <input
-                        type="text"
+                        type="password"
                         name="cpf"
                         id="cadastroCPFClinica"
-                        placeholder="Digite o CPF"
-                        value={cpf}
-                        onChange={(e) => setCpf(e.target.value)}
+                        placeholder="Digite a sua senha"
+                        onChange={(e) => setSenha(e.target.value)}
                         className="w-full bg-loginButtonsBackground 
                         border border-evolutiLightGreen placeholder-evolutiGreen 
                         p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
@@ -259,22 +240,10 @@ export default function CadastroAdmKey() {
                   </div>
                 </div>
               </div>
-            </form>
+              </form>
           </div>
-          <button
-            onClick={toggleDarkMode}
-            className="fixed flex justify-center transition-all items-center top-0 right-0 m-5 font-bold 
-            bg-gray-800 text-white px-4 py-2 rounded-full shadow-md dark:bg-white dark:text-evolutiDarkBlueText"
-          >
-            {modoEscuro ? (
-              <>
-                <FaSun className="mr-2" /> Modo Claro
-              </>
-            ) : (
-              <>
-                <FaMoon className="mr-2" /> Modo Escuro
-              </>
-            )}
+          <button onClick={toggleDarkMode} className="fixed flex justify-center transition-all items-center top-0 right-0 m-5 font-bold bg-gray-800 text-white px-4 py-2 rounded-full shadow-md dark:bg-white dark:text-evolutiDarkBlueText">
+            {modoEscuro ? <><FaSun className="mr-2" /> Modo Claro</> : <><FaMoon className="mr-2" /> Modo Escuro</>}
           </button>
         </section>
       </main>

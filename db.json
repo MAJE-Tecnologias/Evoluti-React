@@ -14,57 +14,74 @@
   ],
   "Clinica": [
     {
-      "id": "1",
-      "Nome": "Cirurtec",
-      "Email": "cirurtec@contato.com"
+      "id": "0c2b",
+      "cnpj": "136",
+      "nome": "Aba",
+      "email": "aba@a.com",
+      "adicionadoEm": "2024-04-24T05:10:54.733Z",
+      "profissoes": [
+        "Masso",
+        "Fisio",
+        "Estgiario",
+        "Secretario"
+      ],
+      "verificadorProf": [
+        true,
+        true,
+        false,
+        false
+      ]
     },
     {
-      "id": "2",
-      "Nome": "Evoluti",
-      "Email": "evoluti@gmail.com"
+      "id": "a47f",
+      "cnpj": "123",
+      "nome": "Aba",
+      "email": "123@z.com",
+      "adicionadoEm": "2024-04-24T14:59:47.419Z"
     },
     {
-      "id": "3",
-      "Nome": "Duracel",
-      "Email": "duracel@gmail.com"
+      "id": "77a4",
+      "cnpj": "123",
+      "nome": "Aba",
+      "email": "123@z.com",
+      "adicionadoEm": "2024-04-24T15:01:54.040Z"
     },
     {
-      "id": "e0dc",
-      "cnpj": "2",
-      "Nome": "clinicafoda",
-      "Email": "clinicafoda@hotmail.com"
+      "id": "4eb9",
+      "cnpj": "356",
+      "nome": "Aba",
+      "email": "aba@a.com",
+      "adicionadoEm": "2024-04-24T15:02:26.745Z"
     }
   ],
   "Usuario": [
     {
-      "id": "cf20",
+      "id": "1",
       "nome": "Meu pau",
       "nascimento": "",
       "cpf": "",
       "rg": "",
       "genero": "",
       "email": "tem@gmail.com",
-      "senha":"123",
+      "senha": "123",
       "user": "",
       "telefone": "",
       "tipoUsuario": "administrador",
       "idClinica": "e0dc"
     },
     {
-      "id": "d7ac",
-      "nome": "Se leu teu cu é meu",
-      "nascimento": "2005-01-30",
-      "cpf": "123456",
-      "rg": "123456",
-      "genero": "2",
-      "email": "a@gmail.com",
-      "user": "aa",
-      "telefone": "11971103001",
-      "senha": "123",
-      "tipoUsuario": "fisioterapeuta",
-      "crefito": "12234",
-      "especialidade": "Fisio",
-      "emissao": "2004-01-20"
+      "id": 17,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "123",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "Profissao": "Fisio",
+      "Verificador": "185",
+      "Genero": "1",
+      "stats": false,
+      "fk_clinica": "0c2b"
     }
   ]
 }
