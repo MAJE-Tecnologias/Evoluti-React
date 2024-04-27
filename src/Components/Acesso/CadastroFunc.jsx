@@ -1,7 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaMoon, FaSun } from "react-icons/fa";
-import FancyText from "@carefully-coded/react-text-gradient";
 
 export default function CadastroFunc() {
   const idClinica = localStorage.getItem("idClinica");
@@ -14,12 +13,15 @@ export default function CadastroFunc() {
   const [rg, setRG] = useState("");
   const [profissao, setProfissao] = useState("");
   const [senha, setSenha] = useState("");
+  const [verificador, setVerificador] = useState("");
   const [profissoes, setProfissoes] = useState([]); // Estado para armazenar as profissões
-
 
   const [modoEscuro, setModoEscuro] = useState(
     window.matchMedia("(prefers-color-scheme: dark)").matches
   );
+
+  const verificadorRef = useRef();
+
 
   useEffect(() => {
     document.body.classList.toggle("dark", modoEscuro);
@@ -31,6 +33,9 @@ export default function CadastroFunc() {
   const mounted = useRef(false);
   useEffect(() => {
     if (!mounted.current) {
+      if (profissao) {
+        debouncedVerificaProf();
+      }
       mounted.current = true;
       fetch(`http://localhost:3000/Usuario?_sort=-id`, { method: "GET" })
         .then((response) => response.json())
@@ -39,31 +44,41 @@ export default function CadastroFunc() {
             setId(respostas[0].id);
           }
         });
-        const buscarProfissoes = () => {
-            fetch(`http://localhost:3000/Clinica?id=${idClinica}`, { method: "GET" })
-              .then(response => response.json())
-              .then(respostas => {
-                if (respostas.length > 0 && respostas[0].profissoes && respostas[0].verificadorProf) {
-                  // Transformar dados recebidos em formato apropriado para o estado
-                  const profissoesData = respostas[0].profissoes.map((profissao, index) => ({
-                    profissao,
-                    verificado: respostas[0].verificadorProf[index]
-                  }));
-                  setProfissoes(profissoesData); // Atualizar o estado com os novos dados
-                } else {
-                  console.log("Não foi possível acessar as profissões ou verificadorProf da clínica.");
-                }
-              })
-              .catch(error => console.error("Erro ao buscar dados:", error));
-          };
-      
-          buscarProfissoes();
+      const buscarProfissoes = () => {
+        fetch(`http://localhost:3000/Clinica?id=${idClinica}`, {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((respostas) => {
+            if (
+              respostas.length > 0 &&
+              respostas[0].profissoes &&
+              respostas[0].verificadorProf
+            ) {
+              // Transformar dados recebidos em formato apropriado para o estado
+              const profissoesData = respostas[0].profissoes.map(
+                (profissao, index) => ({
+                  profissao,
+                  verificado: respostas[0].verificadorProf[index],
+                })
+              );
+              setProfissoes(profissoesData); // Atualizar o estado com os novos dados
+            } else {
+              console.log(
+                "Não foi possível acessar as profissões ou verificadorProf da clínica."
+              );
+            }
+          })
+          .catch((error) => console.error("Erro ao buscar dados:", error));
+      };
+
+      buscarProfissoes();
     }
 
     return () => {
       mounted.current = false;
     };
-  }, [idClinica]);
+  }, [idClinica, profissao]);
 
   const criarFunc = (e) => {
     e.preventDefault();
@@ -78,6 +93,10 @@ export default function CadastroFunc() {
         Senha: senha,
         RG: rg,
         DataNascimento: data,
+        Profissao: profissao,
+        Verificador: verificador,
+        Genero: genero,
+        stats: false,
         fk_clinica: idClinica,
       }),
     };
@@ -98,6 +117,27 @@ export default function CadastroFunc() {
       </option>
     ));
   }
+
+  function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  }
+  
+
+  function verificaProf() {
+    const prof = profissoes.find((p) => p.profissao === profissao);
+    if (prof && !prof.verificado) {
+      verificadorRef.current.disabled = true;
+      setVerificador("");
+    } else {
+      verificadorRef.current.disabled = false;
+    }
+  }
+
+  const debouncedVerificaProf = debounce(verificaProf, 500);
 
   return (
     <>
@@ -187,15 +227,18 @@ export default function CadastroFunc() {
 
                     <div>
                       <label
-                        htmlFor="cadastroGeneroClinica"
+                        htmlFor="cadastroProfissaoClinica"
                         className="dark:text-white"
                       >
                         Profissão
                       </label>
                       <select
-                        id="cadastroGeneroClinica"
-                        name="genero"
-                        onChange={(e) => setGenero(e.target.value)}
+                        id="cadastroProfissaoClinica"
+                        name="Profissao"
+                        onChange={(e) => {
+                          setProfissao(e.target.value);
+                          verificaProf();
+                        }}
                         className="w-full bg-loginButtonsBackground 
                             border border-evolutiLightGreen 
                             p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker"
@@ -204,109 +247,131 @@ export default function CadastroFunc() {
                       </select>
                     </div>
 
-                    <div>
+                    <div className="w-full">
                       <label
-                        htmlFor="cadastroGeneroClinica"
+                        htmlFor="cadastroVerificadorClinica"
                         className="dark:text-white"
                       >
-                        Gênero
+                        Verificador
                       </label>
-                      <select
-                        id="cadastroGeneroClinica"
-                        name="genero"
-                        onChange={(e) => setGenero(e.target.value)}
+                      <input
+                        ref={verificadorRef}
+                        type="text"
+                        name="Verificador"
+                        id="cadastroVerificadorClinica"
+                        placeholder="Digite o Verificador"
+                        onChange={(e) => setVerificador(e.target.value)}
                         className="w-full bg-loginButtonsBackground 
+                            border border-evolutiLightGreen placeholder-evolutiGreen 
+                            p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
+                      />
+                    </div>
+
+                    <div className="flex w-full gap-x-5 h-fit justify-evenly">
+                      <div>
+                        <label
+                          htmlFor="cadastroGeneroClinica"
+                          className="dark:text-white"
+                        >
+                          Gênero
+                        </label>
+                        <select
+                          id="cadastroGeneroClinica"
+                          name="genero"
+                          onChange={(e) => setGenero(e.target.value)}
+                          className="w-full bg-loginButtonsBackground 
                             border border-evolutiLightGreen 
                             p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker"
-                      >
-                        <option defaultValue="">Selecione o gênero</option>
-                        <option value="1" className="text-black">
-                          Homem-Cis
-                        </option>
-                        <option value="2" className="text-black">
-                          Mulher-Cis
-                        </option>
-                        <option value="3" className="text-black">
-                          Homem-Trans
-                        </option>
-                        <option value="4" className="text-black">
-                          Mulher-Trans
-                        </option>
-                        <option value="5" className="text-black">
-                          Outro
-                        </option>
-                      </select>
-                    </div>
+                        >
+                          <option defaultValue="">Selecione o gênero</option>
+                          <option value="1" className="text-black">
+                            Homem-Cis
+                          </option>
+                          <option value="2" className="text-black">
+                            Mulher-Cis
+                          </option>
+                          <option value="3" className="text-black">
+                            Homem-Trans
+                          </option>
+                          <option value="4" className="text-black">
+                            Mulher-Trans
+                          </option>
+                          <option value="5" className="text-black">
+                            Outro
+                          </option>
+                        </select>
+                      </div>
 
-                    <div>
-                      <label
-                        htmlFor="telefoneClinica"
-                        className="dark:text-white"
-                      >
-                        Telefone
-                      </label>
-                      <input
-                        type="text"
-                        name="telefone"
-                        id="telefoneClinica"
-                        placeholder="(00) 0000-0000"
-                        onChange={(e) => setTelefone(e.target.value)}
-                        className="w-full bg-loginButtonsBackground 
+                      <div>
+                        <label
+                          htmlFor="telefoneClinica"
+                          className="dark:text-white"
+                        >
+                          Telefone
+                        </label>
+                        <input
+                          type="text"
+                          name="telefone"
+                          id="telefoneClinica"
+                          placeholder="(00) 0000-0000"
+                          onChange={(e) => setTelefone(e.target.value)}
+                          className="w-full bg-loginButtonsBackground 
                             border border-evolutiLightGreen placeholder-evolutiGreen 
                             p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
-                      />
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="flex w-full gap-x-5 h-fit justify-evenly">
-                    <div className="w-full">
-                      <label
-                        htmlFor="cadastroRGClinica"
-                        className="dark:text-white"
-                      >
-                        RG
-                      </label>
-                      <input
-                        type="text"
-                        name="rg"
-                        id="cadastroRGClinica"
-                        placeholder="Digite o RG"
-                        onChange={(e) => setRG(e.target.value)}
-                        className="w-full bg-loginButtonsBackground 
+                    <div className="flex w-full gap-x-5 h-fit justify-evenly">
+                      <div className="w-full">
+                        <label
+                          htmlFor="cadastroRGClinica"
+                          className="dark:text-white"
+                        >
+                          RG
+                        </label>
+                        <input
+                          type="text"
+                          name="rg"
+                          id="cadastroRGClinica"
+                          placeholder="Digite o RG"
+                          onChange={(e) => setRG(e.target.value)}
+                          className="w-full bg-loginButtonsBackground 
                             border border-evolutiLightGreen placeholder-evolutiGreen 
                             p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
-                      />
-                    </div>
+                        />
+                      </div>
 
-                    <div className="w-full">
-                      <label
-                        htmlFor="cadastroCPFClinica"
-                        className="dark:text-white"
-                      >
-                        Senha
-                      </label>
-                      <input
-                        type="password"
-                        name="cpf"
-                        id="cadastroCPFClinica"
-                        placeholder="Digite a sua senha"
-                        onChange={(e) => setSenha(e.target.value)}
-                        className="w-full bg-loginButtonsBackground 
+                      <div className="w-full">
+                        <label
+                          htmlFor="cadastroSenhaClinica"
+                          className="dark:text-white"
+                        >
+                          Senha
+                        </label>
+                        <input
+                          type="password"
+                          name="Senha"
+                          id="cadastroSenhaClinica"
+                          placeholder="Digite a sua senha"
+                          onChange={(e) => setSenha(e.target.value)}
+                          className="w-full bg-loginButtonsBackground 
                             border border-evolutiLightGreen placeholder-evolutiGreen 
                             p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
-                      />
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="flex w-full h-fit justify-center items-center">
-                    <input
-                      type="submit"
-                      name="botaoCadastroClinica"
-                      id="btnCadastroClinica"
-                      value="Cadastrar"
-                      className="bg-evolutiLightGreen text-white w-1/3 h-12 rounded-lg font-medium cursor-pointer transition-all 
+                    <div className="flex w-full h-fit justify-center items-center">
+                      <input
+                        type="submit"
+                        name="botaoCadastroClinica"
+                        id="btnCadastroClinica"
+                        value="Cadastrar"
+                        className="bg-evolutiLightGreen text-white w-1/3 h-12 rounded-lg font-medium cursor-pointer transition-all 
                             hover:bg-evolutiGreenDarker hover:shadow-xl"
-                    ></input>
+                      ></input>
+                    </div>
                   </div>
                 </div>
               </div>

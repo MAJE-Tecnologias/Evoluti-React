@@ -19,8 +19,18 @@
       "nome": "Aba",
       "email": "aba@a.com",
       "adicionadoEm": "2024-04-24T05:10:54.733Z",
-      "profissoes": ["Masso", "Fisio", "Estgiario", "Secretario"],
-      "verificadorProf": [true, true, false, false]
+      "profissoes": [
+        "Masso",
+        "Fisio",
+        "Estgiario",
+        "Secretario"
+      ],
+      "verificadorProf": [
+        true,
+        true,
+        false,
+        false
+      ]
     },
     {
       "id": "a47f",
@@ -60,55 +70,18 @@
       "idClinica": "e0dc"
     },
     {
-      "id": "11",
-      "Nome": "A",
-      "Email": "Eduardopsanchez2005@gmail.com",
-      "Telefone": "11971103001",
-      "Cpf": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "fk_clinica": null
-    },
-    {
-      "id": 12,
-      "Nome": "A",
-      "Email": "Eduardopsanchez2005@gmail.com",
-      "Telefone": "11971103001",
-      "Cpf": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "fk_clinica": null
-    },
-    {
-      "id": 13,
-      "Nome": "A",
-      "Email": "edsonjsanchez@terra.com.br",
-      "Telefone": "11971103001",
-      "Cpf": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "fk_clinica": "cbba"
-    },
-    {
-      "id": 14,
+      "id": 17,
       "Nome": "A",
       "Email": "Eduardopsanchez2005@gmail.com",
       "Telefone": "11971103001",
       "Senha": "123",
       "RG": "123",
       "DataNascimento": "2005-01-30",
-      "Profissao": "fisio",
-      "fk_clinica": "4eb9"
-    },
-    {
-      "id": 15,
-      "Nome": "A",
-      "Email": "Eduardopsanchez2005@gmail.com",
-      "Telefone": "11971103001",
-      "Senha": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "fk_clinica": "4eb9"
+      "Profissao": "Fisio",
+      "Verificador": "185",
+      "Genero": "1",
+      "stats": false,
+      "fk_clinica": "0c2b"
     }
   ]
 }
