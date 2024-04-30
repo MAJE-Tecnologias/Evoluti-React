@@ -39,8 +39,9 @@ export default function AdminHome() {
           icon={<FiPlusCircle size={30} />}
           text="Cadastros"
           alert
+          route={"/AdminCadastro"}
         />
-        <ItemsSidebar icon={<FaUsers size={30} />} text="Usuários" />
+        <ItemsSidebar icon={<FaUsers size={30} />} text="Usuários" route={"/AdminUsuarios"}/>
         <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
         <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
         <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />

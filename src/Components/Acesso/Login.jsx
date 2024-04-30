@@ -2,11 +2,13 @@ import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { FaMoon, FaSun } from "react-icons/fa";
-import FancyText from '@carefully-coded/react-text-gradient';
+import FancyText from "@carefully-coded/react-text-gradient";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [senhaError, setSenhaError] = useState("");
 
   const [tipo, setTipo] = useState("password");
   const [modoEscuro, setModoEscuro] = useState(
@@ -65,17 +67,20 @@ export default function Login() {
     }
   });
   const passarLogin = (e) => {
+    e.preventDefault();
+    setEmailError("");
+    setSenhaError("");
+
     if (validaLogin()) {
       var variaveisAPI = {
         method: "GET",
       };
 
-      e.preventDefault();
-      fetch(`http://localhost:3000/Usuario?email=${email}`, variaveisAPI)
+      fetch(`http://localhost:5173/Usuario?email=${email}`, variaveisAPI)
         .then((response) => response.json())
         .then((resultado) => {
           if (Object.keys(resultado).length === 0) {
-            alert("Usuário não encontrado");
+            setEmailError("E-mail não encontrado.");
           } else {
             if (resultado[0].senha === senha) {
               sessionStorage.setItem("idClinica", resultado[0].fk_clinica);
@@ -96,7 +101,7 @@ export default function Login() {
                   break;
               }
             } else {
-              alert("Senha incorreta");
+              setSenhaError("Senha incorreta");
             }
           }
         })
@@ -105,15 +110,34 @@ export default function Login() {
   };
 
   const validaLogin = () => {
-    if (email.length === 0 || senha.length === 0) {
-      alert("Preencha todos os campos");
-      return false;
+    let estaValido = true;
+    if (email.trim() === "") {
+      setEmailError("E-mail é obrigatório");
+      estaValido = false;
+    } else if (!isValidEmail(email)) {
+      setEmailError("E-mail inválido");
+      estaValido = false;
     }
-    return true;
+    if (senha.length === 0) {
+      setSenhaError("Senha é obrigatória");
+      estaValido = false;
+    }
+    return estaValido;
   };
 
+  const isValidEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
+
+
+  // REDIRECIONAMENTO
   const redirectCadastro = () => {
     usenavigate("/Cadastro");
+  };
+
+  const redirectCadastroCod = () => {
+    usenavigate("/CadastroCod");
   };
 
   return (
@@ -129,12 +153,12 @@ export default function Login() {
         ></img>
         <section className="flex w-full h-full">
           <div className="w-1/2 py-24 px-12 h-full rounded flex flex-col items-center justify-center gap-y-4">
-            <div className="w-full md:w-4/5">
-              <div className="flex-col space-y-4">
-                <h1 className="text-evolutiDarkBlueText font-semibold text-5xl sm:text-nowrap dark:text-evolutiLightBlueText">
+            <div className="w-full">
+              <div className="flex-col space-y-4 text-center">
+                <h1 className="text-evolutiDarkBlueText font-semibold text-5xl mb-3 sm:text-nowrap dark:text-evolutiLightBlueText">
                   Bem-vindo de volta!
                 </h1>
-                <p className="font-medium text-2xl md:text-nowrap dark:text-white">
+                <span className="font-medium text-2xl md:text-nowrap dark:text-white">
                   Transforme com o{" "}
                   <FancyText
                     gradient={{
@@ -147,20 +171,34 @@ export default function Login() {
                   >
                     Evoluti.
                   </FancyText>
-                </p>
+                </span>
               </div>
 
-              <div className="flex flex-col w-full justify-center gap-y-2">
-                <p className="mt-10 dark:text-white">É sua primeira vez?</p>
-                {/* Formulário para redirecionar para a página de login */}
-                <form onSubmit={redirectCadastro} className="w-full">
-                  <input
-                    type="submit"
-                    value="Cadastre sua clínica aqui!"
+              <div className="flex w-full justify-center gap-x-4">
+                <div className="flex flex-col w-1/2 text-center gap-y-2">
+                  <p className="mt-10 text-nowrap dark:text-white">
+                    Não possui uma clínica?
+                  </p>
+                  <button
+                    onClick={redirectCadastro}
                     className="border-2 cursor-pointer border-evolutiLightGreen text-evolutiGreen w-full h-12 rounded font-medium 
                 transition-all hover:bg-evolutiLightGreen hover:text-white"
-                  />
-                </form>
+                  >
+                    Cadastre sua clínica!
+                  </button>
+                </div>
+                <div className="flex flex-col w-1/2 text-center gap-y-2">
+                  <p className="mt-10 dark:text-white text-nowrap">
+                    Possui um código de acesso?
+                  </p>
+                  <button
+                    onClick={redirectCadastroCod}
+                    className="border-2 cursor-pointer border-evolutiLightGreen text-evolutiGreen w-full h-12 rounded font-medium 
+                transition-all hover:bg-evolutiLightGreen hover:text-white"
+                  >
+                    Faça o primeiro acesso!
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -180,12 +218,21 @@ export default function Login() {
                   placeholder="E-mail"
                   name="emailLogin"
                   id=""
-                  className="peer w-full placeholder-transparent bg-loginButtonsBackground 
-                border border-evolutiLightGreen placeholder-evolutiGreen 
-                p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker"
+                  className={`peer w-full placeholder-transparent bg-loginButtonsBackground 
+                border ${
+                  emailError ? "border-red-500" : "border-evolutiLightGreen"
+                } placeholder-evolutiGreen 
+                p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker`}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
+
+                {emailError && (
+                  <span className="text-red-500 text-xs mt-1">
+                    {emailError}
+                  </span>
+                )}
+
                 {/* Label flutuante */}
                 <label
                   htmlFor="emailLogin"
@@ -200,46 +247,57 @@ export default function Login() {
 
               {/* Input para a senha */}
               <div className="w-full relative">
-                <div className="relative flex">
-                  <input
-                    type={tipo}
-                    placeholder="Insira a senha"
-                    name="senhaLogin"
-                    id=""
-                    className="peer w-full placeholder-transparent bg-loginButtonsBackground 
-                border border-evolutiLightGreen placeholder-evolutiGreen 
-                p-3.5 pr-16 rounded-lg shadow-md focus:outline-evolutiGreenDarker"
-                    value={senha}
-                    onChange={(e) => setSenha(e.target.value)}
-                  />
-                  <div
-                    className="absolute inset-y-0 right-0 flex items-center cursor-pointer transition-all m-[1px] 
+                <div>
+                  <div className="w-full relative flex">
+                    <input
+                      type={tipo}
+                      placeholder="Insira a senha"
+                      name="senhaLogin"
+                      id=""
+                      className={`peer w-full placeholder-transparent bg-loginButtonsBackground 
+                border ${
+                  senhaError ? "border-red-500" : "border-evolutiLightGreen"
+                } placeholder-evolutiGreen 
+                p-3.5 pr-16 rounded-lg shadow-md focus:outline-evolutiGreenDarker`}
+                      value={senha}
+                      onChange={(e) => setSenha(e.target.value)}
+                    />
+                    {/* Mensagem de erro para a senha */}
+                    <div
+                      className="absolute inset-y-0 right-0 flex items-center cursor-pointer transition-all m-[1px] 
                     border-l rounded-tr-lg rounded-br-lg border-evolutiLightGreen px-3 text-evolutiGreen
                     hover:text-evolutiGreenDarker hover:bg-gray-200"
-                    onClick={esconderSenha}
-                  >
-                    {tipo === "password" ? (
-                      <IoEyeOff
-                        size={24}
-                        className="cursor-pointer transition-colors"
-                      />
-                    ) : (
-                      <IoEye
-                        size={24}
-                        className="cursor-pointer transition-colors"
-                      />
-                    )}
-                  </div>
-                  {/* Label flutuante */}
-                  <label
-                    htmlFor="senhaLogin"
-                    className="absolute left-0 text-evolutiGreen text-sm -top-5 select-none pointer-events-none transition-all 
+                      onClick={esconderSenha}
+                    >
+                      {tipo === "password" ? (
+                        <IoEyeOff
+                          size={24}
+                          className="cursor-pointer transition-colors"
+                        />
+                      ) : (
+                        <IoEye
+                          size={24}
+                          className="cursor-pointer transition-colors"
+                        />
+                      )}
+                    </div>
+                    {/* Label flutuante */}
+                    <label
+                      htmlFor="senhaLogin"
+                      className="absolute left-0 text-evolutiGreen text-sm -top-5 select-none pointer-events-none transition-all 
                 peer-placeholder-shown:text-base peer-placeholder-shown:text-evolutiGreen 
                 peer-placeholder-shown:top-3.5 peer-placeholder-shown:pl-3.5 
                 peer-focus:-top-5 peer-focus:text-sm peer-focus:pl-0 peer-focus:text-evolutiGreenDarker"
-                  >
-                    Senha
-                  </label>
+                    >
+                      Senha
+                    </label>
+                  </div>
+
+                  {senhaError && (
+                    <span className="text-red-500 text-xs mt-1">
+                      {senhaError}
+                    </span>
+                  )}
                 </div>
                 <div className="flex justify-end">
                   <p
@@ -255,7 +313,7 @@ export default function Login() {
               <input
                 type="submit"
                 value="Entrar"
-                className="bg-evolutiLightGreen text-white w-full h-12 rounded font-medium transition-all hover:bg-evolutiGreenDarker hover:shadow-xl"
+                className="bg-evolutiLightGreen text-white w-full h-12 rounded font-medium transition-all cursor-pointer hover:bg-evolutiGreenDarker hover:shadow-xl"
               />
             </form>
           </div>

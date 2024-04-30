@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoArrowBackCircle, IoArrowForwardCircle } from "react-icons/io5";
 import { IoMdMore, IoIosMore } from "react-icons/io";
 import { FaMoon, FaSun } from "react-icons/fa";
@@ -25,14 +25,13 @@ export default function AdminHomeSidebar({ children }) {
     if (modoEscuro) {
       document.body.classList.add("dark");
     } else {
-      document.body.classList.remove("dark")
+      document.body.classList.remove("dark");
     }
-  }, [modoEscuro])
+  }, [modoEscuro]);
 
   const ativarModoEscuro = () => {
     setModoEscuro((prevMode) => !prevMode);
-
-  }
+  };
 
   return (
     <aside className="absolute h-screen w-fit">
@@ -82,33 +81,32 @@ export default function AdminHomeSidebar({ children }) {
          font-medium hover:bg-evolutiGoldenSuperLight hover:text-evolutiGoldenSuperDarker ${
            expandido ? "py-3" : "py-[6px]"
          } ${
-          modoEscuro ? "bg-evolutiGoldenSuperLight text-evolutiGoldenSuperDarker" : "text-white"
-        }`}
+              modoEscuro
+                ? "bg-evolutiGoldenSuperLight text-evolutiGoldenSuperDarker"
+                : "text-white"
+            }`}
           >
-            {modoEscuro ? <FaSun size={30} /> : <FaMoon size={30}/>}
+            {modoEscuro ? <FaSun size={30} /> : <FaMoon size={30} />}
             <span
               className={`overflow-hidden transition-all ${
                 expandido ? "w-52 ml-3" : "w-0"
               }`}
             >
-
-            {modoEscuro ? 'Modo Claro' : 'Modo Escuro'}
-
+              {modoEscuro ? "Modo Claro" : "Modo Escuro"}
             </span>
 
             {!expandido && (
-                <div
-                  className={`absolute left-full rounded-md px-2 py-1 ml-6 whitespace-nowrap bg-evolutiGoldenLighter 
+              <div
+                className={`absolute left-full rounded-md px-2 py-1 ml-6 whitespace-nowrap bg-evolutiGoldenLighter 
                   text-evolutiGoldenSuperDarker text-sm opacity-20 -translate-x-3 transition-all 
-                   invisible group-hover:visible group-hover:opacity-100 group-hover:translate-x-0 ${modoEscuro ? 'font-bold' : ''}`}
-                >
-                  {modoEscuro ? 'Modo Claro' : 'Modo Escuro'}
-                </div>
-              )}
+                   invisible group-hover:visible group-hover:opacity-100 group-hover:translate-x-0 ${
+                     modoEscuro ? "font-bold" : ""
+                   }`}
+              >
+                {modoEscuro ? "Modo Claro" : "Modo Escuro"}
+              </div>
+            )}
           </div>
-
-
-
         </div>
 
         <div
@@ -156,31 +154,33 @@ export default function AdminHomeSidebar({ children }) {
 export function ItemsSidebar({ icon, text, ativo, aler, route }) {
   const { expandido } = useContext(SidebarContext);
   return (
-    <li
-      className={`relative flex items-center py-3 px-3 my-1 rounded-md cursor-pointer transition-colors group ${
-        ativo
-          ? "bg-gradient-to-tr from-evolutiGoldenSuperLight to-evolutiGoldenLighter text-evolutiGoldenSuperDarker font-bold"
-          : "text-white font-medium hover:bg-evolutiGoldenSuperLight hover:text-evolutiGoldenSuperDarker"
-      }`}
-    >
-      {icon}
-      <span
-        className={`overflow-hidden transition-all ${
-          expandido ? "w-52 ml-3" : "w-0"
+    <Link to={route} className="flex items">
+      <li
+        className={`relative flex items-center py-3 px-3 my-1 rounded-md cursor-pointer transition-colors group ${
+          ativo
+            ? "bg-gradient-to-tr from-evolutiGoldenSuperLight to-evolutiGoldenLighter text-evolutiGoldenSuperDarker font-bold"
+            : "text-white font-medium hover:bg-evolutiGoldenSuperLight hover:text-evolutiGoldenSuperDarker"
         }`}
       >
-        {text}
-      </span>
-
-      {!expandido && (
-        <div
-          className={`absolute left-full rounded-md px-2 py-1 ml-6 bg-evolutiGoldenLighter 
-          text-evolutiGoldenSuperDarker text-sm opacity-20 -translate-x-3 transition-all 
-          invisible group-hover:visible group-hover:opacity-100 group-hover:translate-x-0`}
+        {icon}
+        <span
+          className={`overflow-hidden transition-all ${
+            expandido ? "w-52 ml-3" : "w-0"
+          }`}
         >
           {text}
-        </div>
-      )}
-    </li>
+        </span>
+
+        {!expandido && (
+          <div
+            className={`absolute left-full rounded-md px-2 py-1 ml-6 bg-evolutiGoldenLighter 
+          text-evolutiGoldenSuperDarker text-sm opacity-20 -translate-x-3 transition-all 
+          invisible group-hover:visible group-hover:opacity-100 group-hover:translate-x-0`}
+          >
+            {text}
+          </div>
+        )}
+      </li>
+    </Link>
   );
 }

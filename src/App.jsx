@@ -27,6 +27,10 @@ function App() {
         <Route path='/Cadastro' element={<Cadastro></Cadastro>}></Route>
         {/* Rota para a página de cadastro com chave de administrador */}
         <Route path='/CadastroAdmKey' element={<CadastroAdmKey></CadastroAdmKey>}></Route>
+
+        {/* ----------------------------------------------------------------------------------------- */}
+        {/* ROTAS ADMIN */}
+
         {/* Rota para a página principal do administrador */}
         <Route path='/AdminHome' element={<AdminHome></AdminHome>}></Route>
         {/* Rota para a página de cadastro de administrador */}
