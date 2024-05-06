@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MainNavbar from "../Suplementares/MainNavbar";
 import AdminHomeSidebar, {
   ItemsSidebar,
 } from "../Suplementares/AdminHomeSidebar";
@@ -149,8 +148,6 @@ export default function AdminCadastro() {
 
   return (
     <>
-      <MainNavbar></MainNavbar>
-
       <AdminHomeSidebar>
         <ItemsSidebar
           icon={<FiPlusCircle size={30} />}
@@ -165,7 +162,7 @@ export default function AdminCadastro() {
       </AdminHomeSidebar>
       <section
         id="AdminCadastro"
-        className="flex md:flex-col flex-col h-fit pt-20 pl-[78px] justify-center items-center dark:bg-neutral-800 transition-all"
+        className="flex md:flex-col flex-col h-fit pl-[78px] justify-center items-center dark:bg-neutral-800 transition-all"
       >
         <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">
           <FiPlusCircle size={40} /> Cadastro de Usuários

@@ -18,6 +18,10 @@ module.exports = {
         evolutiGoldenSuperDarker: "#72562e",
         evolutiGoldenLighter: "#e1e1a6",
         evolutiGoldenSuperLight: "#f1f1d4",
+
+        // Cor dos Blocos
+
+        evolutiBlockLight: "#DEDFA4",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

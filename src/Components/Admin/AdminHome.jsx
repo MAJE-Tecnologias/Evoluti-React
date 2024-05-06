@@ -1,6 +1,5 @@
 import { useRef, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import MainNavbar from "../Suplementares/MainNavbar";
 import AdminHomeSidebar, {
   ItemsSidebar,
 } from "../Suplementares/AdminHomeSidebar";
@@ -32,8 +31,6 @@ export default function AdminHome() {
 
   return (
     <>
-      <MainNavbar></MainNavbar>
-
       <AdminHomeSidebar>
         <ItemsSidebar
           icon={<FiPlusCircle size={30} />}
@@ -49,7 +46,7 @@ export default function AdminHome() {
 
       <section
         id="AdminHome"
-        className="flex md:flex-col flex-col h-screen pt-20 pl-[78px] justify-center items-center"
+        className="flex md:flex-col flex-col h-screen pl-[78px] justify-center items-center"
       >
         <img
           src="src\assets\Logo_Sem_fundo.png"

@@ -1,4 +1,3 @@
-import MainNavbar from "../Suplementares/MainNavbar";
 import AdminHomeSidebar, {
   ItemsSidebar,
 } from "../Suplementares/AdminHomeSidebar";

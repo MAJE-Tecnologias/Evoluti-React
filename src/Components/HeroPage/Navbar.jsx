@@ -10,7 +10,7 @@ export default function Navbar(){
     setNav(!nav)
   }
   return (
-    <nav className="bg-white fixed w-full flex px-20 justify-between items-center z-20 border-b-2 border-gray-400"> 
+    <nav className="bg-white fixed w-full flex px-10 justify-between items-center z-50 border-b-2 border-gray-400 md:px-20"> 
       
       <img src={Logo} className="w-fit h-20 flex items-center py-3"></img>
 
@@ -37,30 +37,30 @@ export default function Navbar(){
 
       </ul>
 
-      <div className='block sm:hidden' onClick={controlNav}>
+      <div className='block sm:hidden transition-all cursor-pointer rounded-lg border-2 border-transparent hover:border-black hover:shadow-md' onClick={controlNav}>
       {nav ?  <IoClose size={30}/> : <IoMenu size={30}/>}
 
     </div>
 
       <ul className={nav ? 'fixed left-0 top-0 w-[40%] h-full border-r border-r-gray-900 bg-white ease-in-out duration-500' : 'ease-in-out duration-500 fixed top-0 left-[-100%] h-full w-[40%]'}>
           <li className='p-4 border-b border-gray-600'>
-            <a href="#Home">Início</a>
+            <a href="#Hero">Início</a>
           </li>
 
           <li className='p-4 border-b border-gray-600'>
-            <a href="#Programador">Serviços</a>
+            <a href="#Servicos">Serviços</a>
           </li>
 
           <li className='p-4 border-b border-gray-600'>
-            <a href="#Gamedev">Nosso propósito</a>
+            <a href="#Proposito">Nosso propósito</a>
           </li>
 
           <li className='p-4 border-b border-gray-600'>
-            <a href="#Designer">Sobre nós</a>
+            <a href="#SobreNos">Sobre nós</a>
           </li>
 
           <li className='p-4 border-b border-gray-600'>
-            <a href="#Contato">Contato</a>
+            <a href="#Footer">Contato</a>
           </li>
       </ul>
     </nav>
