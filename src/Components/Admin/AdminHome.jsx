@@ -1,4 +1,4 @@
-import { useRef, useEffect} from "react";
+import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminHomeSidebar, {
   ItemsSidebar,
@@ -13,12 +13,12 @@ import { VscGraph } from "react-icons/vsc";
 import { FaQuestion } from "react-icons/fa";
 
 export default function AdminHome() {
-    // Hook para navegação de rotas
-    const navigate = useNavigate();
+  // Hook para navegação de rotas
+  const navigate = useNavigate();
 
-    // Hook useRef para verificar se o componente está montado
-    const mounted = useRef(false);
-  
+  // Hook useRef para verificar se o componente está montado
+  const mounted = useRef(false);
+
   // useEffect(() => {
   //   if (!mounted.current) {
   //     console.log(sessionStorage.getItem('acess'))
@@ -38,7 +38,11 @@ export default function AdminHome() {
           alert
           route={"/AdminCadastro"}
         />
-        <ItemsSidebar icon={<FaUsers size={30} />} text="Usuários" route={"/AdminUsuarios"}/>
+        <ItemsSidebar
+          icon={<FaUsers size={30} />}
+          text="Usuários"
+          route={"/AdminUsuarios"}
+        />
         <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
         <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
         <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
@@ -46,7 +50,8 @@ export default function AdminHome() {
 
       <section
         id="AdminHome"
-        className="flex md:flex-col flex-col h-screen pl-[78px] justify-center items-center"
+        className="flex md:flex-col flex-col h-screen pl-[78px] justify-center items-center transition-all 
+        dark:bg-neutral-800 dark:text-white"
       >
         <img
           src="src\assets\Logo_Sem_fundo.png"
@@ -58,17 +63,17 @@ export default function AdminHome() {
           Seja bem-vindo(a) a sua tela inicial!
         </h1>
         <p>
-          Codigo de clinica: {localStorage.getItem("idClinica")}<br></br>
+          Codigo de clinica: {localStorage.getItem("idClinica")}
+          <br></br>
           Envie esse codio para seus funcionarios
         </p>
 
         <div className="absolute flex justify-center items-center right-0 bottom-0 p-5 gap-x-2">
           <h1 className="font-extrabold text-2xl">TUTORIAIS</h1>
-          <div className="rounded-full p-3 border-4 border-black">
+          <div className="rounded-full p-3 border-4 border-black dark:border-white">
             <FaQuestion size={20} />
           </div>
         </div>
-
       </section>
     </>
   );
