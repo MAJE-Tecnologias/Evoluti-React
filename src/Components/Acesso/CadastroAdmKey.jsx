@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaMoon, FaSun } from "react-icons/fa";
+import axios from "axios"; // Importando o Axios
 
 export default function CadastroAdmKey() {
   const idClinica = localStorage.getItem("idClinica");
@@ -14,9 +15,9 @@ export default function CadastroAdmKey() {
   const [cpf, setCpf] = useState("");
   const [senha, setSenha] = useState("");
 
-  console.log(idClinica)
-
   const [modoEscuro, setModoEscuro] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches);
+  const navigate = useNavigate();
+  const mounted = useRef(false);
 
   useEffect(() => {
     document.body.classList.toggle("dark", modoEscuro);
@@ -24,19 +25,17 @@ export default function CadastroAdmKey() {
 
   const toggleDarkMode = () => setModoEscuro(!modoEscuro);
 
-  const navigate = useNavigate();
-  const mounted = useRef(false);
-
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
-      fetch(`http://localhost:3000/Usuario?_sort=-id`, { method: "GET" })
-        .then(response => response.json())
-        .then(respostas => {
-          if (respostas && respostas.length > 0) {
-            setId(respostas[0].id);
+      // Utilizando o Axios para fazer a requisição GET
+      axios.get(`http://localhost:3000/Usuario?_sort=-id`)
+        .then(response => {
+          if (response.data && response.data.length > 0) {
+            setId(response.data[0].id);
           }
-        });
+        })
+        .catch(error => console.error("Erro ao buscar dados de usuário:", error));
     }
 
     return () => {
@@ -47,28 +46,26 @@ export default function CadastroAdmKey() {
   const criarAdm = (e) => {
     e.preventDefault();
     if (validaCadastro()) {
-      const variaveisAPI = {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id: parseInt(id) + 1,
-          Nome: nome,
-          Email: email,
-          Telefone: telefone,
-          Senha: senha,
-          RG: rg,
-          DataNascimento: data,
-          fk_clinica: idClinica,
-        }),
+      // Configurando o corpo da requisição
+      const body = {
+        id: parseInt(id) + 1,
+        Nome: nome,
+        Email: email,
+        Telefone: telefone,
+        Senha: senha,
+        RG: rg,
+        DataNascimento: data,
+        fk_clinica: idClinica,
+        nivelAcesso: 1
       };
 
-      fetch(`http://localhost:3000/Usuario`, variaveisAPI)
-        .then(response => response.json())
+      // Utilizando o Axios para fazer a requisição POST
+      axios.post(`http://localhost:3000/Usuario`, body)
         .then(() => {
           alert("Cadastrado com sucesso");
           navigate("/AdminHome");
         })
-        .catch(error => console.log("error", error));
+        .catch(error => console.error("Erro ao cadastrar administrador:", error));
     }
   };
 
@@ -99,7 +96,7 @@ export default function CadastroAdmKey() {
                   </h1>
                   <div className="flex items-center gap-x-4">
                     <p className="text-xl font-medium dark:text-white">Nome da Clínica: </p>
-                    <p className="dark:text-white">Placeholder</p>
+                    <p className="dark:text-white">{}</p>
                   </div>
                 </div>
 
@@ -240,7 +237,7 @@ export default function CadastroAdmKey() {
                   </div>
                 </div>
               </div>
-              </form>
+            </form>
           </div>
           <button onClick={toggleDarkMode} className="fixed flex justify-center transition-all items-center top-0 right-0 m-5 font-bold bg-gray-800 text-white px-4 py-2 rounded-full shadow-md dark:bg-white dark:text-evolutiDarkBlueText">
             {modoEscuro ? <><FaSun className="mr-2" /> Modo Claro</> : <><FaMoon className="mr-2" /> Modo Escuro</>}

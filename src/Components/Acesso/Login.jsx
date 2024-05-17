@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { FaMoon, FaSun } from "react-icons/fa";
@@ -40,32 +40,8 @@ export default function Login() {
   const usenavigate = useNavigate();
 
   // Hook useRef para verificar se o componente está montado
-  const mounted = useRef(false);
 
   // Hook useEffect para carregar dados iniciais quando o componente é montado
-  useEffect(() => {
-    if (!mounted.current) {
-      if (sessionStorage.getItem("user") != null) {
-        alert("Você já está logado, redirecionando para a home");
-        let acesso = sessionStorage.getItem("acess");
-        switch (acesso) {
-          case "1":
-            usenavigate("/AdminHome");
-            break;
-          case "2":
-            usenavigate("/fisioHome");
-            break;
-          case "3":
-            usenavigate("/estagioHome");
-            break;
-          default:
-            console.log("Erro no acesso!");
-            break;
-        }
-      }
-      mounted.current = true;
-    }
-  });
   const passarLogin = (e) => {
     e.preventDefault();
     setEmailError("");
@@ -129,7 +105,6 @@ export default function Login() {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
   };
-
 
   // REDIRECIONAMENTO
   const redirectCadastro = () => {

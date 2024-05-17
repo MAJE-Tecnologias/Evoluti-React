@@ -5,6 +5,7 @@ import Cadastro from "./Components/Acesso/Cadastro";
 import NotFound from "./Components/NotFound";
 import CadastroAdmKey from "./Components/Acesso/CadastroAdmKey";
 import AdminHome from "./Components/Admin/AdminHome";
+import AdminAdd from "./Components/Admin/AdminAdd";
 import AdminCadastro from "./Components/Admin/AdminCadastro";
 import AdminUsuarios from "./Components/Admin/AdminUsuarios";
 import CadastroFunc from "./Components/Acesso/CadastroFunc";
@@ -64,10 +65,8 @@ function App() {
           path="/FuncHome"
           element={<FuncionarioHome></FuncionarioHome>}
         ></Route>
-        <Route
-          path="/FuncAtend"
-          element={<FuncAtend></FuncAtend>}
-        ></Route>
+        <Route path="/FuncAtend" element={<FuncAtend></FuncAtend>}></Route>
+        <Route path="/AdminAdd" element={<AdminAdd></AdminAdd>}></Route>
       </Routes>
     </>
   );

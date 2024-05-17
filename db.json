@@ -30,6 +30,12 @@
         true,
         false,
         false
+      ],
+      "nivel":[
+        2,
+        2,
+        3,
+        1
       ]
     },
     {
@@ -52,6 +58,13 @@
       "nome": "Aba",
       "email": "aba@a.com",
       "adicionadoEm": "2024-04-24T15:02:26.745Z"
+    },
+    {
+      "id": "d59e",
+      "cnpj": "123",
+      "nome": "Teste",
+      "email": "aba@123.com.br",
+      "adicionadoEm": "2024-05-16T22:29:06.510Z"
     }
   ],
   "Usuario": [
@@ -70,7 +83,7 @@
       "idClinica": "e0dc"
     },
     {
-      "id": 17,
+      "id": "17",
       "Nome": "Somos a equipe Evoluti",
       "Email": "Eduardopsanchez2005@gmail.com",
       "Telefone": "11971103001",
@@ -84,7 +97,7 @@
       "fk_clinica": "0c2b"
     },
     {
-      "id": 17,
+      "id": "17",
       "Nome": "Somos a equipe Evoluti",
       "Email": "Eduardopsanchez2005@gmail.com",
       "Telefone": "11971103001",
@@ -98,7 +111,7 @@
       "fk_clinica": "0c2b"
     },
     {
-      "id": 17,
+      "id": "17",
       "Nome": "Somos a equipe Evoluti",
       "Email": "Eduardopsanchez2005@gmail.com",
       "Telefone": "11971103001",
@@ -112,7 +125,7 @@
       "fk_clinica": "0c2b"
     },
     {
-      "id": 17,
+      "id": "17",
       "Nome": "Somos a equipe Evoluti",
       "Email": "Eduardopsanchez2005@gmail.com",
       "Telefone": "11971103001",
@@ -126,7 +139,7 @@
       "fk_clinica": "0c2b"
     },
     {
-      "id": 17,
+      "id": "17",
       "Nome": "Somos a equipe Evoluti",
       "Email": "Eduardopsanchez2005@gmail.com",
       "Telefone": "11971103001",
@@ -140,7 +153,7 @@
       "fk_clinica": "0c2b"
     },
     {
-      "id": 17,
+      "id": "17",
       "Nome": "Somos a equipe Evoluti",
       "Email": "Eduardopsanchez2005@gmail.com",
       "Telefone": "11971103001",
@@ -154,7 +167,7 @@
       "fk_clinica": "0c2b"
     },
     {
-      "id": 17,
+      "id": "17",
       "Nome": "Somos a equipe Evoluti",
       "Email": "Eduardopsanchez2005@gmail.com",
       "Telefone": "11971103001",
@@ -168,7 +181,7 @@
       "fk_clinica": "0c2b"
     },
     {
-      "id": 17,
+      "id": "17",
       "Nome": "Somos a equipe Evoluti",
       "Email": "Eduardopsanchez2005@gmail.com",
       "Telefone": "11971103001",
@@ -182,7 +195,7 @@
       "fk_clinica": "0c2b"
     },
     {
-      "id": 17,
+      "id": "17",
       "Nome": "Somos a equipe Evoluti",
       "Email": "Eduardopsanchez2005@gmail.com",
       "Telefone": "11971103001",
@@ -194,6 +207,16 @@
       "Genero": "1",
       "stats": false,
       "fk_clinica": "0c2b"
+    },
+    {
+      "id": 18,
+      "Nome": "Teste",
+      "Email": "Aba@2134.com",
+      "Telefone": "1234",
+      "Senha": "123",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "d59e"
     }
   ]
 }

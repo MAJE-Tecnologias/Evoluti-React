@@ -4,7 +4,7 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import FancyText from "@carefully-coded/react-text-gradient";
 
 export default function Cadastro() {
-  localStorage.setItem("idClinica", null)
+  localStorage.setItem("idClinica", null);
   const [email, setEmail] = useState("");
   const [emailValidacao, setEmailValidacao] = useState([]);
   const [cnpj, setCNPJ] = useState(""); // Changed to string
@@ -45,10 +45,12 @@ export default function Cadastro() {
   }, []); // Added empty dependency array
 
   const guardarIdClinica = () => {
-    fetch(`http://localhost:3000/Clinica?_sort=-adicionadoEm`, { method: "GET" })
+    fetch(`http://localhost:3000/Clinica?_sort=-adicionadoEm`, {
+      method: "GET",
+    })
       .then((response) => response.json())
       .then((respostas) => {
-        localStorage.setItem("idClinica", respostas[0].id)
+        localStorage.setItem("idClinica", respostas[0].id);
       })
       .catch((error) => console.error("Failed to fetch data:", error));
   };
@@ -67,7 +69,6 @@ export default function Cadastro() {
           adicionadoEm: dataAtual, // Adiciona o campo createdAt ao corpo da requisição
         }),
       };
-
 
       fetch(`http://localhost:3000/Clinica`, variaveisAPI)
         .then((response) => response.json())
