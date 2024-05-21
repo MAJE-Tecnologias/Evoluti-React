@@ -69,19 +69,19 @@ Para contribuir com Evoluti, siga estas etapas:
 1. Bifurque este repositório.
 2. Crie um branch: `git checkout -b <nome_branch>`.
 3. Faça suas alterações e confirme-as: `git commit -m '<mensagem_commit>'`
-4. Envie para o branch original: `git push origin <Evoluti> / <local>`
+4. Envie para o branch original: `git push origin Evoluti-React / <local>`
 5. Crie a solicitação de pull.
 
 Como alternativa, consulte a documentação do GitHub em [como criar uma solicitação pull](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
 ## 🤝 Nossa Equipe
 
-Apresentamos nossa equipe, na qual contribuíram para este projeto:
+Apresentamos nossa equipe, na qual contribuiu para este projeto:
 
 <table>
   <tr>
   <td align="center">
-      <a href="#" title="Bruno Martins">
+      <a href="https://github.com/brunocmartins11" title="Bruno Martins">
         <img src="https://avatars.githubusercontent.com/u/101012137?v=4" width="100px;" alt="Foto de Bruno Martins"/><br>
         <sub>
           <b>Bruno Martins</b>
@@ -89,7 +89,7 @@ Apresentamos nossa equipe, na qual contribuíram para este projeto:
       </a>
     </td>
     <td align="center">
-      <a href="#" title="Eduardo Pielich">
+      <a href="https://github.com/Poliester2005" title="Eduardo Pielich">
         <img src="https://avatars.githubusercontent.com/u/107966984?v=4" width="100px;" alt="Foto de Eduardo Pielich"/><br>
         <sub>
           <b>Eduardo Pielich</b>
@@ -97,7 +97,7 @@ Apresentamos nossa equipe, na qual contribuíram para este projeto:
       </a>
     </td>
     <td align="center">
-      <a href="#" title="Juliana Alves">
+      <a href="https://github.com/haku1112" title="Juliana Alves">
         <img src="https://avatars.githubusercontent.com/u/107577684?v=4" width="100px;" alt="Foto de Juliana Alves"/><br>
         <sub>
           <b>Juliana Alves</b>
@@ -105,7 +105,7 @@ Apresentamos nossa equipe, na qual contribuíram para este projeto:
       </a>
     </td>
     <td align="center">
-      <a href="#" title="Renato Carvalho">
+      <a href="https://github.com/RenatoAC2004" title="Renato Carvalho">
         <img src="https://avatars.githubusercontent.com/u/108144847?v=4" width="100px;" alt="Foto de Renato Carvalho"/><br>
         <sub>
           <b>Renato Carvalho</b>
