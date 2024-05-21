@@ -38,6 +38,7 @@ export default function AdminUsuarios() {
           const usuariosArray = respostas.map((usuario) => ({
             nome: usuario.Nome,
             Profissao: usuario.Profissao,
+            Email: usuario.Email
           }));
           setUsuarios(usuariosArray);
           mounted.current = true;
@@ -65,7 +66,7 @@ export default function AdminUsuarios() {
                 {usuario.nome}
               </th>
               <td className="px-6 py-4">{usuario.Profissao}</td>
-              <td className="px-6 py-4">renatofisio@gmail.com</td>
+              <td className="px-6 py-4">{usuario.Email}</td>
               <td className="px-6 py-4 text-center">
                 <button className="p-1 rounded-lg transition-all hover:bg-evolutiLightBlueText hover:text-white">
                   <FaEye size={20} />

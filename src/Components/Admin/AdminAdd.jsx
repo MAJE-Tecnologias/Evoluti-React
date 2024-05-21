@@ -4,20 +4,22 @@ import axios from "axios";
 export default function AdminAdd() {
   const [clinica, setClinica] = useState(null);
   const [nome, setNome] = useState("");
-  const [verificador, setVerificador] = useState(false); // Alterado para iniciar como false diretamente
-  const [nivel, setNivel] = useState("1"); // Corrigido para iniciar com 'Operador'
+  const [verificador, setVerificador] = useState(false);
+  const [nivel, setNivel] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(
-        `http://localhost:3000/Clinica/${localStorage.getItem("idClinica")}`
-      )
-      .then((response) => {
+    const fetchClinicaData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/Clinica/${localStorage.getItem("idClinica")}`
+        );
         setClinica(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Erro ao buscar os dados da clínica:", error);
-      });
+      }
+    };
+
+    fetchClinicaData();
   }, []);
 
   const addProf = async (e) => {
@@ -29,23 +31,23 @@ export default function AdminAdd() {
       changes.profissoes = [...(clinica?.profissoes || []), nome];
     }
 
-    if (verificador) {
+    if (verificador !== false) {
       changes.verificadorProf = [...(clinica?.verificadorProf || []), verificador];
     }
 
-    if (nivel) {
-      changes.nivel = [...(clinica?.nivel || []), nivel]; // Corrigido para tratar 'nivel' como uma única escolha
+    if (nivel.length > 0) {
+      changes.nivel = [...(clinica?.nivel || []), ...nivel];
     }
 
-    console.log(clinica);
-
     try {
-      const response = await axios.put(
+      const response = await axios.patch(
         `http://localhost:3000/Clinica/${localStorage.getItem("idClinica")}`,
         changes
       );
       console.log("Dados da clínica atualizados com sucesso:", response.data);
       setClinica(response.data);
+      setNome("");
+      setNivel([]);
     } catch (error) {
       console.error("Erro ao atualizar os dados da clínica:", error);
     }
@@ -54,13 +56,13 @@ export default function AdminAdd() {
   return (
     <>
       <form onSubmit={addProf}>
-        <input type="text" onChange={(e) => setNome(e.target.value)} />
+        <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} />
         <input
           type="checkbox"
           onChange={(e) => setVerificador(e.target.checked)}
           checked={verificador}
         />
-        <select value={nivel} onChange={(e) => setNivel(e.target.value)}>
+        <select multiple value={nivel} onChange={(e) => setNivel(Array.from(e.target.selectedOptions, option => option.value))}>
           <option value="1">Operador</option>
           <option value="2">Profissional</option>
           <option value="3">Estagiario</option>

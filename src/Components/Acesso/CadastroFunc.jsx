@@ -105,7 +105,7 @@ export default function CadastroFunc() {
       .then((response) => response.json())
       .then(() => {
         alert("Cadastrado com sucesso");
-        navigate("/AdminHome");
+        navigate("/FuncHome");
       })
       .catch((error) => console.log("error", error));
   };
@@ -153,7 +153,7 @@ export default function CadastroFunc() {
               <div className="flex flex-wrap flex-col w-full">
                 <div className="flex w-full justify-between items-center">
                   <h1 className="text-evolutiDarkBlueText font-medium text-4xl dark:text-evolutiLightBlueText">
-                    Dados do Administrador
+                    Dados do Funcionario
                   </h1>
                   <div className="flex items-center gap-x-4">
                     <p className="text-xl font-medium dark:text-white">
