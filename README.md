@@ -34,16 +34,16 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
     <br>
     &nbsp;&nbsp;
     <a href="https://react.dev/">
-      <img src="https://img.shields.io/badge/-React-66DBFB?style=for-the-badge&logo=React&logoColor=black">
+      <img src="https://img.shields.io/badge/-React-66DBFB?style=for-the-badge&logo=React&logoColor=black"></a>
     &nbsp;&nbsp;
     <a href="https://nodejs.org/en">
-      <img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white">
+      <img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white"></a>
     &nbsp;&nbsp;
     <a href="https://www.mongodb.com/">
-      <img src="https://img.shields.io/badge/-MongoDB-55AD47?style=for-the-badge&logo=mongodb&logoColor=whitee">
+      <img src="https://img.shields.io/badge/-MongoDB-55AD47?style=for-the-badge&logo=mongodb&logoColor=whitee"></a>
     &nbsp;&nbsp;
     <a href="https://tailwindcss.com/">
-      <img src="https://img.shields.io/badge/-tailwind%20CSS-40A3B3?style=for-the-badge&logo=tailwindcss&logoColor=white">
+      <img src="https://img.shields.io/badge/-tailwind%20CSS-40A3B3?style=for-the-badge&logo=tailwindcss&logoColor=white"></a>
     <br>
     <br>
     <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white">
