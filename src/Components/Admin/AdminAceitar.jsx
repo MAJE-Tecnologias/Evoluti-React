@@ -1,21 +1,20 @@
 import AdminHomeSidebar, {
   ItemsSidebar,
 } from "../Suplementares/AdminHomeSidebar";
-import "../CSS/AnimacaoFlutuar.css";
 import { useRef, useEffect, useState } from "react";
-import { FiPlusCircle } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa6";
 import {
   FaUserInjured,
   FaFileAlt,
   FaSearch,
-  FaEye,
-  FaTrash,
+  FaRegCheckCircle,
+  FaRegTimesCircle,
+  FaUserCheck,
 } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 import axios from "axios";
 
-export default function AdminUsuarios() {
+export default function AdminAceitar() {
   const idClinica = localStorage.getItem("idClinica");
   const [usuarios, setUsuarios] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -67,15 +66,15 @@ export default function AdminUsuarios() {
               <td className="px-6 py-4 text-center">
                 <button
                   onClick={(e) => aceitarUsuario(e, usuario.id)}
-                  className="p-1 rounded-lg transition-all hover:bg-evolutiLightBlueText hover:text-white"
+                  className="p-1 rounded-lg transition-all hover:bg-evolutiLightGreen hover:text-white"
                 >
-                  <FaEye size={20} />
+                  <FaRegCheckCircle size={20} />
                 </button>
                 <button
                   onClick={negarUsuario}
                   className="p-1 rounded-lg transition-all hover:bg-red-500 hover:text-white"
                 >
-                  <FaTrash size={20} />
+                  <FaRegTimesCircle size={20} />
                 </button>
               </td>
             </tr>
@@ -94,7 +93,7 @@ export default function AdminUsuarios() {
         `http://localhost:3000/Usuario/${idUsuario}`,
         changes
       );
-      alert("Usuario aceito no sistema")
+      alert("Usuario aceito no sistema");
     } catch (error) {
       console.error("Erro ao atualizar os dados da clínica:", error);
     }
@@ -139,14 +138,14 @@ export default function AdminUsuarios() {
     <>
       <AdminHomeSidebar>
         <ItemsSidebar
-          icon={<FiPlusCircle size={30} />}
-          text="Cadastros"
-          route={"/AdminCadastro"}
+          icon={<FaUserCheck size={30} />}
+          text="Aceitar"
+          ativo
+          route={"/AdminAceitar"}
         />
         <ItemsSidebar
           icon={<FaUsers size={30} />}
           text="Usuários"
-          ativo
           route={"/AdminUsuarios"}
         />
         <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
@@ -160,7 +159,7 @@ export default function AdminUsuarios() {
       >
         <div>
           <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">
-            <FaUsers size={40} /> Visualização de Usuários
+            <FaUserCheck size={40} /> Aceitar novos Usuários
           </h1>
 
           <div className="flex mt-10 justify-center items-center gap-x-3 dark:text-white">

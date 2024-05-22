@@ -6,7 +6,6 @@ import NotFound from "./Components/NotFound";
 import CadastroAdmKey from "./Components/Acesso/CadastroAdmKey";
 import AdminHome from "./Components/Admin/AdminHome";
 import AdminAdd from "./Components/Admin/AdminAdd";
-import AdminCadastro from "./Components/Admin/AdminCadastro";
 import AdminUsuarios from "./Components/Admin/AdminUsuarios";
 import CadastroFunc from "./Components/Acesso/CadastroFunc";
 import FuncionarioHome from "./Components/Funcionario/FuncionarioHome";
@@ -15,6 +14,7 @@ import FuncAtend from "./Components/Funcionario/FuncionarioAtendimento";
 // Importando componentes e métodos necessários do React Router
 import { Route, Routes } from "react-router-dom";
 import CadastroCod from "./Components/Acesso/CadastroCod";
+import AdminAceitar from "./Components/Admin/AdminAceitar";
 
 // Definindo a função App, componente principal da aplicação
 function App() {
@@ -41,8 +41,8 @@ function App() {
         <Route path="/AdminHome" element={<AdminHome></AdminHome>}></Route>
         {/* Rota para a página de cadastro de administrador */}
         <Route
-          path="/AdminCadastro"
-          element={<AdminCadastro></AdminCadastro>}
+          path="/AdminAceitar"
+          element={<AdminAceitar></AdminAceitar>}
         ></Route>
         {/* Rota para a página de usuários do administrador */}
         <Route

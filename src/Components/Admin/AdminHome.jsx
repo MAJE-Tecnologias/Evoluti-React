@@ -4,10 +4,8 @@ import AdminHomeSidebar, {
   ItemsSidebar,
 } from "../Suplementares/AdminHomeSidebar";
 import "../CSS/AnimacaoFlutuar.css";
-
-import { FiPlusCircle } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa6";
-import { FaUserInjured, FaFileAlt } from "react-icons/fa";
+import { FaUserInjured, FaFileAlt, FaUserCheck } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 
 import { FaQuestion } from "react-icons/fa";
@@ -32,11 +30,10 @@ export default function AdminHome() {
   return (
     <>
       <AdminHomeSidebar>
-        <ItemsSidebar
-          icon={<FiPlusCircle size={30} />}
-          text="Cadastros"
-          alert
-          route={"/AdminCadastro"}
+      <ItemsSidebar
+          icon={<FaUserCheck size={30} />}
+          text="Aceitar"
+          route={"/AdminAceitar"}
         />
         <ItemsSidebar
           icon={<FaUsers size={30} />}
