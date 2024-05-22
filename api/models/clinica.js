@@ -1,14 +1,16 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 
-const clinicaSchema = new Schema({
-    id: String,
-    cnpj: String,
-    nome: String,
-    email: String,
-    adicionadoEm: Date,
-    profissoes: [String],
-    verificadorProf: [Boolean],
-    nivel: [Number]
+const clinicaSchema = new mongoose.Schema({
+  id: { type: String, unique: true },
+  cnpj: { type: String, unique: true },
+  nome: String,
+  email: { type: String, unique: true },
+  adicionadoEm: { type: Date, default: Date.now },
+  profissoes: [String],
+  verificadorProf: [Boolean],
+  nivel: [Number]
 });
 
-export default model('Clinica', clinicaSchema);
+const Clinica = mongoose.model('Clinica', clinicaSchema);
+
+export default Clinica;

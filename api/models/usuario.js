@@ -1,18 +1,15 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const usuarioSchema = new mongoose.Schema({
-    id: String,
-    nome: String,
-    nascimento: Date,
-    cpf: String,
-    rg: String,
-    genero: String,
-    email: String,
-    senha: String,
-    user: String,
-    telefone: String,
-    tipoUsuario: String,
-    idClinica: String
+  cnpj: { type: String, unique: true },
+  nome: String,
+  email: { type: String, unique: true },
+  adicionadoEm: { type: Date, default: Date.now },
+  profissoes: [String],
+  verificadorProf: [Boolean],
+  nivel: [Number],
 });
 
-module.exports = mongoose.model('Usuario', usuarioSchema);
+const Usuario = mongoose.model('Usuario', usuarioSchema);
+
+export default Usuario;

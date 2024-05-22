@@ -1,20 +1,10 @@
+import express from 'express';
+import { criarClinica } from '../controllers/clinicaController.js';
 
-const express = require('express');
 const router = express.Router();
-const Clinica = require('../models/clinica');
 
-// Rota para listar todas as clínicas
-router.get("/", async (req, res) => {
-    const clinicas = await Clinica.find();
-    res.send(clinicas);
-});
+router.post('/clinicas', criarClinica);
 
-// Rota para adicionar uma nova clínica
-router.post("/", async(req, res) => {
-    const novaClinica = new Clinica(req.body);
-    await novaClinica.save();
-    res.send(novaClinica);
-});
+export default router;
 
-// Outras rotas para atualizar e excluir clínicas
-module.exports = router;
+
