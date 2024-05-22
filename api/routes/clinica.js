@@ -1,9 +1,12 @@
 import express from 'express';
-import { criarClinica } from '../controllers/clinicaController.js';
+import { buscarClinica, criarClinica, editarClinica, excluirClinica } from '../controllers/clinicaController.js';
 
 const router = express.Router();
 
 router.post('/clinicas', criarClinica);
+router.get('/clinicas', buscarClinica);
+router.delete('/clinica:id', excluirClinica);
+router.put('/clinicas:id', editarClinica);
 
 export default router;
 

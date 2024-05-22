@@ -20,12 +20,45 @@ export const adicionarUsuario = async (req, res) => {
   }
 };
 
-// Buscar todos os usuários
+
 export const buscarUsuarios = async (req, res) => {
   try {
     const usuarios = await Usuario.find().populate('clinicaId');  // Populando os dados da clínica
     res.status(200).json(usuarios);
   } catch (error) {
     res.status(404).json({ message: error.message });
+  }
+};
+
+export const usuariosPorClinica = async (req, res) => {
+  try {
+    const usuarios = await Usuario.find({ clinicaId: req.params.clinicaId });
+    res.status(200).json(usuarios);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const excluirUsuarios = async (req, res) => {
+  try {
+    const usuario = await Usuario.findByIdAndDelete(req.params.id);
+    if (!usuario) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
+    }
+    res.status(202).json(usuario);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const editarUsuarios = async (req, res) => {
+  try {
+    const usuario = await Usuario.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!usuario) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
+    }
+    res.status(200).json(usuario);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
