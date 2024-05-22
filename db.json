@@ -16,76 +16,31 @@
     {
       "id": "0c2b",
       "cnpj": "136",
-      "nome": "Aba",
-      "email": "aba@a.com",
+      "nome": "Clinca Teste",
+      "email": "Clinica@teste.com.br",
       "adicionadoEm": "2024-04-24T05:10:54.733Z",
       "profissoes": [
         "Masso",
         "Fisio",
         "Estgiario",
-        "Secretario",
-        "a"
+        "Secretario"
       ],
       "verificadorProf": [
         true,
         true,
         false,
-        false,
-        true
+        false
       ],
       "nivel": [
         2,
         2,
         3,
-        1,
-        "3"
+        1
       ]
-    },
-    {
-      "id": "a47f",
-      "cnpj": "123",
-      "nome": "Aba",
-      "email": "123@z.com",
-      "adicionadoEm": "2024-04-24T14:59:47.419Z"
-    },
-    {
-      "id": "77a4",
-      "cnpj": "123",
-      "nome": "Aba",
-      "email": "123@z.com",
-      "adicionadoEm": "2024-04-24T15:01:54.040Z"
-    },
-    {
-      "id": "4eb9",
-      "cnpj": "356",
-      "nome": "Aba",
-      "email": "aba@a.com",
-      "adicionadoEm": "2024-04-24T15:02:26.745Z"
-    },
-    {
-      "id": "d59e",
-      "cnpj": "123",
-      "nome": "Teste",
-      "email": "aba@123.com.br",
-      "adicionadoEm": "2024-05-16T22:29:06.510Z"
     }
   ],
   "Usuario": [
     {
-      "id": "1",
-      "nome": "Meu pau",
-      "nascimento": "",
-      "cpf": "",
-      "rg": "",
-      "genero": "",
-      "email": "tem@gmail.com",
-      "senha": "123",
-      "user": "",
-      "telefone": "",
-      "tipoUsuario": "administrador",
-      "idClinica": "e0dc"
-    },
-    {
       "id": "17",
       "Nome": "Somos a equipe Evoluti",
       "Email": "Eduardopsanchez2005@gmail.com",
@@ -93,146 +48,10 @@
       "Senha": "123",
       "RG": "123",
       "DataNascimento": "2005-01-30",
-      "Profissao": "Fisioterapeuta",
+      "Profissao": "Fisio",
       "Verificador": "185",
       "Genero": "1",
-      "stats": false,
-      "fk_clinica": "0c2b"
-    },
-    {
-      "id": "17",
-      "Nome": "Somos a equipe Evoluti",
-      "Email": "Eduardopsanchez2005@gmail.com",
-      "Telefone": "11971103001",
-      "Senha": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "Profissao": "Fisioterapeuta",
-      "Verificador": "185",
-      "Genero": "1",
-      "stats": false,
-      "fk_clinica": "0c2b"
-    },
-    {
-      "id": "17",
-      "Nome": "Somos a equipe Evoluti",
-      "Email": "Eduardopsanchez2005@gmail.com",
-      "Telefone": "11971103001",
-      "Senha": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "Profissao": "Fisioterapeuta",
-      "Verificador": "185",
-      "Genero": "1",
-      "stats": false,
-      "fk_clinica": "0c2b"
-    },
-    {
-      "id": "17",
-      "Nome": "Somos a equipe Evoluti",
-      "Email": "Eduardopsanchez2005@gmail.com",
-      "Telefone": "11971103001",
-      "Senha": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "Profissao": "Fisioterapeuta",
-      "Verificador": "185",
-      "Genero": "1",
-      "stats": false,
-      "fk_clinica": "0c2b"
-    },
-    {
-      "id": "17",
-      "Nome": "Somos a equipe Evoluti",
-      "Email": "Eduardopsanchez2005@gmail.com",
-      "Telefone": "11971103001",
-      "Senha": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "Profissao": "Fisioterapeuta",
-      "Verificador": "185",
-      "Genero": "1",
-      "stats": false,
-      "fk_clinica": "0c2b"
-    },
-    {
-      "id": "17",
-      "Nome": "Somos a equipe Evoluti",
-      "Email": "Eduardopsanchez2005@gmail.com",
-      "Telefone": "11971103001",
-      "Senha": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "Profissao": "Fisioterapeuta",
-      "Verificador": "185",
-      "Genero": "1",
-      "stats": false,
-      "fk_clinica": "0c2b"
-    },
-    {
-      "id": "17",
-      "Nome": "Somos a equipe Evoluti",
-      "Email": "Eduardopsanchez2005@gmail.com",
-      "Telefone": "11971103001",
-      "Senha": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "Profissao": "Fisioterapeuta",
-      "Verificador": "185",
-      "Genero": "1",
-      "stats": false,
-      "fk_clinica": "0c2b"
-    },
-    {
-      "id": "17",
-      "Nome": "Somos a equipe Evoluti",
-      "Email": "Eduardopsanchez2005@gmail.com",
-      "Telefone": "11971103001",
-      "Senha": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "Profissao": "Fisioterapeuta",
-      "Verificador": "185",
-      "Genero": "1",
-      "stats": false,
-      "fk_clinica": "0c2b"
-    },
-    {
-      "id": "17",
-      "Nome": "Somos a equipe Evoluti",
-      "Email": "Eduardopsanchez2005@gmail.com",
-      "Telefone": "11971103001",
-      "Senha": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "Profissao": "Fisioterapeuta",
-      "Verificador": "185",
-      "Genero": "1",
-      "stats": false,
-      "fk_clinica": "0c2b"
-    },
-    {
-      "id": 18,
-      "Nome": "Teste",
-      "Email": "Aba@2134.com",
-      "Telefone": "1234",
-      "Senha": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "fk_clinica": "d59e"
-    },
-    {
-      "id": 19,
-      "Nome": "Teste",
-      "Email": "Aba@2134.com",
-      "Telefone": "",
-      "Senha": "123",
-      "RG": "123",
-      "DataNascimento": "2005-01-30",
-      "Profissao": "Estgiario",
-      "Verificador": "",
-      "Genero": "1",
-      "stats": false,
+      "stats": true,
       "fk_clinica": "0c2b"
     }
   ]
