@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowCircleLeft, FaMoon, FaSun } from "react-icons/fa";
+import axios from "axios"; // Importando o Axios
 import darkModeButton from "../../JS/darkModeButton";
 
 export default function CadastroCod() {
@@ -12,9 +13,9 @@ export default function CadastroCod() {
 
   function verificaCodigo(event) {
     event.preventDefault();
-    fetch(`http://localhost:3000/Clinica?_sort=-id`, { method: "GET" })
-      .then((response) => response.json())
-      .then((respostas) => {
+    axios.get(`http://localhost:3000/Clinica?_sort=-id`)
+      .then(response => {
+        const respostas = response.data;
         if (respostas && respostas.length > 0) {
           for (let i = 0; i < respostas.length; i++) {
             console.log(respostas[i]);
@@ -27,7 +28,7 @@ export default function CadastroCod() {
           }
         }
       })
-      .catch((error) => console.error("Failed to fetch data:", error));
+      .catch(error => console.error("Failed to fetch data:", error));
   }
 
   const redirectLogin = () => {
@@ -41,8 +42,9 @@ export default function CadastroCod() {
         h-screen flex items-center justify-center"
       >
         <img
-          src="src\assets\Logo_Sem_fundo.png"
+          src="src/assets/Logo_Sem_fundo.png"
           className="absolute w-1/12 top-0 left-0 m-5"
+          alt="Logo"
         ></img>
         <section className="flex w-full h-full">
           <div className="w-full py-24 px-12 h-full rounded flex flex-col items-center justify-center gap-y-4">

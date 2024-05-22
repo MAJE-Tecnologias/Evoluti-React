@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaMoon, FaSun } from "react-icons/fa";
-import axios from "axios"; // Importando o Axios
+import axios from "axios";
 
 export default function CadastroAdmKey() {
   const idClinica = localStorage.getItem("idClinica");
@@ -12,7 +12,6 @@ export default function CadastroAdmKey() {
   const [genero, setGenero] = useState("");
   const [telefone, setTelefone] = useState("");
   const [rg, setRG] = useState("");
-  const [cpf, setCpf] = useState("");
   const [senha, setSenha] = useState("");
 
   const [modoEscuro, setModoEscuro] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches);
@@ -28,7 +27,6 @@ export default function CadastroAdmKey() {
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
-      // Utilizando o Axios para fazer a requisição GET
       axios.get(`http://localhost:3000/Usuario?_sort=-id`)
         .then(response => {
           if (response.data && response.data.length > 0) {
@@ -46,7 +44,6 @@ export default function CadastroAdmKey() {
   const criarAdm = (e) => {
     e.preventDefault();
     if (validaCadastro()) {
-      // Configurando o corpo da requisição
       const body = {
         id: parseInt(id) + 1,
         Nome: nome,
@@ -59,7 +56,6 @@ export default function CadastroAdmKey() {
         nivelAcesso: 1
       };
 
-      // Utilizando o Axios para fazer a requisição POST
       axios.post(`http://localhost:3000/Usuario`, body)
         .then(() => {
           alert("Cadastrado com sucesso");
