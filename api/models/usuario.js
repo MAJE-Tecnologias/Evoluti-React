@@ -1,13 +1,17 @@
 import mongoose from 'mongoose';
 
 const usuarioSchema = new mongoose.Schema({
-  cnpj: { type: String, unique: true },
+  cpf: { type: String, unique: true },
   nome: String,
-  email: { type: String, unique: true },
-  adicionadoEm: { type: Date, default: Date.now },
-  profissoes: [String],
-  verificadorProf: [Boolean],
-  nivel: [Number],
+  nascimento: Date,
+  rg: { type: String, unique: true},
+  genero: String,
+  email: {type: String, unique: true},
+  senha: String,
+  user: String,
+  telefone: String,
+  tipoUsuario: Number,
+  clinicaId: { type: mongoose.Schema.Types.ObjectId, ref: 'Clinica' } 
 });
 
 const Usuario = mongoose.model('Usuario', usuarioSchema);
