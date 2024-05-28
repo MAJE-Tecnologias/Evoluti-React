@@ -21,7 +21,7 @@ export default function CadastroCod() {
             console.log(respostas[i]);
             if (codigo === respostas[i].id) {
               alert("Acessando clinica " + respostas[i].nome);
-              localStorage.setItem("idClinica", respostas[i].id);
+              sessionStorage.setItem("idClinica", respostas[i].id);
               navigate("/cadastrofunc");
               break;
             }

@@ -1,15 +1,14 @@
 {
   "Endereco": [
     {
-      "Id": 1,
+      "id": 1,
       "CEP": 13220110,
       "Logradouro": "Bell Alliance",
       "TipoLogradouro": "Rua",
       "Numero": 10,
       "Bairro": "Jardim SCS",
       "Cidade": "Sao Paulo",
-      "Estado": "SP",
-      "id": "d990"
+      "Estado": "SP"
     }
   ],
   "Clinica": [
@@ -52,6 +51,14 @@
       "Verificador": "185",
       "Genero": "1",
       "stats": true,
+      "fk_clinica": "0c2b"
+    }
+  ],
+  "Paciente":[
+    {
+      "id": "0c2b",
+      "Nome": "Eduardo Sanchez",
+      "Email": "Eduardopsanchez2005@gmail.com",
       "fk_clinica": "0c2b"
     }
   ]

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaMoon, FaSun } from "react-icons/fa";
 
 export default function CadastroFunc() {
-  const idClinica = localStorage.getItem("idClinica");
+  const idClinica = sessionStorage.getItem("idClinica");
   const [id, setId] = useState(null);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -82,11 +82,12 @@ export default function CadastroFunc() {
 
   const criarFunc = (e) => {
     e.preventDefault();
+    const newId = parseInt(id) + 1
     const variaveisAPI = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        id: parseInt(id) + 1,
+        id: newId,
         Nome: nome,
         Email: email,
         Telefone: telefone,
@@ -105,6 +106,7 @@ export default function CadastroFunc() {
       .then((response) => response.json())
       .then(() => {
         alert("Cadastrado com sucesso");
+        sessionStorage.setItem("idUsuario", newId)
         navigate("/FuncHome");
       })
       .catch((error) => console.log("error", error));

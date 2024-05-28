@@ -15,8 +15,7 @@ import {
 import { VscGraph } from "react-icons/vsc";
 
 export default function AdminUsuarios() {
-  const idClinica = localStorage.getItem("idClinica");
-  const [tipoUsuario, setTipoUsuario] = useState("tudo");
+  const idClinica = sessionStorage.getItem("idClinica");
   const [usuarios, setUsuarios] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(5);
