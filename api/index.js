@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import usuarioRoutes from './routes/usuario.js';
 import clinicaRoutes from './routes/clinica.js';
+import pacienteRoutes from './routes/paciente.js';
+import enderecoRoutes from './routes/endereco.js';
 
 const app = express();
 const PORT = 3000;
@@ -25,6 +27,8 @@ connectDB();
 // Usar as rotas
 app.use('/api', usuarioRoutes);
 app.use('/api', clinicaRoutes);
+app.use('/api', pacienteRoutes);
+app.use('/api', enderecoRoutes);
 
 // Iniciar o servidor
 app.listen(PORT, () => {

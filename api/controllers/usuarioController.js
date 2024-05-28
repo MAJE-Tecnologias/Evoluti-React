@@ -23,8 +23,14 @@ export const adicionarUsuario = async (req, res) => {
 
 export const buscarUsuarios = async (req, res) => {
   try {
-    const usuarios = await Usuario.find().populate('clinicaId');  // Populando os dados da clínica
-    res.status(200).json(usuarios);
+    if(!req.params.id){
+      const usuarios = await Usuario.find().populate('clinicaId');  // Populando os dados da clínica
+      res.status(200).json(usuarios);
+    } else {
+      const usuarios = await Usuario.findById(req.params.id).populate('clinicaId');  // Populando os dados da clínica
+      res.status(200).json(usuarios);
+    }
+    
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

@@ -24,7 +24,7 @@ export const criarClinica = async (req, res) => {
 
 export const buscarClinica = async (req, res) => {
   try {
-    const clinica = await Clinica.find().populate('clinicaId');  // Populando os dados da clínica
+    const clinica = await Clinica.find(); 
     res.status(200).json(clinica);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -43,11 +43,37 @@ export const excluirClinica = async (req, res) => {
   }
 };
 
+// Atualizar clínica por ID
 export const editarClinica = async (req, res) => {
   try {
-    const clinica = await Clinica.findByIdAndUpdate(req.params.id, req.body, { new: true }); // Supondo que você passe o ID do usuário a ser editado através dos parâmetros da requisição e as atualizações no corpo da requisição
+    const clinica = await Clinica.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!clinica) {
-      return res.status(404).json({ message: "Usuário não encontrado" });
+      return res.status(404).json({ message: "Clínica não encontrada" });
+    }
+    res.status(200).json(clinica);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Atualizar profissões de uma clínica
+export const editarProfissoes = async (req, res) => {
+  try {
+    const { profissoes, verificadorProf, nivel } = req.body;
+    const clinica = await Clinica.findByIdAndUpdate(
+      req.params.id,
+      {
+        $push: {
+          profissoes: { $each: profissoes },
+          verificadorProf: { $each: verificadorProf },
+          nivel: { $each: nivel }
+        }
+      },
+      { new: true }
+    );
+
+    if (!clinica) {
+      return res.status(404).json({ message: "Clínica não encontrada" });
     }
     res.status(200).json(clinica);
   } catch (error) {

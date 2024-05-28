@@ -4,7 +4,7 @@ const usuarioSchema = new mongoose.Schema({
   cpf: { type: String, unique: true },
   nome: String,
   nascimento: Date,
-  rg: { type: String, unique: true},
+  rg: String,
   genero: String,
   email: {type: String, unique: true},
   senha: String,
