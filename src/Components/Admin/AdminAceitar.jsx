@@ -2,7 +2,15 @@ import AdminHomeSidebar, {
   ItemsSidebar,
 } from "../Suplementares/AdminHomeSidebar";
 import { useRef, useEffect, useState } from "react";
-import { FaUsers, FaUserInjured, FaFileAlt, FaSearch, FaRegCheckCircle, FaRegTimesCircle, FaUserCheck } from "react-icons/fa";
+import {
+  FaUsers,
+  FaUserInjured,
+  FaFileAlt,
+  FaSearch,
+  FaRegCheckCircle,
+  FaRegTimesCircle,
+  FaUserCheck,
+} from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 import axios from "axios";
 
@@ -14,35 +22,93 @@ export default function AdminAceitar() {
 
   const mounted = useRef(false);
 
-  useEffect(() => {
-    if (!mounted.current) {
-      axios
-        .get(`http://localhost:3000/Usuario?fk_clinica=${idClinica}`)
-        .then((response) => {
-          const respostas = response.data;
-          const usuariosArray = [];
-
-          for (let i = 0; i < respostas.length; i++) {
-            if (respostas[i].stats === false) {
-              // adiciona à lista
-              usuariosArray.push({
-                id: respostas[i].id,
-                nome: respostas[i].Nome,
-                Profissao: respostas[i].Profissao,
-                Email: respostas[i].Email,
-              });
-            }
-            // caso contrário, não faz nada
-          }
-
-          setUsuarios(usuariosArray);
-          mounted.current = true;
-        })
-        .catch((error) => console.error("Falha ao obter dados:", error));
+  const buscarDados = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/Usuario?fk_clinica=${idClinica}`
+      );
+      const respostas = response.data;
+      const usuariosArray = respostas
+        .filter((usuario) => usuario.stats === false)
+        .map((usuario) => ({
+          id: usuario.id,
+          nome: usuario.Nome,
+          Profissao: usuario.Profissao,
+          Email: usuario.Email,
+        }));
+      setUsuarios(usuariosArray);
+      mounted.current = true;
+    } catch (error) {
+      console.error("Falha ao obter dados:", error);
     }
+  };
+
+  useEffect(() => {
+    buscarDados();
+
+    const intervalo = setInterval(buscarDados, 10000);
+
+    return () => clearInterval(intervalo);
   }, []);
 
-  function showUsuarios(usuarios) {
+  const aceitarUsuario = async (e, idUsuario) => {
+    e.preventDefault();
+
+    const changes = { stats: true };
+    try {
+      await axios.patch(`http://localhost:3000/Usuario/${idUsuario}`, changes);
+      alert("Usuario aceito no sistema");
+      buscarDados();
+    } catch (error) {
+      console.error("Erro ao atualizar os dados da clínica:", error);
+    }
+  };
+
+  const negarUsuario = async (e, idUsuario) => {
+    e.preventDefault();
+    try {
+      await axios.delete(`http://localhost:3000/Usuario/${idUsuario}`);
+      alert("Usuario apagado do sistema");
+      buscarDados();
+    } catch (error) {
+      console.error("Erro ao atualizar os dados da clínica:", error);
+    }
+  };
+
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const prevPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
+  const totalPages = Math.ceil(usuarios.length / usersPerPage);
+
+  const handlePerPageChange = (e) => {
+    setUsersPerPage(parseInt(e.target.value));
+    setCurrentPage(1);
+  };
+
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          className={`px-3 py-1 mx-1 border rounded-lg ${
+            currentPage === i ? "bg-gray-500" : "bg-gray-300"
+          }`}
+          onClick={() => setCurrentPage(i)}
+        >
+          {i}
+        </button>
+      );
+    }
+    return pageNumbers;
+  };
+
+  const showUsuarios = (usuarios) => {
     const indexOfLastUser = currentPage * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
     const currentUsers = usuarios.slice(indexOfFirstUser, indexOfLastUser);
@@ -82,69 +148,6 @@ export default function AdminAceitar() {
         ))}
       </>
     );
-  }
-
-  const aceitarUsuario = async (e, idUsuario) => {
-    e.preventDefault();
-
-    const changes = { stats: true };
-    try {
-      await axios.patch(
-        `http://localhost:3000/Usuario/${idUsuario}`,
-        changes
-      );
-      alert("Usuario aceito no sistema");
-      window.location.reload();
-    } catch (error) {
-      console.error("Erro ao atualizar os dados da clínica:", error);
-    }
-  };
-
-  const negarUsuario = async (e, idUsuario) => {
-    e.preventDefault();
-
-    try{
-      await axios.delete(
-        `http://localhost:3000/Usuario/${idUsuario}`
-      )
-      alert("Usuario apagado do sistema");
-      window.location.reload();
-    }catch (error) {
-      console.error("Erro ao atualizar os dados da clínica:", error);
-    }
-  };
-
-  const nextPage = () => {
-    setCurrentPage(currentPage + 1);
-  };
-
-  const prevPage = () => {
-    setCurrentPage(currentPage - 1);
-  };
-
-  const totalPages = Math.ceil(usuarios.length / usersPerPage);
-
-  const handlePerPageChange = (e) => {
-    setUsersPerPage(parseInt(e.target.value));
-    setCurrentPage(1);
-  };
-
-  const renderPageNumbers = () => {
-    const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
-      pageNumbers.push(
-        <button
-          key={i}
-          className={`px-3 py-1 mx-1 border rounded-lg ${
-            currentPage === i ? "bg-gray-500" : "bg-gray-300"
-          }`}
-          onClick={() => setCurrentPage(i)}
-        >
-          {i}
-        </button>
-      );
-    }
-    return pageNumbers;
   };
 
   return (

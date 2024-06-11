@@ -1,6 +1,8 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaMoon, FaSun } from "react-icons/fa";
+import axios from "axios";
+import Modal from "./ModalEmail"; // Importe o componente ModalEmail
 
 export default function CadastroFunc() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -15,13 +17,15 @@ export default function CadastroFunc() {
   const [senha, setSenha] = useState("");
   const [verificador, setVerificador] = useState("");
   const [profissoes, setProfissoes] = useState([]); // Estado para armazenar as profissões
+  const [showModal, setShowModal] = useState(false); // Estado para controlar a exibição do modal
+  const [modalMessage, setModalMessage] = useState(""); // Estado para a mensagem do modal
+  const [codigoEmail, setCodigoEmail] = useState(""); // Estado para o código de e-mail
 
   const [modoEscuro, setModoEscuro] = useState(
     window.matchMedia("(prefers-color-scheme: dark)").matches
   );
 
   const verificadorRef = useRef();
-
 
   useEffect(() => {
     document.body.classList.toggle("dark", modoEscuro);
@@ -80,36 +84,88 @@ export default function CadastroFunc() {
     };
   }, [idClinica, profissao]);
 
-  const criarFunc = (e) => {
-    e.preventDefault();
-    const newId = parseInt(id) + 1
-    const variaveisAPI = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: newId,
-        Nome: nome,
-        Email: email,
-        Telefone: telefone,
-        Senha: senha,
-        RG: rg,
-        DataNascimento: data,
-        Profissao: profissao,
-        Verificador: verificador,
-        Genero: genero,
-        stats: false,
-        fk_clinica: idClinica,
-      }),
+  function gerarCodigo(length) {
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    const charactersLength = characters.length;
+
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+  }
+
+  function enviarEmail() {
+    const codigo = gerarCodigo(4);
+    setCodigoEmail(codigo);
+    const data = {
+      email: email,
+      subject: "Email de confirmação Evoluti",
+      message: `Código para validar sua conta é ${codigo}`,
     };
 
-    fetch(`http://localhost:3000/Usuario`, variaveisAPI)
-      .then((response) => response.json())
-      .then(() => {
-        alert("Cadastrado com sucesso");
-        sessionStorage.setItem("idUsuario", newId)
-        navigate("/FuncHome");
+    axios
+      .post("https://emailhandler.onrender.com/send-email", data)
+      .then(function (response) {
+        console.log("Resposta do servidor:", response.data);
+        setModalMessage(
+          "O e-mail foi enviado com sucesso! Por favor, insira o código recebido."
+        );
+        setShowModal(true);
       })
-      .catch((error) => console.log("error", error));
+      .catch(function (error) {
+        console.error("Erro ao fazer request:", error);
+        setModalMessage("Erro ao enviar o e-mail.");
+      });
+  }
+
+  const criarFunc = (e) => {
+    e.preventDefault();
+    enviarEmail();
+  };
+
+  const handleModalSubmit = async (value) => {
+    if (validaEmail(value)) {
+      const newId = parseInt(id) + 1;
+      const variaveisAPI = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: newId,
+          Nome: nome,
+          Email: email,
+          Telefone: telefone,
+          Senha: senha,
+          RG: rg,
+          DataNascimento: data,
+          Profissao: profissao,
+          Verificador: verificador,
+          Genero: genero,
+          stats: false,
+          fk_clinica: idClinica,
+        }),
+      };
+
+      fetch(`http://localhost:3000/Usuario`, variaveisAPI)
+        .then((response) => response.json())
+        .then(() => {
+          alert("Cadastrado com sucesso");
+          sessionStorage.setItem("idUsuario", newId);
+          navigate("/FuncHome");
+        })
+        .catch((error) => console.log("error", error));
+    }
+  };
+
+  const validaEmail = (value) => {
+    if (codigoEmail === value) {
+      return true;
+    } else {
+      alert("Código Inválido");
+      return false;
+    }
   };
 
   function GerarOptions(profissoes) {
@@ -122,12 +178,11 @@ export default function CadastroFunc() {
 
   function debounce(func, wait) {
     let timeout;
-    return function(...args) {
+    return function (...args) {
       clearTimeout(timeout);
       timeout = setTimeout(() => func(...args), wait);
     };
   }
-  
 
   function verificaProf() {
     const prof = profissoes.find((p) => p.profissao === profissao);
@@ -394,6 +449,12 @@ export default function CadastroFunc() {
             )}
           </button>
         </section>
+        <Modal
+          showModal={showModal}
+          closeModal={() => setShowModal(false)}
+          message={modalMessage}
+          onSubmit={handleModalSubmit}
+        />
       </main>
     </>
   );
