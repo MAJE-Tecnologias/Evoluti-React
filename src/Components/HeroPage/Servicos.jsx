@@ -14,7 +14,7 @@ export default function Servicos() {
             <div className='flex flex-col items-center px-6 py-6 h-full'>
 
             <h1 className="mb-4 text-3xl font-normal leading-none tracking-tight
-             md:text-3xl  dark:text-white whitespace-nowrap"><b className='text-white'>Serviços</b> que oferecem o 
+             md:text-3xl  dark:text-white text-white text-center"><b className='text-white'>Serviços</b> que oferecem o 
              <b className='text-white'> melhor ecossistema</b> para o seu dia-a-dia</h1>
 
             <div className='h-full w-full'>

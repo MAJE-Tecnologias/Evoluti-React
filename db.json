@@ -1,50 +1,376 @@
 {
   "Endereco": [
     {
-      "Id": 1,
+      "id": 1,
       "CEP": 13220110,
       "Logradouro": "Bell Alliance",
       "TipoLogradouro": "Rua",
       "Numero": 10,
       "Bairro": "Jardim SCS",
       "Cidade": "Sao Paulo",
-      "Estado": "SP",
-      "id": "d990"
+      "Estado": "SP"
     }
   ],
   "Clinica": [
     {
-      "Id": 1,
-      "Nome": "Cirurtec",
-      "Email": "cirurtec@contato.com",
-      "id": "49ef"
-    },
-    {
-      "id": "6810",
-      "Id": 2,
-      "Nome": "Poggers",
-      "Email": "Teste"
-    },
-    {
-      "id": "7474",
-      "Id": 2,
-      "Nome": "Poggers",
-      "Email": "teste@gmail.com"
+      "id": "0c2b",
+      "cnpj": "136",
+      "nome": "Clinca Teste",
+      "email": "Clinica@teste.com.br",
+      "adicionadoEm": "2024-04-24T05:10:54.733Z",
+      "profissoes": [
+        "Masso",
+        "Fisio",
+        "Estgiario",
+        "Secretario"
+      ],
+      "verificadorProf": [
+        true,
+        true,
+        false,
+        false
+      ],
+      "nivel": [
+        2,
+        0,
+        3,
+        1
+      ]
     }
   ],
-  "Admin": [
+  "Usuario": [
     {
-      "Id": 1,
-      "Nome": "Adapter Souza",
-      "Email": "adapter@souza.com",
-      "Senha": "1234",
-      "Telefone": 12345678910,
-      "Cpf": 12345678901,
-      "RG": 123456789,
-      "Genero": "Homem-Cis",
-      "fk_endereco": 1,
-      "fk_clinica": 1,
-      "id": "b97c"
+      "id": "17",
+      "Nome": "Somos a equipe Evoluti",
+      "Email": "Epduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "123",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "Profissao": "Fisio",
+      "Verificador": "185",
+      "Genero": "1",
+      "stats": false,
+      "fk_clinica": "0c2b"
+    },
+    {
+      "id": "18",
+      "Nome": "Somos a equipe Evoluti",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "123",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "Profissao": "Fisio",
+      "Verificador": "185",
+      "Genero": "1",
+      "stats": true,
+      "fk_clinica": "0c2b"
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 19,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "122",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 20,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "147",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 21,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "147",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 22,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "147",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 22,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "147",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 23,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "147",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 24,
+      "Nome": "A",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "147",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    },
+    {
+      "id": 25,
+      "Nome": "A",
+      "Email": "goxic30927@kernuo.com",
+      "Telefone": "11971103001",
+      "Senha": "123",
+      "RG": "123",
+      "DataNascimento": "0001-12-30",
+      "fk_clinica": "eb6b",
+      "nivelAcesso": 1
+    }
+  ],
+  "Paciente": [
+    {
+      "id": "0c2b",
+      "Nome": "Eduardo Sanchez",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "fk_clinica": "0c2b"
     }
   ]
 }

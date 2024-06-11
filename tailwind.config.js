@@ -5,9 +5,24 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        loginButtonsBackground: "#EFF8FF",
+        evolutiDarkBlueText: "#1A334E",
+        evolutiLightBlueText: "#5c9dd4",
+        evolutiBlueText: "#4984c7",
         evolutiDarkBlue: "#132941",
+        EvolutiLightGreenLighter: '#70e5af',
         evolutiLightGreen: "#45D496",
+        evolutiGreen: '#13b675',
+        evolutiGreenDarker: '#07945e',
         evolutiGolden: "#D7D588",
+        evolutiGoldenDarker: "#c7bf58",
+        evolutiGoldenSuperDarker: "#72562e",
+        evolutiGoldenLighter: "#e1e1a6",
+        evolutiGoldenSuperLight: "#f1f1d4",
+
+        // Cor dos Blocos
+
+        evolutiBlockLight: "#DEDFA4",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
@@ -23,4 +38,6 @@ module.exports = {
     },
   },
   plugins: [],
+
+  darkMode: 'class',
 };

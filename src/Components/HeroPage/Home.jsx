@@ -20,7 +20,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className='relative bg-gradient-to-tr from-evolutiLightGreen to-evolutiDarkBlue flex justify-center items-start sm:px-16 px6 z-10'>
+      <div className='relative bg-gradient-to-tr from-evolutiLightGreen to-evolutiDarkBlue flex justify-center items-start sm:px-8 z-10'>
         
         <div className='w-full'>
         <Servicos/>
