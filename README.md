@@ -14,7 +14,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 
 - [x] Web Page
 - [x] Área de Login/Cadastros
-- [ ] Mantimento de Usuários
+- [x] Mantimento de Usuários
 - [ ] Mantimento de Pacientes
 - [ ] Filtros
 - [ ] Atendimento
