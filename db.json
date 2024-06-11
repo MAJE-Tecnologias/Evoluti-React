@@ -32,7 +32,7 @@
       ],
       "nivel": [
         2,
-        2,
+        0,
         3,
         1
       ]
@@ -42,7 +42,7 @@
     {
       "id": "17",
       "Nome": "Somos a equipe Evoluti",
-      "Email": "Eduardopsanchez2005@gmail.com",
+      "Email": "Epduardopsanchez2005@gmail.com",
       "Telefone": "11971103001",
       "Senha": "123",
       "RG": "123",
@@ -52,9 +52,23 @@
       "Genero": "1",
       "stats": true,
       "fk_clinica": "0c2b"
+    },
+    {
+      "id": "18",
+      "Nome": "Somos a equipe Evoluti",
+      "Email": "Eduardopsanchez2005@gmail.com",
+      "Telefone": "11971103001",
+      "Senha": "123",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "Profissao": "Fisio",
+      "Verificador": "185",
+      "Genero": "1",
+      "stats": false,
+      "fk_clinica": "0c2b"
     }
   ],
-  "Paciente":[
+  "Paciente": [
     {
       "id": "0c2b",
       "Nome": "Eduardo Sanchez",

@@ -2,20 +2,12 @@ import AdminHomeSidebar, {
   ItemsSidebar,
 } from "../Suplementares/AdminHomeSidebar";
 import { useRef, useEffect, useState } from "react";
-import { FaUsers } from "react-icons/fa6";
-import {
-  FaUserInjured,
-  FaFileAlt,
-  FaSearch,
-  FaRegCheckCircle,
-  FaRegTimesCircle,
-  FaUserCheck,
-} from "react-icons/fa";
+import { FaUsers, FaUserInjured, FaFileAlt, FaSearch, FaRegCheckCircle, FaRegTimesCircle, FaUserCheck } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 import axios from "axios";
 
 export default function AdminAceitar() {
-  const idClinica = localStorage.getItem("idClinica");
+  const idClinica = sessionStorage.getItem("idClinica");
   const [usuarios, setUsuarios] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(5);
@@ -28,17 +20,25 @@ export default function AdminAceitar() {
         .get(`http://localhost:3000/Usuario?fk_clinica=${idClinica}`)
         .then((response) => {
           const respostas = response.data;
-          console.log(respostas);
-          const usuariosArray = respostas.map((usuario) => ({
-            id: usuario.id,
-            nome: usuario.Nome,
-            Profissao: usuario.Profissao,
-            Email: usuario.Email,
-          }));
+          const usuariosArray = [];
+
+          for (let i = 0; i < respostas.length; i++) {
+            if (respostas[i].stats === false) {
+              // adiciona à lista
+              usuariosArray.push({
+                id: respostas[i].id,
+                nome: respostas[i].Nome,
+                Profissao: respostas[i].Profissao,
+                Email: respostas[i].Email,
+              });
+            }
+            // caso contrário, não faz nada
+          }
+
           setUsuarios(usuariosArray);
           mounted.current = true;
         })
-        .catch((error) => console.error("Failed to fetch data:", error));
+        .catch((error) => console.error("Falha ao obter dados:", error));
     }
   }, []);
 
@@ -71,7 +71,7 @@ export default function AdminAceitar() {
                   <FaRegCheckCircle size={20} />
                 </button>
                 <button
-                  onClick={negarUsuario}
+                  onClick={(e) => negarUsuario(e, usuario.id)}
                   className="p-1 rounded-lg transition-all hover:bg-red-500 hover:text-white"
                 >
                   <FaRegTimesCircle size={20} />
@@ -89,17 +89,30 @@ export default function AdminAceitar() {
 
     const changes = { stats: true };
     try {
-      const response = await axios.patch(
+      await axios.patch(
         `http://localhost:3000/Usuario/${idUsuario}`,
         changes
       );
       alert("Usuario aceito no sistema");
+      window.location.reload();
     } catch (error) {
       console.error("Erro ao atualizar os dados da clínica:", error);
     }
   };
 
-  const negarUsuario = () => {};
+  const negarUsuario = async (e, idUsuario) => {
+    e.preventDefault();
+
+    try{
+      await axios.delete(
+        `http://localhost:3000/Usuario/${idUsuario}`
+      )
+      alert("Usuario apagado do sistema");
+      window.location.reload();
+    }catch (error) {
+      console.error("Erro ao atualizar os dados da clínica:", error);
+    }
+  };
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);

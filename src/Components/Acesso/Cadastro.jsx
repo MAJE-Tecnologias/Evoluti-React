@@ -2,12 +2,13 @@ import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaMoon, FaSun } from "react-icons/fa";
 import FancyText from "@carefully-coded/react-text-gradient";
+import axios from "axios";
 
 export default function Cadastro() {
-  localStorage.setItem("idClinica", null);
+  sessionStorage.setItem("idClinica", null);
   const [email, setEmail] = useState("");
   const [emailValidacao, setEmailValidacao] = useState([]);
-  const [cnpj, setCNPJ] = useState(""); // Changed to string
+  const [cnpj, setCNPJ] = useState("");
   const [nome, setNome] = useState("");
   const [modoEscuro, setModoEscuro] = useState(
     window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -29,12 +30,13 @@ export default function Cadastro() {
 
   useEffect(() => {
     if (mounted.current) {
-      fetch(`http://localhost:3000/Clinica?_sort=-id`, { method: "GET" })
-        .then((response) => response.json())
-        .then((respostas) => {
+      axios
+        .get(`http://localhost:3000/Clinica?_sort=-id`)
+        .then((response) => {
+          const respostas = response.data;
           setEmailValidacao(respostas.map((resp) => resp.Email));
           if (respostas.length > 0) {
-            setCNPJ(respostas[0].cnpj); // Assuming you want to set the CNPJ from the response
+            setCNPJ(respostas[0].cnpj);
           }
         })
         .catch((error) => console.error("Failed to fetch data:", error));
@@ -42,14 +44,13 @@ export default function Cadastro() {
     return () => {
       mounted.current = false;
     };
-  }, []); // Added empty dependency array
+  }, []);
 
   const guardarIdClinica = () => {
-    fetch(`http://localhost:3000/Clinica?_sort=-adicionadoEm`, {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((respostas) => {
+    axios
+      .get(`http://localhost:3000/Clinica?_sort=-adicionadoEm`)
+      .then((response) => {
+        const respostas = response.data;
         localStorage.setItem("idClinica", respostas[0].id);
       })
       .catch((error) => console.error("Failed to fetch data:", error));
@@ -58,7 +59,7 @@ export default function Cadastro() {
   const criarClinica = (e) => {
     e.preventDefault();
     if (validaCadastro()) {
-      const dataAtual = new Date().toISOString(); // Cria um timestamp ISO para o momento atual
+      const dataAtual = new Date().toISOString();
       const variaveisAPI = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -66,16 +67,16 @@ export default function Cadastro() {
           cnpj,
           nome,
           email,
-          adicionadoEm: dataAtual, // Adiciona o campo createdAt ao corpo da requisição
+          adicionadoEm: dataAtual,
         }),
       };
 
-      fetch(`http://localhost:3000/Clinica`, variaveisAPI)
-        .then((response) => response.json())
+      axios
+        .post(`http://localhost:3000/Clinica`, variaveisAPI)
         .then(() => {
           alert("Cadastrado com sucesso");
           guardarIdClinica();
-          navigate("/CadastroAdmKey"); // Assegure-se de que navigate está definido corretamente, geralmente deve ser: const navigate = useNavigate();
+          navigate("/CadastroAdmKey");
         })
         .catch((error) => console.error("Error:", error));
     }
@@ -97,10 +98,8 @@ export default function Cadastro() {
     navigate("/Login");
   };
 
-  // Renderização do componente
   return (
     <>
-      {/* Estrutura do formulário de cadastro */}
       <main className="bg-[url('src/assets/Fundo.png')] dark:bg-[url('src/assets/FundoInverso.png')] transition-all bg-cover w-screen h-screen flex items-center justify-center">
         <img
           src="src\assets\Logo_Sem_fundo.png"
@@ -133,7 +132,6 @@ export default function Cadastro() {
                 <p className="mt-10 dark:text-white">
                   Caso já tenha uma conta,{" "}
                 </p>
-                {/* Formulário para redirecionar para a página de login */}
                 <form onSubmit={redirectLogin} className="w-full">
                   <input
                     type="submit"
@@ -154,7 +152,6 @@ export default function Cadastro() {
                 Cadastre sua clínica
               </h1>
 
-              {/* Input para o nome da clínica */}
               <div className="w-full relative">
                 <input
                   type="text"
@@ -166,7 +163,6 @@ export default function Cadastro() {
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                 />
-                {/* Label flutuante */}
                 <label
                   htmlFor="nomeClinica"
                   className="absolute left-0 text-evolutiGreen text-sm -top-5 select-none pointer-events-none transition-all 
@@ -178,10 +174,9 @@ export default function Cadastro() {
                 </label>
               </div>
 
-              {/* Input para o CNPJ da clínica */}
               <div className="w-full relative">
                 <input
-                  type="number"
+                  type="text"
                   placeholder="CNPJ da Clínica"
                   name="CNPJClinica"
                   id=""
@@ -190,7 +185,6 @@ export default function Cadastro() {
                 p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker"
                   onChange={(e) => setCNPJ(e.target.value)}
                 />
-                {/* Label flutuante */}
                 <label
                   htmlFor="CNPJClinica"
                   className="absolute left-0 text-evolutiGreen text-sm -top-5 select-none pointer-events-none transition-all 
@@ -202,7 +196,6 @@ export default function Cadastro() {
                 </label>
               </div>
 
-              {/* Input para o email da clínica */}
               <div className="w-full relative">
                 <input
                   type="email"
@@ -215,7 +208,6 @@ export default function Cadastro() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                {/* Label flutuante */}
                 <label
                   htmlFor="emailClinica"
                   className="absolute left-0 text-evolutiGreen text-sm -top-5 select-none pointer-events-none transition-all 
@@ -231,7 +223,6 @@ export default function Cadastro() {
                 Ao criar uma conta, você concorda com os nossos Termos de Uso.
               </p>
 
-              {/* Botão para submeter o formulário */}
               <input
                 type="submit"
                 value="Cadastro administrativo"

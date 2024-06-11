@@ -13,7 +13,6 @@ import {
   FaFileAlt,
   FaSearch,
   FaEye,
-  FaTrash,
 } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 

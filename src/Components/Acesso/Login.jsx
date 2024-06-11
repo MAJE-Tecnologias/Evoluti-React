@@ -23,14 +23,17 @@ export default function Login() {
 
   const toggleDarkMode = () => setModoEscuro(!modoEscuro);
 
-  const esconderSenha = () => setTipo(tipo === "password" ? "text" : "password");
+  const esconderSenha = () =>
+    setTipo(tipo === "password" ? "text" : "password");
 
   const passarLogin = async (e) => {
     e.preventDefault();
 
     if (validaLogin()) {
       try {
-        const userResponse = await axios.get(`http://localhost:3000/Usuario?Email=${email}`);
+        const userResponse = await axios.get(
+          `http://localhost:3000/Usuario?Email=${email}`
+        );
         const usuario = userResponse.data[0];
 
         if (!usuario) {
@@ -44,20 +47,29 @@ export default function Login() {
         }
 
         sessionStorage.setItem("idClinica", usuario.fk_clinica);
-        sessionStorage.setItem("idUsuario", usuario.id)
-        const clinicaResponse = await axios.get(`http://localhost:3000/Clinica/${usuario.fk_clinica}`);
+        sessionStorage.setItem("idUsuario", usuario.id);
+        const clinicaResponse = await axios.get(
+          `http://localhost:3000/Clinica/${usuario.fk_clinica}`
+        );
         const clinica = clinicaResponse.data;
 
         const profissaoIndex = clinica.profissoes.indexOf(usuario.Profissao);
         if (profissaoIndex !== -1) {
           sessionStorage.setItem("nivel", clinica.nivel[profissaoIndex]);
-          if (usuario.stats == false ){
-            window.alert("Espere liberação de acesso de seu administrador")
-          } else{
-            navigate("/FuncHome");
+          if (usuario.stats == false) {
+            window.alert("Espere liberação de acesso de seu administrador");
+          } else {
+            switch (clinica.nivel[profissaoIndex]) {
+              case 0:
+                navigate("/AdminHome");
+                break;
+              case 2:
+                navigate("/FuncHome");
+                break;
+            }
           }
-        } else{
-          console.log("Erro ao encontrar profissão")
+        } else {
+          console.log("Erro ao encontrar profissão");
         }
       } catch (error) {
         console.log("Error:", error);
@@ -169,12 +181,16 @@ export default function Login() {
                 placeholder="E-mail"
                 name="emailLogin"
                 className={`peer w-full placeholder-transparent bg-loginButtonsBackground 
-                    border ${emailError ? "border-red-500" : "border-evolutiLightGreen"} placeholder-evolutiGreen 
+                    border ${
+                      emailError ? "border-red-500" : "border-evolutiLightGreen"
+                    } placeholder-evolutiGreen 
                     p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker`}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              {emailError && <span className="text-red-500 text-xs mt-1">{emailError}</span>}
+              {emailError && (
+                <span className="text-red-500 text-xs mt-1">{emailError}</span>
+              )}
               <label
                 htmlFor="emailLogin"
                 className="absolute left-0 text-evolutiGreen text-sm -top-5 select-none pointer-events-none transition-all 
@@ -193,7 +209,9 @@ export default function Login() {
                   placeholder="Insira a senha"
                   name="senhaLogin"
                   className={`peer w-full placeholder-transparent bg-loginButtonsBackground 
-                    border ${senhaError ? "border-red-500" : "border-evolutiLightGreen"} placeholder-evolutiGreen 
+                    border ${
+                      senhaError ? "border-red-500" : "border-evolutiLightGreen"
+                    } placeholder-evolutiGreen 
                     p-3.5 pr-16 rounded-lg shadow-md focus:outline-evolutiGreenDarker`}
                   value={senha}
                   onChange={(e) => setSenha(e.target.value)}
@@ -205,9 +223,15 @@ export default function Login() {
                   onClick={esconderSenha}
                 >
                   {tipo === "password" ? (
-                    <IoEyeOff size={24} className="cursor-pointer transition-colors" />
+                    <IoEyeOff
+                      size={24}
+                      className="cursor-pointer transition-colors"
+                    />
                   ) : (
-                    <IoEye size={24} className="cursor-pointer transition-colors" />
+                    <IoEye
+                      size={24}
+                      className="cursor-pointer transition-colors"
+                    />
                   )}
                 </div>
                 <label
@@ -220,7 +244,9 @@ export default function Login() {
                   Senha
                 </label>
               </div>
-              {senhaError && <span className="text-red-500 text-xs mt-1">{senhaError}</span>}
+              {senhaError && (
+                <span className="text-red-500 text-xs mt-1">{senhaError}</span>
+              )}
               <div className="flex justify-end">
                 <p
                   className="w-fit mt-4 text-xs cursor-pointer transition-all text-right md:text-nowrap 
