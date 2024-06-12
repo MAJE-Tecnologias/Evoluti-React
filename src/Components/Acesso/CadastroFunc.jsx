@@ -41,19 +41,19 @@ export default function CadastroFunc() {
         debouncedVerificaProf();
       }
       mounted.current = true;
-      fetch(`http://localhost:3000/Usuario?_sort=-id`, { method: "GET" })
-        .then((response) => response.json())
-        .then((respostas) => {
+      axios.get("http://localhost:3000/Usuario?_sort=-id")
+        .then((response) => {
+          const respostas = response.data;
           if (respostas && respostas.length > 0) {
             setId(respostas[0].id);
           }
-        });
-      const buscarProfissoes = () => {
-        fetch(`http://localhost:3000/Clinica?id=${idClinica}`, {
-          method: "GET",
         })
-          .then((response) => response.json())
-          .then((respostas) => {
+        .catch((error) => console.error("Erro ao buscar usuários:", error));
+
+      const buscarProfissoes = () => {
+        axios.get(`http://localhost:3000/Clinica?id=${idClinica}`)
+          .then((response) => {
+            const respostas = response.data;
             if (
               respostas.length > 0 &&
               respostas[0].profissoes &&
@@ -82,7 +82,7 @@ export default function CadastroFunc() {
     return () => {
       mounted.current = false;
     };
-  }, [idClinica, profissao]);
+  }, [debouncedVerificaProf, idClinica, profissao]);
 
   function gerarCodigo(length) {
     const characters =
@@ -130,26 +130,21 @@ export default function CadastroFunc() {
     if (validaEmail(value)) {
       const newId = parseInt(id) + 1;
       const variaveisAPI = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: newId,
-          Nome: nome,
-          Email: email,
-          Telefone: telefone,
-          Senha: senha,
-          RG: rg,
-          DataNascimento: data,
-          Profissao: profissao,
-          Verificador: verificador,
-          Genero: genero,
-          stats: false,
-          fk_clinica: idClinica,
-        }),
+        id: newId,
+        Nome: nome,
+        Email: email,
+        Telefone: telefone,
+        Senha: senha,
+        RG: rg,
+        DataNascimento: data,
+        Profissao: profissao,
+        Verificador: verificador,
+        Genero: genero,
+        stats: false,
+        fk_clinica: idClinica,
       };
 
-      fetch(`http://localhost:3000/Usuario`, variaveisAPI)
-        .then((response) => response.json())
+      axios.post("http://localhost:3000/Usuario", variaveisAPI)
         .then(() => {
           alert("Cadastrado com sucesso");
           sessionStorage.setItem("idUsuario", newId);

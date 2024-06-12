@@ -60,19 +60,15 @@ export default function Cadastro() {
     e.preventDefault();
     if (validaCadastro()) {
       const dataAtual = new Date().toISOString();
-      const variaveisAPI = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          cnpj,
-          nome,
-          email,
-          adicionadoEm: dataAtual,
-        }),
+      const body = {
+        cnpj,
+        nome,
+        email,
+        adicionadoEm: dataAtual,
       };
 
       axios
-        .post(`http://localhost:3000/Clinica`, variaveisAPI)
+        .post(`http://localhost:3000/Clinica`, body)
         .then(() => {
           alert("Cadastrado com sucesso");
           guardarIdClinica();

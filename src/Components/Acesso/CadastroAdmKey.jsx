@@ -93,19 +93,27 @@ export default function CadastroAdmKey() {
         Senha: senha,
         RG: rg,
         DataNascimento: data,
+        Profissao: "adminKey",
+        Verificador: "",
+        Genero: genero,
+        stats: false,
         fk_clinica: idClinica,
-        nivelAcesso: 1,
       };
-
-      axios
-        .post(`http://localhost:3000/Usuario`, body)
-        .then(() => {
-          alert("Cadastrado com sucesso");
-          navigate("/AdminHome");
-        })
-        .catch((error) =>
-          console.error("Erro ao cadastrar administrador:", error)
-        );
+      
+      axios.post("http://localhost:3000/Usuario", body, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        console.log("Usuário cadastrado com sucesso:", response.data);
+        // Sucesso! Faça algo como redirecionar para uma nova página
+        alert("Cadastrado com sucesso");
+        sessionStorage.setItem("idUsuario", body.id);
+        navigate("/FuncHome");
+      })
+      .catch((error) => {
+        console.error("Erro ao cadastrar administrador:", error);
+        // Trate o erro adequadamente
+      });
     }
   };
 
