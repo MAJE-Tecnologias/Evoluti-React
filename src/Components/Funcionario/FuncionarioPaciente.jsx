@@ -8,12 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FiPlusCircle } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa6";
-import {
-  FaUserInjured,
-  FaFileAlt,
-  FaSearch,
-  FaEye,
-} from "react-icons/fa";
+import { FaUserInjured, FaFileAlt, FaSearch, FaEye } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 
 export default function AdminUsuarios() {
@@ -36,8 +31,9 @@ export default function AdminUsuarios() {
         .then((respostas) => {
           console.log(respostas);
           const pacienteArray = respostas.map((paciente) => ({
-            nome: paciente.Nome,
-            email: paciente.Email,
+            id: paciente.id,
+            nome: paciente.nome,
+            email: paciente.email,
           }));
           setPaciente(pacienteArray);
           mounted.current = true;
@@ -64,7 +60,7 @@ export default function AdminUsuarios() {
               <td className="px-6 py-4">renatofisio@gmail.com</td>
               <td className="px-6 py-4">
                 <button
-                  onClick={redirectAtendimento}
+                  onClick={(e) => redirectAtendimento(paciente.id, e)}
                   className="p-1 rounded-lg transition-all hover:bg-evolutiLightBlueText hover:text-white"
                 >
                   <FaEye size={20} />
@@ -79,7 +75,7 @@ export default function AdminUsuarios() {
 
   const redirectAtendimento = (idPaciente, e) => {
     e.preventDefault();
-    sessionStorage.setItem("id", idPaciente)
+    sessionStorage.setItem("id", idPaciente);
     navigate("/funcatend");
   };
 
