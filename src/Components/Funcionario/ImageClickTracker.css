@@ -1,0 +1,23 @@
+.image-container {
+    position: relative;
+    width: 100%;
+    max-width: 200px; /* Ajuste conforme necessário */
+    margin: 0 auto;
+  }
+  
+  .background-image {
+    width: 100%;
+    height: auto; /* Mantém a proporção da imagem */
+    display: block;
+    max-width: 100%; /* A imagem não ultrapassa seu tamanho original */
+  }
+  
+  .circle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+  

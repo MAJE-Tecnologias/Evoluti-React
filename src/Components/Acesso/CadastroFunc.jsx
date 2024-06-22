@@ -41,7 +41,8 @@ export default function CadastroFunc() {
         debouncedVerificaProf();
       }
       mounted.current = true;
-      axios.get("http://localhost:3000/Usuario?_sort=-id")
+      axios
+        .get("http://localhost:3000/Usuario?_sort=-id")
         .then((response) => {
           const respostas = response.data;
           if (respostas && respostas.length > 0) {
@@ -51,7 +52,8 @@ export default function CadastroFunc() {
         .catch((error) => console.error("Erro ao buscar usuários:", error));
 
       const buscarProfissoes = () => {
-        axios.get(`http://localhost:3000/Clinica?id=${idClinica}`)
+        axios
+          .get(`http://localhost:3000/Clinica?id=${idClinica}`)
           .then((response) => {
             const respostas = response.data;
             if (
@@ -144,7 +146,8 @@ export default function CadastroFunc() {
         fk_clinica: idClinica,
       };
 
-      axios.post("http://localhost:3000/Usuario", variaveisAPI)
+      axios
+        .post("http://localhost:3000/Usuario", variaveisAPI)
         .then(() => {
           alert("Cadastrado com sucesso");
           sessionStorage.setItem("idUsuario", newId);

@@ -1,7 +1,7 @@
 {
   "Endereco": [
     {
-      "id": 1,
+      "id": "1",
       "CEP": 13220110,
       "Logradouro": "Bell Alliance",
       "TipoLogradouro": "Rua",
@@ -70,7 +70,7 @@
   ],
   "Paciente": [
     {
-      "id": 19,
+      "id": "19",
       "nome": "Teste",
       "email": "Poggers@gmail.com",
       "data": "2005-01-30",
@@ -78,7 +78,158 @@
       "telefone": "11971103001",
       "rg": "12345",
       "cpf": "1234",
-      "fk_clinica": "0c2b"
+      "fk_clinica": "0c2b",
+      "pontosDor": [
+        "2",
+        "5",
+        "7",
+        "1",
+        "4",
+        "8"
+      ]
+    }
+  ],
+  "PontosDor": [
+    {
+      "id": "1",
+      "cord": {
+        "x": 50,
+        "y": 100
+      },
+      "desc": "testesão",
+      "cor": "#C40BB7"
+    },
+    {
+      "id": "2",
+      "cord": {
+        "x": 75,
+        "y": 80
+      },
+      "desc": "example",
+      "cor": "#4A90E2"
+    },
+    {
+      "id": "3",
+      "cord": {
+        "x": 30,
+        "y": 40
+      },
+      "desc": "random",
+      "cor": "#87D37C"
+    },
+    {
+      "id": "5",
+      "cord": {
+        "x": 70,
+        "y": 90
+      },
+      "desc": "sample",
+      "cor": "#9B59B6"
+    },
+    {
+      "id": "6",
+      "cord": {
+        "x": 20,
+        "y": 30
+      },
+      "desc": "json",
+      "cor": "#3498DB"
+    },
+    {
+      "id": "8",
+      "cord": {
+        "x": 85,
+        "y": 70
+      },
+      "desc": "file",
+      "cor": "#1ABC9C"
+    },
+    {
+      "id": "9",
+      "cord": {
+        "x": 55,
+        "y": 50
+      },
+      "desc": "array",
+      "cor": "#2ECC71"
+    },
+    {
+      "id": "10",
+      "cord": {
+        "x": 40,
+        "y": 85
+      },
+      "desc": "element",
+      "cor": "#F1C40F"
+    },
+    {
+      "id": "c90b",
+      "cord": {
+        "x": 48.5,
+        "y": 39.5971829131837
+      },
+      "desc": "YES",
+      "cor": "#7747F0"
+    },
+    {
+      "id": "553e",
+      "cord": {
+        "x": 52,
+        "y": 40.439676166655694
+      },
+      "desc": "Dor no peito de saudades dela\n",
+      "titulo": "Ufa",
+      "cor": "#7747F0"
+    },
+    {
+      "id": "e976",
+      "cord": {
+        "x": 53.5,
+        "y": 47.179622194431644
+      },
+      "desc": "a",
+      "titulo": "a",
+      "cor": "bg-pink-500"
+    },
+    {
+      "id": "8b80",
+      "cord": {
+        "x": 47.5,
+        "y": 38.54406634634371
+      },
+      "desc": "a",
+      "titulo": "a",
+      "cor": "bg-red-500"
+    },
+    {
+      "id": "33ea",
+      "cord": {
+        "x": 56.49999999999999,
+        "y": 41.49279273349569
+      },
+      "desc": "a",
+      "titulo": "Teste",
+      "cor": "bg-yellow-500"
+    },
+    {
+      "id": "f642",
+      "cord": {
+        "x": 61,
+        "y": 38.33344303297571
+      },
+      "desc": "aba",
+      "titulo": "aba",
+      "cor": "blue"
+    },
+    {
+      "id": "279c",
+      "cord": {
+        "x": 36.75,
+        "y": 37.06970315276772
+      },
+      "desc": "a",
+      "titulo": "a",
+      "cor": "blue"
     }
   ]
 }
