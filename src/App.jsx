@@ -25,6 +25,7 @@ import OperadorHome from "./Components/Operador/OperadorHome"; // Página inicia
 import { Route, Routes } from "react-router-dom";
 import CadastroCod from "./Components/Acesso/CadastroCod"; // Página de cadastro de código
 import OperadorAdd from "./Components/Operador/OperadorAdd";
+import FuncAtendForm from "./Components/Funcionario/FuncionarioAtendimentoForm";
 
 // Definindo a função App, componente principal da aplicação
 function App() {
@@ -58,6 +59,8 @@ function App() {
         <Route path="/FuncAtend" element={<FuncAtend />} />{" "}
         {/* Página de atendimento do funcionário */}
         <Route path="/Funcpaciente" element={<FuncPaciente />} />{" "}
+        {/* Pagina de atendimento com formulario */}
+        <Route path="/FuncAtendForm" element={<FuncAtendForm />} />
         {/* Página de gestão de pacientes do funcionário */}
         <Route path="/CadastroFunc" element={<CadastroFunc />} />{" "}
         {/* Página de cadastro de funcionários */}
