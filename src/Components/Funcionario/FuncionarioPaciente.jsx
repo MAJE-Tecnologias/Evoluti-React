@@ -20,6 +20,7 @@ export default function AdminUsuarios() {
 
   useEffect(() => {
     if (!mounted.current) {
+      sessionStorage.setItem("id", null)
       let variaveisAPI = {
         method: "GET",
       };

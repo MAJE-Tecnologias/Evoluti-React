@@ -1,7 +1,7 @@
+import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminHomeSidebar, {
-  ItemsSidebar,
-} from "../Suplementares/AdminHomeSidebar";
+import axios from "axios";
+import AdminHomeSidebar, { ItemsSidebar } from "../Suplementares/AdminHomeSidebar";
 import { FiPlusCircle } from "react-icons/fi";
 import {
   FaUsers,
@@ -16,10 +16,42 @@ import { VscGraph } from "react-icons/vsc";
 import { AiFillFileAdd } from "react-icons/ai";
 import { CiPill } from "react-icons/ci";
 import { MdAssignment } from "react-icons/md";
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+
 
 export default function FuncAtend() {
-
+  const id = sessionStorage.getItem("id");
+  const mounted = useRef(false);
   const navigate = useNavigate();
+  const [paciente, setPaciente] = useState(null); // Initialize as null
+
+  useEffect(() => {
+    if (!mounted.current) {
+      const fetchPaciente = async () => {
+        try {
+          const response = await axios.get(`http://localhost:3000/Paciente?id=${id}`);
+          const respostas = response.data;
+          if (respostas.length > 0) {
+            const pacienteData = respostas[0]; // Assuming a single patient object
+            setPaciente({
+              nome: pacienteData.nome,
+              cpf: pacienteData.cpf,
+              nascimento: pacienteData.data,
+            });
+          } else {
+            setPaciente(null); // No patient data found
+          }
+        } catch (error) {
+          console.error("Fetch error:", error);
+          setPaciente(null); // Handle fetch errors
+        }
+      };
+
+      fetchPaciente();
+      mounted.current = true;
+    }
+  }, [id]); // Add id as a dependency
 
   const redirectAtendimento = (e) => {
     e.preventDefault();
@@ -50,8 +82,7 @@ export default function FuncAtend() {
         className="flex md:flex-col flex-col h-full pl-[78px] justify-center items-center dark:bg-neutral-800"
       >
         <div
-          className="w-full h-full pt-20 
-        md:px-10 md:pt-10"
+          className="w-full h-full pt-20 md:px-10 md:pt-10"
         >
           <div
             className="bg-neutral-100 flex flex-col border-2 border-b-0 w-full h-full rounded-bl-none rounded-br-none 
@@ -68,15 +99,15 @@ export default function FuncAtend() {
                     className="text-2xl font-bold pb-2 
                   md:pb-0"
                   >
-                    David Raphael
+                    {paciente ? paciente.nome : "Loading..."}
                   </h1>
                   <p>
                     <b>Data de nascimento: </b>
-                    <span>03/05/2005</span>
+                    <span>{paciente ? format(new Date(paciente.nascimento), 'dd/MM/yyyy', { locale: ptBR }) : "Loading..."}</span>
                   </p>
                   <p>
                     <b>CPF: </b>
-                    <span>388.433.990-71</span>
+                    <span>{paciente ? paciente.cpf : "Loading..."}</span>
                   </p>
                 </div>
               </div>
@@ -124,26 +155,7 @@ export default function FuncAtend() {
                     03/02/2024
                   </button>
                 </div>
-                <div className="py-2">
-                  <button className="w-full text-left p-4 border-2 border-black rounded-2xl">
-                    03/02/2024
-                  </button>
-                </div>
-                <div className="py-2">
-                  <button className="w-full text-left p-4 border-2 border-black rounded-2xl">
-                    03/02/2024
-                  </button>
-                </div>
-                <div className="py-2">
-                  <button className="w-full text-left p-4 border-2 border-black rounded-2xl">
-                    03/02/2024
-                  </button>
-                </div>
-                <div className="py-2">
-                  <button className="w-full text-left p-4 border-2 border-black rounded-2xl">
-                    03/02/2024
-                  </button>
-                </div>
+                {/* Additional buttons */}
                 <button
                   className="bg-blue"
                   onClick={(e) => redirectAtendimento(e)}
