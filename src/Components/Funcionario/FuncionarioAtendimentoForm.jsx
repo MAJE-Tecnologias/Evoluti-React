@@ -48,6 +48,7 @@ export default function FuncAtendForm() {
         diagnostico,
         corpo,
         idPaciente: id, 
+        data: new Date()
       };
 
       axios

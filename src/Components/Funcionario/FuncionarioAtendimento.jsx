@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AdminHomeSidebar, { ItemsSidebar } from "../Suplementares/AdminHomeSidebar";
@@ -42,7 +42,12 @@ export default function FuncAtend() {
       try {
         const response = await axios.get(`http://localhost:3000/Atendimento?idPaciente=${id}`);
         const respostas = response.data;
-        setAtendimentos(respostas); // Store all atendimento items
+        const sortedAtendimentos = respostas.sort((a, b) => {
+          const dateA = new Date(a.data);
+          const dateB = new Date(b.data);
+          return dateA - dateB;
+        });
+        setAtendimentos(sortedAtendimentos);
       } catch (error) {
         console.error("Fetch error:", error);
         setAtendimentos([]);
@@ -60,7 +65,7 @@ export default function FuncAtend() {
           atendimentos.map((atendimento) => (
             <div key={atendimento.id} className="py-2">
               <button className="w-full text-left p-4 border-2 border-black rounded-2xl">
-                {atendimento.titulo}
+                {format(atendimento.data, 'dd MMMM yyyy HH:mm', { locale: ptBR }) || "No Title"}
               </button>
             </div>
           ))
