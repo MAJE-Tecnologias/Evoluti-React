@@ -4,7 +4,7 @@ import axios from "axios";
 import Modal from "../Funcionario/FuncionarioModal";
 import "./ImageClickTracker.css"; // Assuming you have some CSS for styling
 
-export default function FuncionarioHome() {
+export default function MarcacaoPontosDor() {
   const [circulos, setCirculos] = useState([]);
   const [numCirculos, setNumCirculos] = useState(0); // Initialize with 0
   const [showModal, setShowModal] = useState(false);
@@ -53,7 +53,7 @@ export default function FuncionarioHome() {
       const x = ((evento.clientX - boundingRect.left) / boundingRect.width) * 100;
       const y = ((evento.clientY - boundingRect.top) / boundingRect.height) * 100;
 
-      setNewCircle({ x, y, cor: selectedColor }); 
+      setNewCircle({ x, y, cor: selectedColor });
       setShowModal(true);
     }
   };
@@ -102,56 +102,58 @@ export default function FuncionarioHome() {
 
   return (
     <>
-      <div className="image-container">
-        <div className="image-wrapper">
-          <img
-            src={backgroundImg}
-            alt="Imagem"
-            className="background-image"
-            onClick={lidarComClique}
-          />
-
-          {circulos.map((circulo, indice) => (
-            <div
-              key={indice}
-              className="circle"
-              style={{
-                backgroundColor: `${circulo.cor}`,
-                top: `${circulo.y}%`,
-                left: `${circulo.x}%`,
-              }}
-              onClick={() => lidarComCliqueCirculo(indice)}
+      <div className="w-full flex-col justify-center lg:flex lg:flex-row ">
+        <div className="image-container">
+          <div className="image-wrapper">
+            <img
+              src={backgroundImg}
+              alt="Imagem"
+              className="background-image"
+              onClick={lidarComClique}
             />
-          ))}
+
+            {circulos.map((circulo, indice) => (
+              <div
+                key={indice}
+                className="circle"
+                style={{
+                  backgroundColor: `${circulo.cor}`,
+                  top: `${circulo.y}%`,
+                  left: `${circulo.x}%`,
+                }}
+                onClick={() => lidarComCliqueCirculo(indice)}
+              />
+            ))}
+          </div>
         </div>
-      </div>
 
-      <Modal
-        show={showModal}
-        onClose={closeModal}
-        onSubmit={handleFormSubmit}
-        selectedColor={selectedColor} // Pass selectedColor to Modal
-        onColorChange={handleColorChange} // Pass handleColorChange to Modal
-      >
-        <h2>Informações Adicionais</h2>
-        <p>Insira aqui o conteúdo do modal relacionado ao novo ponto adicionado.</p>
-      </Modal>
+        <Modal
+          show={showModal}
+          onClose={closeModal}
+          onSubmit={handleFormSubmit}
+          selectedColor={selectedColor} // Pass selectedColor to Modal
+          onColorChange={handleColorChange} // Pass handleColorChange to Modal
+        >
+          <h2>Informações Adicionais</h2>
+          <p>Insira aqui o conteúdo do modal relacionado ao novo ponto adicionado.</p>
+        </Modal>
 
-      <div className="coordinates">
-        <h2>Posições dos Círculos na Imagem:</h2>
-        <ul>
-          {circulos.map((circulo, indice) => (
-            <li key={indice}>
-              Círculo {indice + 1}: X: {circulo.x}%, Y: {circulo.y}%
-              <br />
-              Título: {circulo.titulo}
-              <br />
-              Descrição do ponto de dor: {circulo.desc}
-              <br />
-              <button onClick={() => lidarComCliqueCirculo(indice)}>Remover</button>
-            </li>
-          ))}
-        </ul>
+        <div className="w-full bg-white rounded-xl border-black">
+          <h2>Posições dos Círculos na Imagem:</h2>
+          <ul>
+            {circulos.map((circulo, indice) => (
+              <li key={indice}>
+                Círculo {indice + 1}: X: {circulo.x}%, Y: {circulo.y}%
+                <br />
+                Título: {circulo.titulo}
+                <br />
+                Descrição do ponto de dor: {circulo.desc}
+                <br />
+                <button onClick={() => lidarComCliqueCirculo(indice)}>Remover</button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </>
   );

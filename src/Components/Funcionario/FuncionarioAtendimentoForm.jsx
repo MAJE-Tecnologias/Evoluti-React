@@ -15,6 +15,7 @@ import { CiPill } from "react-icons/ci";
 import { MdAdsClick } from "react-icons/md";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import MarcacaoPontosDor from "./FuncionarioHome";
 
 export default function FuncAtendForm() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -22,6 +23,7 @@ export default function FuncAtendForm() {
   const [titulo, setTitulo] = useState("");
   const [diagnostico, setDiagnostico] = useState("");
   const [corpo, setCorpo] = useState("");
+  const [marcacaoOpen, setMarcacaoOpen] = useState(false);
 
   const navigate = useNavigate();
   const id = sessionStorage.getItem("id")
@@ -72,6 +74,10 @@ export default function FuncAtendForm() {
     return true;
   };
 
+  const toggleMarcacaoPontosDor = () => {
+    setMarcacaoOpen(!marcacaoOpen)
+  }
+
   return (
     <>
       <AdminHomeSidebar>
@@ -97,7 +103,7 @@ export default function FuncAtendForm() {
       >
         <div className="w-full h-full pt-20 md:px-10 md:pt-10">
           <div
-            className="bg-neutral-100 flex flex-col border-2 border-b-0 w-full h-full rounded-bl-none rounded-br-none 
+            className="bg-neutral-100 flex flex-col border-2 border-b-0 w-full h-fit rounded-bl-none rounded-br-none 
           shadow-black shadow-md p-5 gap-x-8 md:gap-x-0 md:flex-row md:rounded-3xl dark:bg-neutral-900 dark:border-gray-800"
           >
             <div className="sm:px-8 md:px-0 md:w-1/2 h-full">
@@ -196,7 +202,7 @@ export default function FuncAtendForm() {
                   />
                 </div>
                 <div className="w-full flex justify-center items-center pt-5">
-                  <button
+                  <button type="button" onClick={toggleMarcacaoPontosDor}
                     className="w-fit h-20 bg-white rounded-3xl flex justify-center items-center gap-x-4 p-4 
                 border border-evolutiGreen transition-all ease-in-out hover:shadow-md hover:bg-gray-100"
                   >
@@ -210,6 +216,11 @@ export default function FuncAtendForm() {
                 </div>
               </form>
             </div>
+            {marcacaoOpen && (
+                      <div className="flex h-full w-full justify-center md:w-1/2">
+                          <MarcacaoPontosDor/>
+                      </div>
+                    )}
           </div>
         </div>
       </section>

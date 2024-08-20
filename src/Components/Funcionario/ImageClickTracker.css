@@ -1,7 +1,7 @@
 .image-container {
     position: relative;
     width: 100%;
-    max-width: 200px; /* Ajuste conforme necessário */
+    height: 100%;
     margin: 0 auto;
   }
   

@@ -3,15 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AdminHomeSidebar, { ItemsSidebar } from "../Suplementares/AdminHomeSidebar";
 import { FiPlusCircle } from "react-icons/fi";
-import {
-  FaUsers,
-  FaUserInjured,
-  FaFileAlt,
-  FaLink,
-  FaPlus,
-  FaStethoscope,
-  FaCaretDown,
-} from "react-icons/fa";
+import { FaUsers, FaUserInjured, FaFileAlt, FaLink, FaPlus, FaStethoscope, FaCaretDown } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 import { AiFillFileAdd } from "react-icons/ai";
 import { CiPill } from "react-icons/ci";
@@ -19,39 +11,65 @@ import { MdAssignment } from "react-icons/md";
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
-
 export default function FuncAtend() {
   const id = sessionStorage.getItem("id");
-  const mounted = useRef(false);
   const navigate = useNavigate();
-  const [paciente, setPaciente] = useState(null); // Initialize as null
+  const [paciente, setPaciente] = useState(null);
+  const [atendimentos, setAtendimentos] = useState([]);
 
   useEffect(() => {
-    if (!mounted.current) {
-      const fetchPaciente = async () => {
-        try {
-          const response = await axios.get(`http://localhost:3000/Paciente?id=${id}`);
-          const respostas = response.data;
-          if (respostas.length > 0) {
-            const pacienteData = respostas[0]; // Assuming a single patient object
-            setPaciente({
-              nome: pacienteData.nome,
-              cpf: pacienteData.cpf,
-              nascimento: pacienteData.data,
-            });
-          } else {
-            setPaciente(null); // No patient data found
-          }
-        } catch (error) {
-          console.error("Fetch error:", error);
-          setPaciente(null); // Handle fetch errors
+    const fetchPaciente = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/Paciente?id=${id}`);
+        const respostas = response.data;
+        if (respostas.length > 0) {
+          const pacienteData = respostas[0];
+          setPaciente({
+            nome: pacienteData.nome,
+            cpf: pacienteData.cpf,
+            nascimento: pacienteData.data,
+          });
+        } else {
+          setPaciente(null);
         }
-      };
+      } catch (error) {
+        console.error("Fetch error:", error);
+        setPaciente(null);
+      }
+    };
 
-      fetchPaciente();
-      mounted.current = true;
-    }
-  }, [id]); // Add id as a dependency
+    const fetchAtendimentos = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/Atendimento?idPaciente=${id}`);
+        const respostas = response.data;
+        setAtendimentos(respostas); // Store all atendimento items
+      } catch (error) {
+        console.error("Fetch error:", error);
+        setAtendimentos([]);
+      }
+    };
+
+    fetchPaciente();
+    fetchAtendimentos();
+  }, [id]);
+
+  const showAtendimentos = (atendimentos) => {
+    return (
+      <>
+        {atendimentos.length > 0 ? (
+          atendimentos.map((atendimento) => (
+            <div key={atendimento.id} className="py-2">
+              <button className="w-full text-left p-4 border-2 border-black rounded-2xl">
+                {atendimento.titulo}
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>No atendimentos found</p>
+        )}
+      </>
+    );
+  };
 
   const redirectAtendimento = (e) => {
     e.preventDefault();
@@ -64,7 +82,6 @@ export default function FuncAtend() {
         <ItemsSidebar
           icon={<FiPlusCircle size={30} />}
           text="Cadastros"
-          alert
           route={"/FuncCadastro"}
         />
         <ItemsSidebar
@@ -81,24 +98,17 @@ export default function FuncAtend() {
         id="FuncHome"
         className="flex md:flex-col flex-col h-full pl-[78px] justify-center items-center dark:bg-neutral-800"
       >
-        <div
-          className="w-full h-full pt-20 md:px-10 md:pt-10"
-        >
-          <div
-            className="bg-neutral-100 flex flex-col border-2 border-b-0 w-full h-full rounded-bl-none rounded-br-none 
-          shadow-black shadow-md p-5 gap-x-8 md:gap-x-0 md:flex-row md:rounded-3xl dark:bg-neutral-900 dark:border-gray-800"
+        <div className="w-full h-full pt-20 md:px-10 md:pt-10">
+          <div className="bg-neutral-100 flex flex-col border-2 border-b-0 w-full h-full rounded-bl-none rounded-br-none 
+            shadow-black shadow-md p-5 gap-x-8 md:gap-x-0 md:flex-row md:rounded-3xl dark:bg-neutral-900 dark:border-gray-800"
           >
             <div className="flex flex-col justify-center items-center md:w-full">
-              <div
-                className="flex flex-col justify-center items-center text-center gap-x-2 
-              md:flex-row md:text-left md:justify-normal md:pb-8"
+              <div className="flex flex-col justify-center items-center text-center gap-x-2 
+                md:flex-row md:text-left md:justify-normal md:pb-8"
               >
                 <div className="w-32 h-32 rounded-full bg-gray-400"></div>
                 <div className="flex flex-col justify-center dark:text-white">
-                  <h1
-                    className="text-2xl font-bold pb-2 
-                  md:pb-0"
-                  >
+                  <h1 className="text-2xl font-bold pb-2 md:pb-0">
                     {paciente ? paciente.nome : "Loading..."}
                   </h1>
                   <p>
@@ -150,35 +160,27 @@ export default function FuncAtend() {
                 <h1 className="w-full text-xl text-center font-bold border-b-2 border-gray-500">
                   Histórico de tratamentos
                 </h1>
-                <div className="py-2">
-                  <button className="w-full text-left p-4 border-2 border-black rounded-2xl">
-                    03/02/2024
-                  </button>
-                </div>
-                {/* Additional buttons */}
+                {showAtendimentos(atendimentos)}
                 <button
-                  className="bg-blue"
-                  onClick={(e) => redirectAtendimento(e)}
+                  className="bg-blue text-white px-4 py-2 rounded-md"
+                  onClick={redirectAtendimento}
                 >
-                  <h1>Poggers</h1>
+                  Novo Tratamento
                 </button>
               </div>
             </div>
 
-            <div
-              className="flex gap-x-4 pt-6 
-            md:hidden"
-            >
+            <div className="flex gap-x-4 pt-6 md:hidden">
               <button
                 className="w-1/2 py-4 px-4 border-2 border-transparent rounded-xl bg-evolutiLightGreen font-bold flex justify-center 
-                items-center gap-x-2 shadow-md shadow-gray-600 transition-all ease-in-out hover:bg-evolutiGreen"
+                  items-center gap-x-2 shadow-md shadow-gray-600 transition-all ease-in-out hover:bg-evolutiGreen"
               >
                 <FaLink size={20} />
                 Anexos
               </button>
               <button
                 className="w-1/2 py-4 px-4 border-2 border-transparent rounded-xl bg-evolutiLightBlueText font-bold flex 
-              justify-center items-center gap-x-2 shadow-md shadow-gray-600 transition-all ease-in-out hover:bg-evolutiBlueText"
+                justify-center items-center gap-x-2 shadow-md shadow-gray-600 transition-all ease-in-out hover:bg-evolutiBlueText"
               >
                 <FaLink size={20} />
                 Histórico de Tratamento
