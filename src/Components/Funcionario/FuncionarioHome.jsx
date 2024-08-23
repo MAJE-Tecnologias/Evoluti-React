@@ -3,7 +3,8 @@ import backgroundImg from "../../assets/corpoHomem.png";
 import axios from "axios";
 import Modal from "../Funcionario/FuncionarioModal";
 import "./ImageClickTracker.css";
-import { FaTrashAlt } from "react-icons/fa";
+import "../CSS/ScrollStyle.css"
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
 
 export default function MarcacaoPontosDor() {
   const [circulos, setCirculos] = useState([]);
@@ -142,7 +143,7 @@ export default function MarcacaoPontosDor() {
                 }}
                 onClick={() => lidarComCliqueCirculo(indice)}
               >
-                <span>{indice+1}</span>
+                <span>{indice + 1}</span>
               </div>
             ))}
           </div>
@@ -160,23 +161,36 @@ export default function MarcacaoPontosDor() {
         </Modal>
 
       </div>
-      <div className="relative w-full bg-white rounded-xl border-black">
-        <div className="absolute overflow-y-scroll w-full p-4">
-          <h2>Posições dos Círculos na Imagem:</h2>
+      <div className="relative w-full bg-[#E7E5E5] rounded-xl border-black overflow-y-scroll scrollable-container">
+        <div className="absolute w-full p-4">
+          <h2 className="font-extrabold text-2xl text-center border-b-2 border-black mb-4">PONTOS DE DOR</h2>
           <ul className="flex flex-col gap-y-4">
             {circulos.map((circulo, indice) => (
-              <div key={circulo.id} className="w-full p-2 border-2 border-black rounded-xl shadow-lg"> {/* Changed key to use unique id */}
+              <div key={circulo.id} className="w-full bg-white p-2 rounded-xl shadow-lg">
                 <li>
-                  <span className="font-bold text-lg">Marcação #{indice + 1}</span>
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-lg">Marcação #{indice + 1}</span>
+                    <div className="border-2 border-black w-5 h-5 rounded-full" style={{ backgroundColor: circulo.cor }}></div>
+                  </div>
                   <br />
                   <p className="font-bold font-poppins">Título: <span className="font-normal">{circulo.titulo}</span></p>
                   <br />
                   <p className="font-bold font-poppins">Descrição do ponto de dor: </p><span>{circulo.desc}</span>
                   <br />
                   <br />
-                  <button className="flex justify-center items-center px-2 py-1 border-2 border-black rounded-xl bg-evolutiGreenDarker font-bold text-white gap-x-2" onClick={() => lidarComCliqueCirculo(indice)}>
-                    <FaTrashAlt /> Remover
-                  </button>
+                  <div className="flex items-center gap-x-2">
+                    <button className="flex justify-center items-center px-2 py-1 border-2 border-black 
+                    rounded-xl bg-evolutiGreenDarker font-bold text-white gap-x-2 hover:brightness-90" onClick={() => lidarComCliqueCirculo(indice)}>
+                      <FaTrashAlt /> Remover
+
+                    </button>
+                    <button className="flex justify-center items-center px-2 py-1 border-2 border-black 
+                    rounded-xl bg-evolutiLightBlueText font-bold text-white gap-x-2 hover:brightness-90" onClick={""}>
+                      <FaEdit /> Editar
+
+                    </button>
+                  </div>
+
                 </li>
               </div>
             ))}

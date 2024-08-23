@@ -10,6 +10,7 @@ module.exports = {
         evolutiLightBlueText: "#5c9dd4",
         evolutiBlueText: "#4984c7",
         evolutiDarkBlue: "#132941",
+        EvolutiLightGreenSuperLighter: '#d2f9e2',
         EvolutiLightGreenLighter: '#70e5af',
         evolutiLightGreen: "#45D496",
         evolutiGreen: '#13b675',
