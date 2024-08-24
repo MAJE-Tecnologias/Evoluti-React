@@ -218,7 +218,7 @@ export default function FuncAtendForm() {
               </form>
             </div>
             {marcacaoOpen && (
-                      <div className="flex h-full w-full justify-center md:w-1/2">
+                      <div className="h-full w-full justify-center mt-4 md:flex md:mt-0 md:w-1/2">
                           <MarcacaoPontosDor/>
                       </div>
                     )}
