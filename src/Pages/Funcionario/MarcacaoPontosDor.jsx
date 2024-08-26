@@ -1,11 +1,11 @@
 import { useRef, useEffect, useState } from "react";
 import backgroundImg from "../../assets/corpoHomem.png";
 import axios from "axios";
-import Modal from "../Funcionario/FuncionarioModal";
+import Modal from "./Components/FuncionarioModal";
 import "./ImageClickTracker.css";
 import "../CSS/ScrollStyle.css";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
-import { FuncionarioCardAtendimento } from "./FuncionarioCardAtendimento";
+import { FuncionarioCardAtendimento } from "./Components/FuncionarioCardAtendimento";
 
 export default function MarcacaoPontosDor() {
   const [circulos, setCirculos] = useState([]);
@@ -184,6 +184,7 @@ export default function MarcacaoPontosDor() {
         <FuncionarioCardAtendimento
           isOpen={detalhes}
           hideDetalhes={hideDetalhes}
+          
         >
           <h2 className="text-xl font-semibold mb-4">Conteúdo da Modal</h2>
           <p>

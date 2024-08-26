@@ -1,9 +1,9 @@
 // Importações de componentes e ícones necessários
 import { useRef, useEffect, useState } from "react";
 
-import AdminHomeSidebar, {
+import Sidebar, {
   ItemsSidebar,
-} from "../Suplementares/AdminHomeSidebar";
+} from "../../Components/SideBar";
 import "../CSS/AnimacaoFlutuar.css";
 import { FaUsers, FaUserInjured, FaFileAlt, FaUserCheck } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
@@ -67,7 +67,7 @@ export default function OperadorAdd() {
   return (
     <>
       {/* Sidebar do administrador com itens de navegação */}
-      <AdminHomeSidebar>
+      <Sidebar>
         <ItemsSidebar
           icon={<FaUserCheck size={30} />}
           text="Adicionar Paciente"
@@ -81,7 +81,7 @@ export default function OperadorAdd() {
         <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
         <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
         <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
-      </AdminHomeSidebar>
+      </Sidebar>
 
       {/* Seção principal do formulário de adição de paciente */}
       <section

@@ -1,31 +1,31 @@
 // Importações de páginas de usuário comuns
-import Home from "./Components/HeroPage/Home"; // Página inicial ou página principal
-import Login from "./Components/Acesso/Login"; // Página de login
-import Cadastro from "./Components/Acesso/Cadastro"; // Página de cadastro de usuário
+import Home from "./Pages/HeroPage/Home"; // Página inicial ou página principal
+import Login from "./Pages/Acesso/Login"; // Página de login
+import Cadastro from "./Pages/Acesso/Cadastro"; // Página de cadastro de usuário
 import NotFound from "./Components/NotFound"; // Página de erro 404, para rotas não encontradas
 
 // Importações de páginas e componentes relacionados à administração
-import AdminHome from "./Components/Admin/AdminHome"; // Página inicial do administrador
-import AdminAdd from "./Components/Admin/AdminAdd"; // Página de adição de recursos/administradores
-import AdminUsuarios from "./Components/Admin/AdminUsuarios"; // Página de gerenciamento de usuários/administradores
-import CadastroAdmKey from "./Components/Acesso/CadastroAdmKey"; // Página de cadastro de administrador com chave
-import AdminAceitar from "./Components/Admin/AdminAceitar"; // Página de aceitação de administradores
-import AdminPacientes from "./Components/Admin/AdminPacientes"; // Página de gerenciamento de pacientes
+import AdminHome from "./Pages/Admin/AdminHome"; // Página inicial do administrador
+import AdminAdd from "./Pages/Admin/AdminAdd"; // Página de adição de recursos/administradores
+import AdminUsuarios from "./Pages/Admin/AdminUsuarios"; // Página de gerenciamento de usuários/administradores
+import CadastroAdmKey from "./Pages/Acesso/CadastroAdmKey"; // Página de cadastro de administrador com chave
+import AdminAceitar from "./Pages/Admin/AdminAceitar"; // Página de aceitação de administradores
+import AdminPacientes from "./Pages/Admin/AdminPacientes"; // Página de gerenciamento de pacientes
 
 // Importações de páginas e componentes relacionados a funcionários
-import CadastroFunc from "./Components/Acesso/CadastroFunc"; // Página de cadastro de funcionários
-import FuncionarioHome from "./Components/Funcionario/FuncionarioHome"; // Página inicial do funcionário
-import FuncAtend from "./Components/Funcionario/FuncionarioAtendimento"; // Página de atendimento do funcionário
-import FuncPaciente from "./Components/Funcionario/FuncionarioPaciente"; // Página de gestão de pacientes do funcionário
+import CadastroFunc from "./Pages/Acesso/CadastroFunc"; // Página de cadastro de funcionários
+// import FuncionarioHome from "./Pages/Funcionario/MarcacaoPontosDor"; // Página inicial do funcionário
+import FuncAtend from "./Pages/Funcionario/FuncionarioAtendimento"; // Página de atendimento do funcionário
+import FuncPaciente from "./Pages/Funcionario/FuncionarioPaciente"; // Página de gestão de pacientes do funcionário
 
 // Importações de páginas e componentes relacionados a operadores
-import OperadorHome from "./Components/Operador/OperadorHome"; // Página inicial do operador
+import OperadorHome from "./Pages/Operador/OperadorHome"; // Página inicial do operador
 
 // Importações de componentes e métodos necessários do React Router
 import { Route, Routes } from "react-router-dom";
-import CadastroCod from "./Components/Acesso/CadastroCod"; // Página de cadastro de código
-import OperadorAdd from "./Components/Operador/OperadorAdd";
-import FuncAtendForm from "./Components/Funcionario/FuncionarioAtendimentoForm";
+import CadastroCod from "./Pages/Acesso/CadastroCod"; // Página de cadastro de código
+import OperadorAdd from "./Pages/Operador/OperadorAdd";
+import FuncAtendForm from "./Pages/Funcionario/FuncionarioAtendimentoForm";
 
 // Definindo a função App, componente principal da aplicação
 function App() {
@@ -54,7 +54,7 @@ function App() {
         <Route path="/CadastroCod" element={<CadastroCod />} />{" "}
         {/* Página de cadastro de código */}
         {/* Rotas para páginas de funcionários */}
-        <Route path="/FuncHome" element={<FuncionarioHome />} />{" "}
+        {/* <Route path="/FuncHome" element={<FuncionarioHome />} />{" "} */}
         {/* Página inicial do funcionário */}
         <Route path="/FuncAtend" element={<FuncAtend />} />{" "}
         {/* Página de atendimento do funcionário */}

@@ -1,11 +1,11 @@
 import React from 'react'
-import Navbar from '/src/Components/HeroPage/Navbar'
-import Hero from '/src/Components/HeroPage/Hero'
-import Servicos from '/src/Components/HeroPage/Servicos'
-import Transicao from '/src/Components/HeroPage/Transicao'
-import SobreNos from '/src/Components/HeroPage/SobreNos'
-import Footer from '/src/Components/HeroPage/Footer'
-import Proposito from '/src/Components/HeroPage/Proposito'
+import Navbar from '/src/Pages/HeroPage/Navbar'
+import Hero from '/src/Pages/HeroPage/Hero'
+import Servicos from '/src/Pages/HeroPage/Servicos'
+import Transicao from '/src/Pages/HeroPage/Transicao'
+import SobreNos from '/src/Pages/HeroPage/SobreNos'
+import Footer from '/src/Pages/HeroPage/Footer'
+import Proposito from '/src/Pages/HeroPage/Proposito'
 
 export default function Home() {
 

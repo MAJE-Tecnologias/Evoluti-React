@@ -1,7 +1,7 @@
 import { useState } from "react";
-import AdminHomeSidebar, {
+import Sidebar, {
   ItemsSidebar,
-} from "../Suplementares/AdminHomeSidebar";
+} from "../../Components/SideBar";
 import { FiPlusCircle } from "react-icons/fi";
 import {
   FaUsers,
@@ -15,7 +15,7 @@ import { CiPill } from "react-icons/ci";
 import { MdAdsClick } from "react-icons/md";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import MarcacaoPontosDor from "./FuncionarioHome";
+import MarcacaoPontosDor from "./MarcacaoPontosDor";
 
 export default function FuncAtendForm() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -81,7 +81,7 @@ export default function FuncAtendForm() {
 
   return (
     <>
-      <AdminHomeSidebar>
+      <Sidebar>
         <ItemsSidebar
           icon={<FiPlusCircle size={30} />}
           text="Cadastros"
@@ -96,7 +96,7 @@ export default function FuncAtendForm() {
         <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
         <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
         <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
-      </AdminHomeSidebar>
+      </Sidebar>
 
       <section
         id="FuncHome"
