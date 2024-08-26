@@ -205,7 +205,7 @@ export default function CadastroAdmKey() {
                         name="email"
                         id="cadastroEmailAdmin"
                         placeholder="E-mail"
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value.toLowerCase)}
                         className="w-full bg-loginButtonsBackground 
                         border border-evolutiLightGreen placeholder-evolutiGreen 
                         p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"
