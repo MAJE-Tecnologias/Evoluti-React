@@ -1,6 +1,6 @@
-import AdminHomeSidebar, {
+import Sidebar, {
   ItemsSidebar,
-} from "../Suplementares/AdminHomeSidebar";
+} from "../../Components/SideBar";
 import "../CSS/AnimacaoFlutuar.css";
 
 import { useRef, useEffect, useState } from "react";
@@ -82,7 +82,7 @@ export default function AdminUsuarios() {
 
   return (
     <>
-      <AdminHomeSidebar>
+      <Sidebar>
         <ItemsSidebar
           icon={<FiPlusCircle size={30} />}
           text="Cadastros"
@@ -97,7 +97,7 @@ export default function AdminUsuarios() {
         <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
         <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
         <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
-      </AdminHomeSidebar>
+      </Sidebar>
 
       <section
         id="AdminHome"

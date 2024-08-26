@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowCircleLeft, FaMoon, FaSun } from "react-icons/fa";
 import axios from "axios"; // Importando o Axios
-import darkModeButton from "../../JS/darkModeButton";
+import darkModeButton from "../../Components/darkModeButton";
 
 export default function CadastroCod() {
   const usenavigate = useNavigate();

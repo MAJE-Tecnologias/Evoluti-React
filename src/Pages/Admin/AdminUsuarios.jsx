@@ -1,20 +1,20 @@
-import AdminHomeSidebar, {
+import Sidebar, {
   ItemsSidebar,
-} from "../Suplementares/AdminHomeSidebar";
+} from "../../Components/SideBar";
+import "../CSS/AnimacaoFlutuar.css";
 import { useRef, useEffect, useState } from "react";
+import { FaUsers } from "react-icons/fa6";
 import {
-  FaUsers,
   FaUserInjured,
   FaFileAlt,
   FaSearch,
-  FaRegCheckCircle,
-  FaRegTimesCircle,
+  FaEye,
+  FaTrash,
   FaUserCheck,
 } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
-import axios from "axios";
 
-export default function AdminAceitar() {
+export default function AdminUsuarios() {
   const idClinica = sessionStorage.getItem("idClinica");
   const [usuarios, setUsuarios] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,58 +22,64 @@ export default function AdminAceitar() {
 
   const mounted = useRef(false);
 
-  const buscarDados = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3000/Usuario?fk_clinica=${idClinica}`
-      );
-      const respostas = response.data;
-      const usuariosArray = respostas
-        .filter((usuario) => usuario.stats === false)
-        .map((usuario) => ({
-          id: usuario.id,
-          nome: usuario.Nome,
-          Profissao: usuario.Profissao,
-          Email: usuario.Email,
-        }));
-      setUsuarios(usuariosArray);
-      mounted.current = true;
-    } catch (error) {
-      console.error("Falha ao obter dados:", error);
-    }
-  };
-
   useEffect(() => {
-    buscarDados();
-
-    const intervalo = setInterval(buscarDados, 10000);
-
-    return () => clearInterval(intervalo);
+    if (!mounted.current) {
+      let variaveisAPI = {
+        method: "GET",
+      };
+      fetch(
+        `http://localhost:3000/Usuario?fk_clinica=${idClinica}`,
+        variaveisAPI
+      )
+        .then((response) => response.json())
+        .then((respostas) => {
+          console.log(respostas);
+          const usuariosArray = respostas.map((usuario) => ({
+            nome: usuario.Nome,
+            Profissao: usuario.Profissao,
+            Email: usuario.Email
+          }));
+          setUsuarios(usuariosArray);
+          mounted.current = true;
+        });
+    }
   }, []);
 
-  const aceitarUsuario = async (e, idUsuario) => {
-    e.preventDefault();
+  function showUsuarios(usuarios) {
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers = usuarios.slice(indexOfFirstUser, indexOfLastUser);
 
-    const changes = { stats: true };
-    try {
-      await axios.patch(`http://localhost:3000/Usuario/${idUsuario}`, changes);
-      alert("Usuario aceito no sistema");
-      buscarDados();
-    } catch (error) {
-      console.error("Erro ao atualizar os dados da clínica:", error);
-    }
-  };
-
-  const negarUsuario = async (e, idUsuario) => {
-    e.preventDefault();
-    try {
-      await axios.delete(`http://localhost:3000/Usuario/${idUsuario}`);
-      alert("Usuario apagado do sistema");
-      buscarDados();
-    } catch (error) {
-      console.error("Erro ao atualizar os dados da clínica:", error);
-    }
-  };
+    return (
+      <>
+        {currentUsers.map((usuario, index) => (
+          <tbody key={index}>
+            <tr className="bg-white border-b dark:bg-neutral-900 dark:border-gray-800">
+              <th
+                scope="row"
+                className="flex gap-x-2 px-6 items-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                <div className="h-10 w-10">
+                  <div className="h-full w-full rounded-full bg-gray-200"></div>
+                </div>
+                {usuario.nome}
+              </th>
+              <td className="px-6 py-4">{usuario.Profissao}</td>
+              <td className="px-6 py-4">{usuario.Email}</td>
+              <td className="px-6 py-4 text-center">
+                <button className="p-1 rounded-lg transition-all hover:bg-evolutiLightBlueText hover:text-white">
+                  <FaEye size={20} />
+                </button>
+                <button className="p-1 rounded-lg transition-all hover:bg-red-500 hover:text-white">
+                  <FaTrash size={20} />
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        ))}
+      </>
+    );
+  }
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -108,66 +114,24 @@ export default function AdminAceitar() {
     return pageNumbers;
   };
 
-  const showUsuarios = (usuarios) => {
-    const indexOfLastUser = currentPage * usersPerPage;
-    const indexOfFirstUser = indexOfLastUser - usersPerPage;
-    const currentUsers = usuarios.slice(indexOfFirstUser, indexOfLastUser);
-
-    return (
-      <>
-        {currentUsers.map((usuario, index) => (
-          <tbody key={index}>
-            <tr className="bg-white border-b dark:bg-neutral-900 dark:border-gray-800">
-              <th
-                scope="row"
-                className="flex gap-x-2 px-6 items-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                <div className="h-10 w-10">
-                  <div className="h-full w-full rounded-full bg-gray-200"></div>
-                </div>
-                {usuario.nome}
-              </th>
-              <td className="px-6 py-4">{usuario.Profissao}</td>
-              <td className="px-6 py-4">{usuario.Email}</td>
-              <td className="px-6 py-4 text-center">
-                <button
-                  onClick={(e) => aceitarUsuario(e, usuario.id)}
-                  className="p-1 rounded-lg transition-all hover:bg-evolutiLightGreen hover:text-white"
-                >
-                  <FaRegCheckCircle size={20} />
-                </button>
-                <button
-                  onClick={(e) => negarUsuario(e, usuario.id)}
-                  className="p-1 rounded-lg transition-all hover:bg-red-500 hover:text-white"
-                >
-                  <FaRegTimesCircle size={20} />
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        ))}
-      </>
-    );
-  };
-
   return (
     <>
-      <AdminHomeSidebar>
-        <ItemsSidebar
+      <Sidebar>
+      <ItemsSidebar
           icon={<FaUserCheck size={30} />}
           text="Aceitar"
-          ativo
           route={"/AdminAceitar"}
         />
         <ItemsSidebar
           icon={<FaUsers size={30} />}
           text="Usuários"
+          ativo
           route={"/AdminUsuarios"}
         />
         <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
         <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
         <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
-      </AdminHomeSidebar>
+      </Sidebar>
 
       <section
         id="AdminHome"
@@ -175,7 +139,7 @@ export default function AdminAceitar() {
       >
         <div>
           <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">
-            <FaUserCheck size={40} /> Aceitar novos Usuários
+            <FaUsers size={40} /> Visualização de Usuários
           </h1>
 
           <div className="flex mt-10 justify-center items-center gap-x-3 dark:text-white">

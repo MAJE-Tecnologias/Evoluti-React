@@ -7,7 +7,7 @@ import axios from "axios"; // Import axios
 
 const SidebarContext = createContext();
 
-export default function AdminHomeSidebar({ children }) {
+export default function Sidebar({ children }) {
   const id = sessionStorage.getItem("idUsuario");
   const [usuario, setUsuario] = useState(null);
   const [expandido, setExpandido] = useState(false);

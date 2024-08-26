@@ -1,80 +1,79 @@
-import axios from "axios";
-import AdminHomeSidebar, {
+import Sidebar, {
   ItemsSidebar,
-} from "../Suplementares/AdminHomeSidebar";
-import "../CSS/AnimacaoFlutuar.css";
+} from "../../Components/SideBar";
 import { useRef, useEffect, useState } from "react";
-import { FaUsers } from "react-icons/fa6";
 import {
+  FaUsers,
   FaUserInjured,
   FaFileAlt,
   FaSearch,
-  FaEye,
-  FaTrash,
+  FaRegCheckCircle,
+  FaRegTimesCircle,
   FaUserCheck,
 } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
+import axios from "axios";
 
-export default function AdminPacientes() {
+export default function AdminAceitar() {
   const idClinica = sessionStorage.getItem("idClinica");
-  const [pacientes, setPacientes] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(5);
 
   const mounted = useRef(false);
 
-  useEffect(() => {
-    if (!mounted.current) {
-      axios
-        .get(`http://localhost:3000/Paciente?fk_clinica=${idClinica}`)
-        .then((response) => {
-          console.log(response.data);
-          const pacientesArray = response.data.map((paciente) => ({
-            nome: paciente.nome,
-            telefone: paciente.telefone,
-            Email: paciente.email,
-          }));
-          setPacientes(pacientesArray);
-          mounted.current = true;
-        });
+  const buscarDados = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/Usuario?fk_clinica=${idClinica}`
+      );
+      const respostas = response.data;
+      const usuariosArray = respostas
+        .filter((usuario) => usuario.stats === false)
+        .map((usuario) => ({
+          id: usuario.id,
+          nome: usuario.Nome,
+          Profissao: usuario.Profissao,
+          Email: usuario.Email,
+        }));
+      setUsuarios(usuariosArray);
+      mounted.current = true;
+    } catch (error) {
+      console.error("Falha ao obter dados:", error);
     }
-  }, [idClinica]);
+  };
 
-  function showpacientes(pacientes) {
-    const indexOfLastUser = currentPage * usersPerPage;
-    const indexOfFirstUser = indexOfLastUser - usersPerPage;
-    const currentUsers = pacientes.slice(indexOfFirstUser, indexOfLastUser);
+  useEffect(() => {
+    buscarDados();
 
-    return (
-      <>
-        {currentUsers.map((paciente, index) => (
-          <tbody key={index}>
-            <tr className="bg-white border-b dark:bg-neutral-900 dark:border-gray-800">
-              <th
-                scope="row"
-                className="flex gap-x-2 px-6 items-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                <div className="h-10 w-10">
-                  <div className="h-full w-full rounded-full bg-gray-200"></div>
-                </div>
-                {paciente.nome}
-              </th>
-              <td className="px-6 py-4">{paciente.telefone}</td>
-              <td className="px-6 py-4">{paciente.Email}</td>
-              <td className="px-6 py-4 text-center">
-                <button className="p-1 rounded-lg transition-all hover:bg-evolutiLightBlueText hover:text-white">
-                  <FaEye size={20} />
-                </button>
-                <button className="p-1 rounded-lg transition-all hover:bg-red-500 hover:text-white">
-                  <FaTrash size={20} />
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        ))}
-      </>
-    );
-  }
+    const intervalo = setInterval(buscarDados, 10000);
+
+    return () => clearInterval(intervalo);
+  }, []);
+
+  const aceitarUsuario = async (e, idUsuario) => {
+    e.preventDefault();
+
+    const changes = { stats: true };
+    try {
+      await axios.patch(`http://localhost:3000/Usuario/${idUsuario}`, changes);
+      alert("Usuario aceito no sistema");
+      buscarDados();
+    } catch (error) {
+      console.error("Erro ao atualizar os dados da clínica:", error);
+    }
+  };
+
+  const negarUsuario = async (e, idUsuario) => {
+    e.preventDefault();
+    try {
+      await axios.delete(`http://localhost:3000/Usuario/${idUsuario}`);
+      alert("Usuario apagado do sistema");
+      buscarDados();
+    } catch (error) {
+      console.error("Erro ao atualizar os dados da clínica:", error);
+    }
+  };
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -84,7 +83,7 @@ export default function AdminPacientes() {
     setCurrentPage(currentPage - 1);
   };
 
-  const totalPages = Math.ceil(pacientes.length / usersPerPage);
+  const totalPages = Math.ceil(usuarios.length / usersPerPage);
 
   const handlePerPageChange = (e) => {
     setUsersPerPage(parseInt(e.target.value));
@@ -109,12 +108,55 @@ export default function AdminPacientes() {
     return pageNumbers;
   };
 
+  const showUsuarios = (usuarios) => {
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers = usuarios.slice(indexOfFirstUser, indexOfLastUser);
+
+    return (
+      <>
+        {currentUsers.map((usuario, index) => (
+          <tbody key={index}>
+            <tr className="bg-white border-b dark:bg-neutral-900 dark:border-gray-800">
+              <th
+                scope="row"
+                className="flex gap-x-2 px-6 items-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                <div className="h-10 w-10">
+                  <div className="h-full w-full rounded-full bg-gray-200"></div>
+                </div>
+                {usuario.nome}
+              </th>
+              <td className="px-6 py-4">{usuario.Profissao}</td>
+              <td className="px-6 py-4">{usuario.Email}</td>
+              <td className="px-6 py-4 text-center">
+                <button
+                  onClick={(e) => aceitarUsuario(e, usuario.id)}
+                  className="p-1 rounded-lg transition-all hover:bg-evolutiLightGreen hover:text-white"
+                >
+                  <FaRegCheckCircle size={20} />
+                </button>
+                <button
+                  onClick={(e) => negarUsuario(e, usuario.id)}
+                  className="p-1 rounded-lg transition-all hover:bg-red-500 hover:text-white"
+                >
+                  <FaRegTimesCircle size={20} />
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        ))}
+      </>
+    );
+  };
+
   return (
     <>
-      <AdminHomeSidebar>
+      <Sidebar>
         <ItemsSidebar
           icon={<FaUserCheck size={30} />}
           text="Aceitar"
+          ativo
           route={"/AdminAceitar"}
         />
         <ItemsSidebar
@@ -122,15 +164,10 @@ export default function AdminPacientes() {
           text="Usuários"
           route={"/AdminUsuarios"}
         />
-        <ItemsSidebar
-          icon={<FaUserInjured size={30} />}
-          text="Pacientes"
-          Ativo
-          route={"/AdminPaciente"}
-        />
+        <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
         <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
         <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
-      </AdminHomeSidebar>
+      </Sidebar>
 
       <section
         id="AdminHome"
@@ -138,7 +175,7 @@ export default function AdminPacientes() {
       >
         <div>
           <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">
-            <FaUsers size={40} /> Visualização de Pacientes
+            <FaUserCheck size={40} /> Aceitar novos Usuários
           </h1>
 
           <div className="flex mt-10 justify-center items-center gap-x-3 dark:text-white">
@@ -163,7 +200,7 @@ export default function AdminPacientes() {
               <th className="px-6 py-3">AÇÕES</th>
             </tr>
           </thead>
-          {showpacientes(pacientes)}
+          {showUsuarios(usuarios)}
         </table>
         <div className="flex justify-between w-3/4 items-center mt-4 dark:text-white">
           <div>

@@ -1,6 +1,7 @@
-import AdminHomeSidebar, {
+import axios from "axios";
+import Sidebar, {
   ItemsSidebar,
-} from "../Suplementares/AdminHomeSidebar";
+} from "../../Components/SideBar";
 import "../CSS/AnimacaoFlutuar.css";
 import { useRef, useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa6";
@@ -14,9 +15,9 @@ import {
 } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 
-export default function AdminUsuarios() {
+export default function AdminPacientes() {
   const idClinica = sessionStorage.getItem("idClinica");
-  const [usuarios, setUsuarios] = useState([]);
+  const [pacientes, setPacientes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(5);
 
@@ -24,35 +25,29 @@ export default function AdminUsuarios() {
 
   useEffect(() => {
     if (!mounted.current) {
-      let variaveisAPI = {
-        method: "GET",
-      };
-      fetch(
-        `http://localhost:3000/Usuario?fk_clinica=${idClinica}`,
-        variaveisAPI
-      )
-        .then((response) => response.json())
-        .then((respostas) => {
-          console.log(respostas);
-          const usuariosArray = respostas.map((usuario) => ({
-            nome: usuario.Nome,
-            Profissao: usuario.Profissao,
-            Email: usuario.Email
+      axios
+        .get(`http://localhost:3000/Paciente?fk_clinica=${idClinica}`)
+        .then((response) => {
+          console.log(response.data);
+          const pacientesArray = response.data.map((paciente) => ({
+            nome: paciente.nome,
+            telefone: paciente.telefone,
+            Email: paciente.email,
           }));
-          setUsuarios(usuariosArray);
+          setPacientes(pacientesArray);
           mounted.current = true;
         });
     }
-  }, []);
+  }, [idClinica]);
 
-  function showUsuarios(usuarios) {
+  function showpacientes(pacientes) {
     const indexOfLastUser = currentPage * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
-    const currentUsers = usuarios.slice(indexOfFirstUser, indexOfLastUser);
+    const currentUsers = pacientes.slice(indexOfFirstUser, indexOfLastUser);
 
     return (
       <>
-        {currentUsers.map((usuario, index) => (
+        {currentUsers.map((paciente, index) => (
           <tbody key={index}>
             <tr className="bg-white border-b dark:bg-neutral-900 dark:border-gray-800">
               <th
@@ -62,10 +57,10 @@ export default function AdminUsuarios() {
                 <div className="h-10 w-10">
                   <div className="h-full w-full rounded-full bg-gray-200"></div>
                 </div>
-                {usuario.nome}
+                {paciente.nome}
               </th>
-              <td className="px-6 py-4">{usuario.Profissao}</td>
-              <td className="px-6 py-4">{usuario.Email}</td>
+              <td className="px-6 py-4">{paciente.telefone}</td>
+              <td className="px-6 py-4">{paciente.Email}</td>
               <td className="px-6 py-4 text-center">
                 <button className="p-1 rounded-lg transition-all hover:bg-evolutiLightBlueText hover:text-white">
                   <FaEye size={20} />
@@ -89,7 +84,7 @@ export default function AdminUsuarios() {
     setCurrentPage(currentPage - 1);
   };
 
-  const totalPages = Math.ceil(usuarios.length / usersPerPage);
+  const totalPages = Math.ceil(pacientes.length / usersPerPage);
 
   const handlePerPageChange = (e) => {
     setUsersPerPage(parseInt(e.target.value));
@@ -116,8 +111,8 @@ export default function AdminUsuarios() {
 
   return (
     <>
-      <AdminHomeSidebar>
-      <ItemsSidebar
+      <Sidebar>
+        <ItemsSidebar
           icon={<FaUserCheck size={30} />}
           text="Aceitar"
           route={"/AdminAceitar"}
@@ -125,13 +120,17 @@ export default function AdminUsuarios() {
         <ItemsSidebar
           icon={<FaUsers size={30} />}
           text="Usuários"
-          ativo
           route={"/AdminUsuarios"}
         />
-        <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
+        <ItemsSidebar
+          icon={<FaUserInjured size={30} />}
+          text="Pacientes"
+          Ativo
+          route={"/AdminPaciente"}
+        />
         <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
         <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
-      </AdminHomeSidebar>
+      </Sidebar>
 
       <section
         id="AdminHome"
@@ -139,7 +138,7 @@ export default function AdminUsuarios() {
       >
         <div>
           <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">
-            <FaUsers size={40} /> Visualização de Usuários
+            <FaUsers size={40} /> Visualização de Pacientes
           </h1>
 
           <div className="flex mt-10 justify-center items-center gap-x-3 dark:text-white">
@@ -164,7 +163,7 @@ export default function AdminUsuarios() {
               <th className="px-6 py-3">AÇÕES</th>
             </tr>
           </thead>
-          {showUsuarios(usuarios)}
+          {showpacientes(pacientes)}
         </table>
         <div className="flex justify-between w-3/4 items-center mt-4 dark:text-white">
           <div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import AdminHomeSidebar, { ItemsSidebar } from "../Suplementares/AdminHomeSidebar";
+import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import { FiPlusCircle } from "react-icons/fi";
 import { FaUsers, FaUserInjured, FaFileAlt, FaLink, FaPlus, FaStethoscope, FaCaretDown } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
@@ -83,7 +83,7 @@ export default function FuncAtend() {
 
   return (
     <>
-      <AdminHomeSidebar>
+      <Sidebar>
         <ItemsSidebar
           icon={<FiPlusCircle size={30} />}
           text="Cadastros"
@@ -97,7 +97,7 @@ export default function FuncAtend() {
         <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
         <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
         <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
-      </AdminHomeSidebar>
+      </Sidebar>
 
       <section
         id="FuncHome"
