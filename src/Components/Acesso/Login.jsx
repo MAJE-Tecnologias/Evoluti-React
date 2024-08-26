@@ -186,7 +186,7 @@ export default function Login() {
                     } placeholder-evolutiGreen 
                     p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker`}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value.toLowerCase)}
               />
               {emailError && (
                 <span className="text-red-500 text-xs mt-1">{emailError}</span>
