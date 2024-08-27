@@ -14,6 +14,7 @@ export default function MarcacaoPontosDor() {
   const [newCircle, setNewCircle] = useState(null);
   const [selectedColor, setSelectedColor] = useState("blue"); // Default color
   const [detalhes, setDetalhes] = useState(false);
+  const [pointerCirculo, setPointerCirculo] = useState(null);
 
   const mounted = useRef(false);
 
@@ -131,13 +132,14 @@ export default function MarcacaoPontosDor() {
     setShowModal(false);
   };
 
-  const showDetalhes = () => {
+  const showDetalhes = (index) => {
+    setPointerCirculo(index);
     setDetalhes(true);
   };
 
   const hideDetalhes = () => {
-    console.log("hideDetalhes called");
     setDetalhes(false);
+    setPointerCirculo(null);
   };
 
   const handleColorChange = (color) => {
@@ -146,7 +148,7 @@ export default function MarcacaoPontosDor() {
 
   return (
     <>
-      <div className="w-full flex-col justify-center lg:flex lg:flex-row ">
+      <div className="w-full flex-col justify-center lg:flex lg:flex-row">
         <div className="image-container">
           <div className="image-wrapper">
             <img
@@ -180,17 +182,8 @@ export default function MarcacaoPontosDor() {
           selectedColor={selectedColor} // Pass selectedColor to Modal
           onColorChange={handleColorChange} // Pass handleColorChange to Modal
         ></Modal>
-
-        <FuncionarioCardAtendimento
-          isOpen={detalhes}
-          hideDetalhes={hideDetalhes}
-          
-        >
-          <h2 className="text-xl font-semibold mb-4">Conteúdo da Modal</h2>
-          <p>
-          </p>
-        </FuncionarioCardAtendimento>
       </div>
+
       <div className="relative w-full bg-[#E7E5E5] rounded-xl border-black overflow-y-scroll scrollable-container">
         <div className="absolute w-full p-4">
           <h2 className="font-extrabold text-2xl text-center border-b-2 border-black mb-4">
@@ -202,7 +195,7 @@ export default function MarcacaoPontosDor() {
                 key={circulo.id}
                 className="w-full bg-white p-2 rounded-xl shadow-lg"
               >
-                <li>
+                <li className="truncate">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-lg">
                       Marcação #{indice + 1}
@@ -212,18 +205,14 @@ export default function MarcacaoPontosDor() {
                       style={{ backgroundColor: circulo.cor }}
                     ></div>
                   </div>
-                  <br />
                   <p className="font-bold font-poppins">
                     Título:{" "}
                     <span className="font-normal">{circulo.titulo}</span>
                   </p>
-                  <br />
                   <p className="font-bold font-poppins">
                     Descrição do ponto de dor:{" "}
                   </p>
-                  <span>{circulo.desc}</span>
-                  <br />
-                  <br />
+                  <span className="">{circulo.desc}</span>
                   <div className="flex items-center gap-x-2">
                     <button
                       className="flex justify-center items-center px-2 py-1 border-2 border-black 
@@ -235,7 +224,7 @@ export default function MarcacaoPontosDor() {
                     <button
                       className="flex justify-center items-center px-2 py-1 border-2 border-black 
                     rounded-xl bg-evolutiLightBlueText font-bold text-white gap-x-2 hover:brightness-90"
-                      onClick={showDetalhes}
+                      onClick={() => showDetalhes(indice)} // Correctly pass the index
                     >
                       <FaEdit /> Editar
                     </button>
@@ -245,7 +234,15 @@ export default function MarcacaoPontosDor() {
             ))}
           </ul>
         </div>
+        {detalhes && (
+          <FuncionarioCardAtendimento
+            isOpen={detalhes}
+            hideDetalhes={hideDetalhes}
+            detalhes={circulos[pointerCirculo]} // Safely access details using optional chaining
+          />
+        )}
       </div>
     </>
   );
 }
+
