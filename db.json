@@ -159,7 +159,8 @@
         "x": 70,
         "y": 90
       },
-      "desc": "sample",
+      "titulo": "sample",
+      "desc": "O paciente está relatando muitas dores no peito, mais especificamente na parte esquerda do corpo.",
       "cor": "#9B59B6"
     },
     {
