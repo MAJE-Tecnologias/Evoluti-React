@@ -59,7 +59,6 @@ export default function Sidebar({ children }) {
   };
 
   return (
-    <aside className="absolute h-screen w-fit">
       <nav className="h-full fixed flex flex-col bg-evolutiLightGreen shadow-sm z-20">
         <div
           className={`p-4 pb-2 flex items-center ${expandido ? "justify-between" : "justify-center"}`}
@@ -145,7 +144,6 @@ export default function Sidebar({ children }) {
           </div>
         </div>
       </nav>
-    </aside>
   );
 }
 
