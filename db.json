@@ -2,7 +2,6 @@
   "Endereco": [
     {
       "id": "1",
-      "id": "1",
       "CEP": 13220110,
       "Logradouro": "Bell Alliance",
       "TipoLogradouro": "Rua",
@@ -58,7 +57,7 @@
       "Profissao": "Fisio",
       "Verificador": "185",
       "Genero": "1",
-      "stats": false,
+      "stats": true,
       "fk_clinica": "0c2b"
     },
     {

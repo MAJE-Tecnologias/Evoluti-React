@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { FaArrowCircleLeft, FaMoon, FaSun } from "react-icons/fa";
-import axios from "axios"; // Importando o Axios
-import darkModeButton from "../../JS/darkModeButton";
+import { useNavigate } from "react-router-dom";
+import darkModeButton from "../../Components/darkModeButton";
 import { verificarCodigo } from "../../services/authServices";
 
 export default function CadastroCod() {
@@ -81,7 +80,7 @@ export default function CadastroCod() {
             className="fixed flex justify-center transition-all items-center bottom-0 left-0 m-5 font-bold 
             bg-gray-800 text-white px-4 py-2 rounded-full shadow-md dark:bg-white dark:text-evolutiDarkBlueText"
           >
-            <FaArrowCircleLeft className="mr-2"/>Voltar
+            <FaArrowCircleLeft className="mr-2" />Voltar
           </button>
         </section>
       </main>

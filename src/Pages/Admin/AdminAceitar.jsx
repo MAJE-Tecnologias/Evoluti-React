@@ -1,18 +1,16 @@
-import Sidebar, {
-  ItemsSidebar,
-} from "../../Components/SideBar";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
-  FaUsers,
-  FaUserInjured,
   FaFileAlt,
-  FaSearch,
   FaRegCheckCircle,
   FaRegTimesCircle,
+  FaSearch,
   FaUserCheck,
+  FaUserInjured,
+  FaUsers,
 } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
-import axios from "axios";
+import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
+import { aceitarUsuario, fetchUsuarios, negarUsuario } from '../../services/adminServices'; // Importar as funções do serviço
 
 export default function AdminAceitar() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -24,18 +22,7 @@ export default function AdminAceitar() {
 
   const buscarDados = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:3000/Usuario?fk_clinica=${idClinica}`
-      );
-      const respostas = response.data;
-      const usuariosArray = respostas
-        .filter((usuario) => usuario.stats === false)
-        .map((usuario) => ({
-          id: usuario.id,
-          nome: usuario.Nome,
-          Profissao: usuario.Profissao,
-          Email: usuario.Email,
-        }));
+      const usuariosArray = await fetchUsuarios(idClinica);
       setUsuarios(usuariosArray);
       mounted.current = true;
     } catch (error) {
@@ -51,27 +38,25 @@ export default function AdminAceitar() {
     return () => clearInterval(intervalo);
   }, []);
 
-  const aceitarUsuario = async (e, idUsuario) => {
+  const handleAceitarUsuario = async (e, idUsuario) => {
     e.preventDefault();
-
-    const changes = { stats: true };
     try {
-      await axios.patch(`http://localhost:3000/Usuario/${idUsuario}`, changes);
-      alert("Usuario aceito no sistema");
+      await aceitarUsuario(idUsuario);
+      alert("Usuário aceito no sistema");
       buscarDados();
     } catch (error) {
-      console.error("Erro ao atualizar os dados da clínica:", error);
+      console.error("Erro ao aceitar usuário:", error);
     }
   };
 
-  const negarUsuario = async (e, idUsuario) => {
+  const handleNegarUsuario = async (e, idUsuario) => {
     e.preventDefault();
     try {
-      await axios.delete(`http://localhost:3000/Usuario/${idUsuario}`);
-      alert("Usuario apagado do sistema");
+      await negarUsuario(idUsuario);
+      alert("Usuário apagado do sistema");
       buscarDados();
     } catch (error) {
-      console.error("Erro ao atualizar os dados da clínica:", error);
+      console.error("Erro ao negar usuário:", error);
     }
   };
 
@@ -96,9 +81,8 @@ export default function AdminAceitar() {
       pageNumbers.push(
         <button
           key={i}
-          className={`px-3 py-1 mx-1 border rounded-lg ${
-            currentPage === i ? "bg-gray-500" : "bg-gray-300"
-          }`}
+          className={`px-3 py-1 mx-1 border rounded-lg ${currentPage === i ? "bg-gray-500" : "bg-gray-300"
+            }`}
           onClick={() => setCurrentPage(i)}
         >
           {i}
@@ -131,13 +115,13 @@ export default function AdminAceitar() {
               <td className="px-6 py-4">{usuario.Email}</td>
               <td className="px-6 py-4 text-center">
                 <button
-                  onClick={(e) => aceitarUsuario(e, usuario.id)}
+                  onClick={(e) => handleAceitarUsuario(e, usuario.id)}
                   className="p-1 rounded-lg transition-all hover:bg-evolutiLightGreen hover:text-white"
                 >
                   <FaRegCheckCircle size={20} />
                 </button>
                 <button
-                  onClick={(e) => negarUsuario(e, usuario.id)}
+                  onClick={(e) => handleNegarUsuario(e, usuario.id)}
                   className="p-1 rounded-lg transition-all hover:bg-red-500 hover:text-white"
                 >
                   <FaRegTimesCircle size={20} />

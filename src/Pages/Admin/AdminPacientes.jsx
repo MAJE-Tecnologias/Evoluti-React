@@ -1,19 +1,9 @@
-import axios from "axios";
-import Sidebar, {
-  ItemsSidebar,
-} from "../../Components/SideBar";
-import "../CSS/AnimacaoFlutuar.css";
-import { useRef, useEffect, useState } from "react";
-import { FaUsers } from "react-icons/fa6";
-import {
-  FaUserInjured,
-  FaFileAlt,
-  FaSearch,
-  FaEye,
-  FaTrash,
-  FaUserCheck,
-} from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
+import { FaEye, FaFileAlt, FaSearch, FaTrash, FaUserInjured, FaUsers } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
+import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
+import { fetchPacientes } from "../../services/adminServices"; // Importar o serviço
+import "../CSS/AnimacaoFlutuar.css";
 
 export default function AdminPacientes() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -25,22 +15,21 @@ export default function AdminPacientes() {
 
   useEffect(() => {
     if (!mounted.current) {
-      axios
-        .get(`http://localhost:3000/Paciente?fk_clinica=${idClinica}`)
-        .then((response) => {
-          console.log(response.data);
-          const pacientesArray = response.data.map((paciente) => ({
+      fetchPacientes(idClinica)
+        .then((data) => {
+          const pacientesArray = data.map((paciente) => ({
             nome: paciente.nome,
             telefone: paciente.telefone,
             Email: paciente.email,
           }));
           setPacientes(pacientesArray);
           mounted.current = true;
-        });
+        })
+        .catch((error) => console.error("Erro ao buscar pacientes:", error));
     }
   }, [idClinica]);
 
-  function showpacientes(pacientes) {
+  const showPacientes = (pacientes) => {
     const indexOfLastUser = currentPage * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
     const currentUsers = pacientes.slice(indexOfFirstUser, indexOfLastUser);
@@ -74,7 +63,7 @@ export default function AdminPacientes() {
         ))}
       </>
     );
-  }
+  };
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -97,9 +86,8 @@ export default function AdminPacientes() {
       pageNumbers.push(
         <button
           key={i}
-          className={`px-3 py-1 mx-1 border rounded-lg ${
-            currentPage === i ? "bg-gray-500" : "bg-gray-300"
-          }`}
+          className={`px-3 py-1 mx-1 border rounded-lg ${currentPage === i ? "bg-gray-500" : "bg-gray-300"
+            }`}
           onClick={() => setCurrentPage(i)}
         >
           {i}
@@ -108,6 +96,7 @@ export default function AdminPacientes() {
     }
     return pageNumbers;
   };
+
 
   return (
     <>

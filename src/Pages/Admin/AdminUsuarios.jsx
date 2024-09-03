@@ -1,18 +1,17 @@
-import Sidebar, {
-  ItemsSidebar,
-} from "../../Components/SideBar";
-import "../CSS/AnimacaoFlutuar.css";
-import { useRef, useEffect, useState } from "react";
-import { FaUsers } from "react-icons/fa6";
+import { useEffect, useRef, useState } from "react";
 import {
-  FaUserInjured,
+  FaEye,
   FaFileAlt,
   FaSearch,
-  FaEye,
   FaTrash,
   FaUserCheck,
+  FaUserInjured,
 } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa6";
 import { VscGraph } from "react-icons/vsc";
+import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
+import { fetchUsuarios } from "../../services/adminServices"; // Importar o serviço
+import "../CSS/AnimacaoFlutuar.css";
 
 export default function AdminUsuarios() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -24,28 +23,21 @@ export default function AdminUsuarios() {
 
   useEffect(() => {
     if (!mounted.current) {
-      let variaveisAPI = {
-        method: "GET",
+      const fetchData = async () => {
+        try {
+          const usuariosData = await fetchUsuarios(idClinica);
+          setUsuarios(usuariosData);
+        } catch (error) {
+          console.error("Erro ao buscar usuários:", error);
+        }
       };
-      fetch(
-        `http://localhost:3000/Usuario?fk_clinica=${idClinica}`,
-        variaveisAPI
-      )
-        .then((response) => response.json())
-        .then((respostas) => {
-          console.log(respostas);
-          const usuariosArray = respostas.map((usuario) => ({
-            nome: usuario.Nome,
-            Profissao: usuario.Profissao,
-            Email: usuario.Email
-          }));
-          setUsuarios(usuariosArray);
-          mounted.current = true;
-        });
-    }
-  }, []);
 
-  function showUsuarios(usuarios) {
+      fetchData();
+      mounted.current = true;
+    }
+  }, [idClinica]);
+
+  const showUsuarios = (usuarios) => {
     const indexOfLastUser = currentPage * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
     const currentUsers = usuarios.slice(indexOfFirstUser, indexOfLastUser);
@@ -79,7 +71,7 @@ export default function AdminUsuarios() {
         ))}
       </>
     );
-  }
+  };
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -102,9 +94,8 @@ export default function AdminUsuarios() {
       pageNumbers.push(
         <button
           key={i}
-          className={`px-3 py-1 mx-1 border rounded-lg ${
-            currentPage === i ? "bg-gray-500" : "bg-gray-300"
-          }`}
+          className={`px-3 py-1 mx-1 border rounded-lg ${currentPage === i ? "bg-gray-500" : "bg-gray-300"
+            }`}
           onClick={() => setCurrentPage(i)}
         >
           {i}
@@ -117,7 +108,7 @@ export default function AdminUsuarios() {
   return (
     <>
       <Sidebar>
-      <ItemsSidebar
+        <ItemsSidebar
           icon={<FaUserCheck size={30} />}
           text="Aceitar"
           route={"/AdminAceitar"}

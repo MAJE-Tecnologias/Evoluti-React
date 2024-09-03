@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { fetchClinicaData, updateClinicaData } from '../../services/adminServices'; // Importar as funções do serviço
 
 export default function AdminAdd() {
   const [clinica, setClinica] = useState(null);
@@ -8,18 +8,17 @@ export default function AdminAdd() {
   const [nivel, setNivel] = useState([]);
 
   useEffect(() => {
-    const fetchClinicaData = async () => {
+    const idClinica = localStorage.getItem("idClinica");
+    const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/Clinica/${localStorage.getItem("idClinica")}`
-        );
-        setClinica(response.data);
+        const clinicaData = await fetchClinicaData(idClinica);
+        setClinica(clinicaData);
       } catch (error) {
         console.error("Erro ao buscar os dados da clínica:", error);
       }
     };
 
-    fetchClinicaData();
+    fetchData();
   }, []);
 
   const addProf = async (e) => {
@@ -40,12 +39,9 @@ export default function AdminAdd() {
     }
 
     try {
-      const response = await axios.patch(
-        `http://localhost:3000/Clinica/${localStorage.getItem("idClinica")}`,
-        changes
-      );
-      console.log("Dados da clínica atualizados com sucesso:", response.data);
-      setClinica(response.data);
+      const updatedClinica = await updateClinicaData(localStorage.getItem("idClinica"), changes);
+      console.log("Dados da clínica atualizados com sucesso:", updatedClinica);
+      setClinica(updatedClinica);
       setNome("");
       setNivel([]);
     } catch (error) {

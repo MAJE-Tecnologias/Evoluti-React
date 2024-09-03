@@ -5,6 +5,40 @@ const api = axios.create({
   baseURL: 'http://localhost:3000',
   timeout: 1000,
 });
+export const fetchNextId = () => {
+  return api
+    .get('/Usuario?_sort=-id')
+    .then((response) => {
+      const respostas = response.data;
+      if (respostas && respostas.length > 0) {
+        return respostas[0].id;
+      } else {
+        throw new Error('Nenhum usuário encontrado.');
+      }
+    });
+};
+
+// Função para buscar profissões
+export const fetchProfissoes = (idClinica) => {
+  return api
+    .get(`/Clinica?id=${idClinica}`)
+    .then((response) => {
+      const respostas = response.data;
+      if (
+        respostas.length > 0 &&
+        respostas[0].profissoes &&
+        respostas[0].verificadorProf
+      ) {
+        // Transformar dados recebidos em formato apropriado
+        return respostas[0].profissoes.map((profissao, index) => ({
+          profissao,
+          verificado: respostas[0].verificadorProf[index],
+        }));
+      } else {
+        throw new Error('Não foi possível acessar as profissões ou verificadorProf da clínica.');
+      }
+    });
+};
 
 // Função para buscar emails e CNPJ das clínicas existentes
 export const fetchClinicas = async () => {
