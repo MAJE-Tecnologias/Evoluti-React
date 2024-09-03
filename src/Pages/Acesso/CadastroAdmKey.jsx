@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaMoon, FaSun } from "react-icons/fa";
-import axios from "axios";
+import { gerarCodigo, enviarEmail, obterProximoId, criarAdministrador } from "../../services/cadastroServices";
 import Modal from "./ModalEmail";
 
 export default function CadastroAdmKey() {
@@ -16,7 +16,7 @@ export default function CadastroAdmKey() {
   const [telefone, setTelefone] = useState("");
   const [rg, setRG] = useState("");
   const [senha, setSenha] = useState("");
-  const idClinica = localStorage.getItem("idClinica");
+  const idClinica = sessionStorage.getItem("idClinica");
   const [modoEscuro, setModoEscuro] = useState(
     window.matchMedia("(prefers-color-scheme: dark)").matches
   );
@@ -29,13 +29,8 @@ export default function CadastroAdmKey() {
     document.body.classList.toggle("dark", modoEscuro);
     if (!mounted.current) {
       mounted.current = true;
-      axios
-        .get(`http://localhost:3000/Usuario?_sort=-id`)
-        .then((response) => {
-          if (response.data && response.data.length > 0) {
-            setId(response.data[0].id);
-          }
-        })
+      obterProximoId()
+        .then((nextId) => setId(nextId))
         .catch((error) =>
           console.error("Erro ao buscar dados de usuário:", error)
         );
@@ -46,47 +41,10 @@ export default function CadastroAdmKey() {
     };
   }, [modoEscuro]);
 
-  function gerarCodigo(length) {
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let result = "";
-    const charactersLength = characters.length;
-
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-
-    return result;
-  }
-
-  function enviarEmail() {
-    const codigo = gerarCodigo(4);
-    setCodigoEmail(codigo);
-    const data = {
-      email: email,
-      subject: "Email de confirmação Evoluti",
-      message: `Código para validar sua conta é ${codigo}`,
-    };
-
-    axios
-      .post("https://emailhandler.onrender.com/send-email", data)
-      .then(function (response) {
-        console.log("Resposta do servidor:", response.data);
-        setModalMessage(
-          "O e-mail foi enviado com sucesso! Por favor, insira o código recebido."
-        );
-        setShowModal(true)
-      })
-      .catch(function (error) {
-        console.error("Erro ao fazer request:", error);
-        setModalMessage("Erro ao enviar o e-mail.");
-      });
-  }
-
   const handleModalSubmit = async (value) => {
     if (validaEmail(value)) {
       const body = {
-        id: parseInt(id) + 1,
+        id: id,
         Nome: nome,
         Email: email,
         Telefone: telefone,
@@ -98,22 +56,16 @@ export default function CadastroAdmKey() {
         Genero: genero,
         stats: false,
         fk_clinica: idClinica,
+        nivelAcesso: 1,
       };
-      
-      axios.post("http://localhost:3000/Usuario", body, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((response) => {
-        console.log("Usuário cadastrado com sucesso:", response.data);
-        // Sucesso! Faça algo como redirecionar para uma nova página
+
+      try {
+        await criarAdministrador(body);
         alert("Cadastrado com sucesso");
-        sessionStorage.setItem("idUsuario", body.id);
-        navigate("/FuncHome");
-      })
-      .catch((error) => {
+        navigate("/AdminHome");
+      } catch (error) {
         console.error("Erro ao cadastrar administrador:", error);
-        // Trate o erro adequadamente
-      });
+      }
     }
   };
 
@@ -129,7 +81,19 @@ export default function CadastroAdmKey() {
   const criarAdm = (e) => {
     e.preventDefault();
     if (validaCadastro()) {
-      enviarEmail();
+      const codigo = gerarCodigo(4);
+      setCodigoEmail(codigo);
+
+      enviarEmail(email, codigo)
+        .then(() => {
+          setModalMessage(
+            "O e-mail foi enviado com sucesso! Por favor, insira o código recebido."
+          );
+          setShowModal(true);
+        })
+        .catch((error) => {
+          setModalMessage("Erro ao enviar o e-mail.");
+        });
     }
   };
 

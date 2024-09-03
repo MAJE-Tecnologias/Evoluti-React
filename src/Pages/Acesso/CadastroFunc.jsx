@@ -1,8 +1,15 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaMoon, FaSun } from "react-icons/fa";
-import axios from "axios";
-import Modal from "./ModalEmail"; // Importe o componente ModalEmail
+import {
+  gerarCodigo,
+  fetchNextId,
+  fetchProfissoes,
+  enviarEmail,
+  criarUsuario
+} from "../../services/cadastroServices"; // Importe os serviços
+
+import Modal from "./ModalEmail";
 
 export default function CadastroFunc() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -16,16 +23,18 @@ export default function CadastroFunc() {
   const [profissao, setProfissao] = useState("");
   const [senha, setSenha] = useState("");
   const [verificador, setVerificador] = useState("");
-  const [profissoes, setProfissoes] = useState([]); // Estado para armazenar as profissões
-  const [showModal, setShowModal] = useState(false); // Estado para controlar a exibição do modal
-  const [modalMessage, setModalMessage] = useState(""); // Estado para a mensagem do modal
-  const [codigoEmail, setCodigoEmail] = useState(""); // Estado para o código de e-mail
+  const [profissoes, setProfissoes] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [codigoEmail, setCodigoEmail] = useState("");
 
   const [modoEscuro, setModoEscuro] = useState(
     window.matchMedia("(prefers-color-scheme: dark)").matches
   );
 
   const verificadorRef = useRef();
+  const navigate = useNavigate();
+  const mounted = useRef(false);
 
   useEffect(() => {
     document.body.classList.toggle("dark", modoEscuro);
@@ -33,105 +42,27 @@ export default function CadastroFunc() {
 
   const toggleDarkMode = () => setModoEscuro(!modoEscuro);
 
-  const navigate = useNavigate();
-  const mounted = useRef(false);
   useEffect(() => {
     if (!mounted.current) {
       if (profissao) {
         debouncedVerificaProf();
       }
       mounted.current = true;
-      axios
-        .get("http://localhost:3000/Usuario?_sort=-id")
-        .then((response) => {
-          const respostas = response.data;
-          if (respostas && respostas.length > 0) {
-            setId(respostas[0].id);
-          }
-        })
-        .catch((error) => console.error("Erro ao buscar usuários:", error));
-
-      const buscarProfissoes = () => {
-        axios
-          .get(`http://localhost:3000/Clinica?id=${idClinica}`)
-          .then((response) => {
-            const respostas = response.data;
-            if (
-              respostas.length > 0 &&
-              respostas[0].profissoes &&
-              respostas[0].verificadorProf
-            ) {
-              // Transformar dados recebidos em formato apropriado para o estado
-              const profissoesData = respostas[0].profissoes.map(
-                (profissao, index) => ({
-                  profissao,
-                  verificado: respostas[0].verificadorProf[index],
-                })
-              );
-              setProfissoes(profissoesData); // Atualizar o estado com os novos dados
-            } else {
-              console.log(
-                "Não foi possível acessar as profissões ou verificadorProf da clínica."
-              );
-            }
-          })
-          .catch((error) => console.error("Erro ao buscar dados:", error));
-      };
-
-      buscarProfissoes();
+      fetchNextId().then(setId).catch(console.error);
+      fetchProfissoes(idClinica)
+        .then(setProfissoes)
+        .catch(error => console.log("Erro ao buscar profissões:", error));
     }
 
     return () => {
       mounted.current = false;
     };
-  }, [debouncedVerificaProf, idClinica, profissao]);
-
-  function gerarCodigo(length) {
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let result = "";
-    const charactersLength = characters.length;
-
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-
-    return result;
-  }
-
-  function enviarEmail() {
-    const codigo = gerarCodigo(4);
-    setCodigoEmail(codigo);
-    const data = {
-      email: email,
-      subject: "Email de confirmação Evoluti",
-      message: `Código para validar sua conta é ${codigo}`,
-    };
-
-    axios
-      .post("https://emailhandler.onrender.com/send-email", data)
-      .then(function (response) {
-        console.log("Resposta do servidor:", response.data);
-        setModalMessage(
-          "O e-mail foi enviado com sucesso! Por favor, insira o código recebido."
-        );
-        setShowModal(true);
-      })
-      .catch(function (error) {
-        console.error("Erro ao fazer request:", error);
-        setModalMessage("Erro ao enviar o e-mail.");
-      });
-  }
-
-  const criarFunc = (e) => {
-    e.preventDefault();
-    enviarEmail();
-  };
+  }, [idClinica, profissao]);
 
   const handleModalSubmit = async (value) => {
     if (validaEmail(value)) {
-      const newId = parseInt(id) + 1;
-      const variaveisAPI = {
+      const newId = id;
+      const usuarioData = {
         id: newId,
         Nome: nome,
         Email: email,
@@ -146,14 +77,14 @@ export default function CadastroFunc() {
         fk_clinica: idClinica,
       };
 
-      axios
-        .post("http://localhost:3000/Usuario", variaveisAPI)
-        .then(() => {
-          alert("Cadastrado com sucesso");
-          sessionStorage.setItem("idUsuario", newId);
-          navigate("/FuncHome");
-        })
-        .catch((error) => console.log("error", error));
+      try {
+        await criarUsuario(usuarioData);
+        alert("Cadastrado com sucesso");
+        sessionStorage.setItem("idUsuario", newId);
+        navigate("/FuncHome");
+      } catch (error) {
+        console.log("Erro ao criar usuário:", error);
+      }
     }
   };
 
@@ -166,21 +97,7 @@ export default function CadastroFunc() {
     }
   };
 
-  function GerarOptions(profissoes) {
-    return profissoes.map((item, index) => (
-      <option key={index} value={item.profissao}>
-        {item.profissao}
-      </option>
-    ));
-  }
-
-  function debounce(func, wait) {
-    let timeout;
-    return function (...args) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  }
+  const debouncedVerificaProf = debounce(verificaProf, 500);
 
   function verificaProf() {
     const prof = profissoes.find((p) => p.profissao === profissao);
@@ -192,8 +109,38 @@ export default function CadastroFunc() {
     }
   }
 
-  const debouncedVerificaProf = debounce(verificaProf, 500);
+  function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  }
 
+  const criarFunc = (e) => {
+    e.preventDefault();
+    const codigo = gerarCodigo(4);
+    setCodigoEmail(codigo);
+    enviarEmail(email, codigo)
+      .then(() => {
+        setModalMessage(
+          "O e-mail foi enviado com sucesso! Por favor, insira o código recebido."
+        );
+        setShowModal(true);
+      })
+      .catch((error) => {
+        console.error("Erro ao enviar o e-mail:", error);
+        setModalMessage("Erro ao enviar o e-mail.");
+      });
+  };
+
+  function GerarOptions(profissoes) {
+    return profissoes.map((item, index) => (
+      <option key={index} value={item.profissao}>
+        {item.profissao}
+      </option>
+    ));
+  }
   return (
     <>
       <main className="bg-[url('src/assets/Fundo.png')] dark:bg-[url('src/assets/FundoInverso.png')] bg-cover transition-all w-screen h-screen flex items-center justify-center">

@@ -2,6 +2,7 @@
   "Endereco": [
     {
       "id": "1",
+      "id": "1",
       "CEP": 13220110,
       "Logradouro": "Bell Alliance",
       "TipoLogradouro": "Rua",
@@ -36,6 +37,13 @@
         3,
         1
       ]
+    },
+    {
+      "id": "36c4",
+      "cnpj": "09821546",
+      "nome": "clinicamoraes",
+      "email": "clinicamoraes@hotmail.com",
+      "adicionadoEm": "2024-09-02T23:46:39.051Z"
     }
   ],
   "Usuario": [

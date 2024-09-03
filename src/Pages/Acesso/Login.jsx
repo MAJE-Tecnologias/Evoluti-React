@@ -1,98 +1,83 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { IoEye, IoEyeOff } from "react-icons/io5";
-import { FaMoon, FaSun } from "react-icons/fa";
-import FancyText from "@carefully-coded/react-text-gradient";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { IoEye, IoEyeOff } from 'react-icons/io5';
+import { FaMoon, FaSun } from 'react-icons/fa';
+import FancyText from '@carefully-coded/react-text-gradient';
+import { login } from '../../services/authServices';  // Importar o serviço de autenticação
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [senhaError, setSenhaError] = useState("");
-  const [tipo, setTipo] = useState("password");
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [senhaError, setSenhaError] = useState('');
+  const [tipo, setTipo] = useState('password');
   const [modoEscuro, setModoEscuro] = useState(
-    window.matchMedia("(prefers-color-scheme: dark)").matches
+    window.matchMedia('(prefers-color-scheme: dark)').matches
   );
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.body.classList.toggle("dark", modoEscuro);
+    document.body.classList.toggle('dark', modoEscuro);
   }, [modoEscuro]);
 
   const toggleDarkMode = () => setModoEscuro(!modoEscuro);
 
   const esconderSenha = () =>
-    setTipo(tipo === "password" ? "text" : "password");
+    setTipo(tipo === 'password' ? 'text' : 'password');
 
   const passarLogin = async (e) => {
     e.preventDefault();
 
     if (validaLogin()) {
       try {
-        const userResponse = await axios.get(
-          `http://localhost:3000/Usuario?Email=${email}`
-        );
-        const usuario = userResponse.data[0];
+        const { usuario, clinica, nivel } = await login(email, senha);
 
-        if (!usuario) {
-          setEmailError("E-mail não encontrado.");
-          return;
-        }
+        sessionStorage.setItem('idClinica', usuario.fk_clinica);
+        sessionStorage.setItem('idUsuario', usuario.id);
 
-        if (usuario.Senha !== senha) {
-          setSenhaError("Senha incorreta");
-          return;
-        }
-
-        sessionStorage.setItem("idClinica", usuario.fk_clinica);
-        sessionStorage.setItem("idUsuario", usuario.id);
-        const clinicaResponse = await axios.get(
-          `http://localhost:3000/Clinica/${usuario.fk_clinica}`
-        );
-        const clinica = clinicaResponse.data;
-
-        const profissaoIndex = clinica.profissoes.indexOf(usuario.Profissao);
-        if (profissaoIndex !== -1) {
-          sessionStorage.setItem("nivel", clinica.nivel[profissaoIndex]);
-          if (usuario.stats == false) {
-            window.alert("Espere liberação de acesso de seu administrador");
-          } else {
-            switch (clinica.nivel[profissaoIndex]) {
-              case 0:
-                navigate("/AdminHome");
-                break;
-              case 2:
-                navigate("/FuncHome");
-                break;
-            }
-          }
+        if (usuario.stats === false) {
+          window.alert('Espere liberação de acesso de seu administrador');
         } else {
-          console.log("Erro ao encontrar profissão");
+          switch (nivel) {
+            case 0:
+              navigate('/AdminHome');
+              break;
+            case 2:
+              navigate('/FuncHome');
+              break;
+            default:
+              console.log('Nível de acesso desconhecido.');
+          }
         }
       } catch (error) {
-        console.log("Error:", error);
+        if (error.message === 'E-mail não encontrado.') {
+          setEmailError(error.message);
+        } else if (error.message === 'Senha incorreta.') {
+          setSenhaError(error.message);
+        } else {
+          console.log('Error:', error);
+        }
       }
     }
   };
 
   const validaLogin = () => {
-    setEmailError("");
-    setSenhaError("");
+    setEmailError('');
+    setSenhaError('');
 
     let estaValido = true;
 
     if (!email.trim()) {
-      setEmailError("E-mail é obrigatório");
+      setEmailError('E-mail é obrigatório');
       estaValido = false;
     } else if (!isValidEmail(email)) {
-      setEmailError("E-mail inválido");
+      setEmailError('E-mail inválido');
       estaValido = false;
     }
 
     if (!senha.trim()) {
-      setSenhaError("Senha é obrigatória");
+      setSenhaError('Senha é obrigatória');
       estaValido = false;
     }
 
@@ -101,9 +86,9 @@ export default function Login() {
 
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
-  const redirectCadastro = () => navigate("/Cadastro");
+  const redirectCadastro = () => navigate('/Cadastro');
 
-  const redirectCadastroCod = () => navigate("/CadastroCod");
+  const redirectCadastroCod = () => navigate('/CadastroCod');
 
   return (
     <main
@@ -123,12 +108,12 @@ export default function Login() {
                 Bem-vindo de volta!
               </h1>
               <span className="font-medium text-2xl md:text-nowrap dark:text-white">
-                Transforme com o{" "}
+                Transforme com o{' '}
                 <FancyText
                   gradient={{
-                    from: "#30EED6",
-                    to: "#30A8EE",
-                    type: "linear",
+                    from: '#30EED6',
+                    to: '#30A8EE',
+                    type: 'linear',
                   }}
                   animate
                   animateDuration={1000}
@@ -182,7 +167,7 @@ export default function Login() {
                 name="emailLogin"
                 className={`peer w-full placeholder-transparent bg-loginButtonsBackground 
                     border ${
-                      emailError ? "border-red-500" : "border-evolutiLightGreen"
+                      emailError ? 'border-red-500' : 'border-evolutiLightGreen'
                     } placeholder-evolutiGreen 
                     p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker`}
                 value={email}
@@ -210,7 +195,7 @@ export default function Login() {
                   name="senhaLogin"
                   className={`peer w-full placeholder-transparent bg-loginButtonsBackground 
                     border ${
-                      senhaError ? "border-red-500" : "border-evolutiLightGreen"
+                      senhaError ? 'border-red-500' : 'border-evolutiLightGreen'
                     } placeholder-evolutiGreen 
                     p-3.5 pr-16 rounded-lg shadow-md focus:outline-evolutiGreenDarker`}
                   value={senha}
@@ -222,7 +207,7 @@ export default function Login() {
                     hover:text-evolutiGreenDarker hover:bg-gray-200"
                   onClick={esconderSenha}
                 >
-                  {tipo === "password" ? (
+                  {tipo === 'password' ? (
                     <IoEyeOff
                       size={24}
                       className="cursor-pointer transition-colors"

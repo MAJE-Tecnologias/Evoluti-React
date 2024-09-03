@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowCircleLeft, FaMoon, FaSun } from "react-icons/fa";
 import axios from "axios"; // Importando o Axios
-import darkModeButton from "../../Components/darkModeButton";
+import darkModeButton from "../../JS/darkModeButton";
+import { verificarCodigo } from "../../services/authServices";
 
 export default function CadastroCod() {
   const usenavigate = useNavigate();
@@ -11,24 +12,13 @@ export default function CadastroCod() {
 
   const [modoEscuro, toggleDarkMode] = darkModeButton();
 
-  function verificaCodigo(event) {
+  const verificaCodigo = async (event) => {
     event.preventDefault();
-    axios.get(`http://localhost:3000/Clinica?_sort=-id`)
-      .then(response => {
-        const respostas = response.data;
-        if (respostas && respostas.length > 0) {
-          for (let i = 0; i < respostas.length; i++) {
-            console.log(respostas[i]);
-            if (codigo === respostas[i].id) {
-              alert("Acessando clinica " + respostas[i].nome);
-              sessionStorage.setItem("idClinica", respostas[i].id);
-              navigate("/cadastrofunc");
-              break;
-            }
-          }
-        }
-      })
-      .catch(error => console.error("Failed to fetch data:", error));
+    try {
+      await verificarCodigo(codigo, navigate);
+    } catch (error) {
+      console.error("Erro ao verificar o código:", error);
+    }
   }
 
   const redirectLogin = () => {

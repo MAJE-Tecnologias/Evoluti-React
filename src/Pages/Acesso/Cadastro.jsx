@@ -1,26 +1,26 @@
-import { useRef, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { FaMoon, FaSun } from "react-icons/fa";
-import FancyText from "@carefully-coded/react-text-gradient";
-import axios from "axios";
+import { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaMoon, FaSun } from 'react-icons/fa';
+import FancyText from '@carefully-coded/react-text-gradient';
+import { fetchClinicas, createClinica } from '../../services/cadastroServices.js'; // Importar o serviço
 
 export default function Cadastro() {
-  sessionStorage.setItem("idClinica", null);
-  const [email, setEmail] = useState("");
+  sessionStorage.setItem('idClinica', null);
+  const [email, setEmail] = useState('');
   const [emailValidacao, setEmailValidacao] = useState([]);
-  const [cnpj, setCNPJ] = useState("");
-  const [nome, setNome] = useState("");
+  const [cnpj, setCNPJ] = useState('');
+  const [nome, setNome] = useState('');
   const [modoEscuro, setModoEscuro] = useState(
-    window.matchMedia("(prefers-color-scheme: dark)").matches
+    window.matchMedia('(prefers-color-scheme: dark)').matches
   );
 
   const navigate = useNavigate();
   const mounted = useRef(true);
 
   useEffect(() => {
-    document.body.classList.toggle("dark", modoEscuro);
+    document.body.classList.toggle('dark', modoEscuro);
     return () => {
-      document.body.classList.remove("dark");
+      document.body.classList.remove('dark');
     };
   }, [modoEscuro]);
 
@@ -30,68 +30,48 @@ export default function Cadastro() {
 
   useEffect(() => {
     if (mounted.current) {
-      axios
-        .get(`http://localhost:3000/Clinica?_sort=-id`)
-        .then((response) => {
-          const respostas = response.data;
-          setEmailValidacao(respostas.map((resp) => resp.Email));
-          if (respostas.length > 0) {
-            setCNPJ(respostas[0].cnpj);
+      fetchClinicas()
+        .then(({ emails, cnpj }) => {
+          setEmailValidacao(emails);
+          if (cnpj) {
+            setCNPJ(cnpj);
           }
         })
-        .catch((error) => console.error("Failed to fetch data:", error));
+        .catch((error) => console.error('Failed to fetch data:', error));
     }
     return () => {
       mounted.current = false;
     };
   }, []);
 
-  const guardarIdClinica = () => {
-    axios
-      .get(`http://localhost:3000/Clinica?_sort=-adicionadoEm`)
-      .then((response) => {
-        const respostas = response.data;
-        localStorage.setItem("idClinica", respostas[0].id);
-      })
-      .catch((error) => console.error("Failed to fetch data:", error));
-  };
-
-  const criarClinica = (e) => {
+  const criarClinica = async (e) => {
     e.preventDefault();
     if (validaCadastro()) {
-      const dataAtual = new Date().toISOString();
-      const body = {
-        cnpj,
-        nome,
-        email,
-        adicionadoEm: dataAtual,
-      };
-
-      axios
-        .post(`http://localhost:3000/Clinica`, body)
-        .then(() => {
-          alert("Cadastrado com sucesso");
-          guardarIdClinica();
-          navigate("/CadastroAdmKey");
-        })
-        .catch((error) => console.error("Error:", error));
+      try {
+        const idClinica = await createClinica(cnpj, nome, email);
+        sessionStorage.setItem('idClinica', idClinica);
+        alert('Cadastrado com sucesso');
+        navigate('/CadastroAdmKey');
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
 
   const validaCadastro = () => {
     if (!nome || !email || !cnpj) {
-      alert("Preencha todos os campos");
+      alert('Preencha todos os campos');
       return false;
     }
     if (emailValidacao.includes(email)) {
-      alert("Email já cadastrado");
+      alert('Email já cadastrado');
       return false;
     }
     return true;
   };
 
   const redirectLogin = () => {
-    navigate("/Login");
+    navigate('/Login');
   };
 
   return (
