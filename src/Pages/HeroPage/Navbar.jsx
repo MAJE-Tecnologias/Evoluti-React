@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { IoMenu, IoClose } from "react-icons/io5";
-import Logo from "/src/assets/Logo_Sem_fundo.png"
+import Logo from "/src/assets/LogoBranco.png"
 
 export default function Navbar(){
   const [nav, setNav] = useState(false)
@@ -10,32 +10,27 @@ export default function Navbar(){
     setNav(!nav)
   }
   return (
-    <nav className="bg-white fixed w-full flex px-10 justify-between items-center z-50 border-b-2 border-gray-400 md:px-20"> 
+    <nav className="fixed h-32 w-full flex px-10 justify-between items-center text-white z-50 md:px-12"> 
       
-      <img src={Logo} className="w-fit h-20 flex items-center py-3"></img>
+      <img src={Logo} className="w-fit h-16 flex items-center py-3"></img>
 
-      <ul className='list-none sm:flex hidden justify-end items-center flex-1 gap-x-10'>
-          <li>
-            <a href='#Hero'>Início</a>
-          </li>
+      <ul className='list-none sm:flex hidden justify-center items-center flex-1 gap-x-32 font-light'>
 
           <li>
             <a href='#Servicos'>Serviços</a>
           </li>
 
           <li>
-            <a href='#Proposito'>Nosso Propósito</a>
+            <a href='#Proposito'>Nosso propósito</a>
           </li>
 
           <li>
-            <a href='#SobreNos'>Sobre Nós</a>
-          </li>
-
-          <li>
-            <a href='/cadastro' className='border-2 border-black rounded-md p-1'>Cadastrar</a>
+            <a href='#SobreNos'>Quem somos</a>
           </li>
 
       </ul>
+
+      <a href='/cadastro' className='border border-white py-1.5 px-10 rounded-3xl'>Entrar</a>
 
       <div className='block sm:hidden transition-all cursor-pointer rounded-lg border-2 border-transparent hover:border-black hover:shadow-md' onClick={controlNav}>
       {nav ?  <IoClose size={30}/> : <IoMenu size={30}/>}
