@@ -30,7 +30,10 @@ export default function Navbar(){
 
       </ul>
 
-      <a href='/cadastro' className='border border-white py-1.5 px-10 rounded-3xl'>Entrar</a>
+      <a href='/cadastro' className='border border-white rounded-3xl py-1.5 px-10 overflow-hidden group relative'>
+              <span className='absolute h-0 group-hover:h-full transition-all ease-out duration-300 w-full bg-white left-0 bottom-0'></span>
+              <span className='relative text-white group-hover:text-black transition-all ease-out duration-300'>Entrar</span>
+          </a>
 
       <div className='block sm:hidden transition-all cursor-pointer rounded-lg border-2 border-transparent hover:border-black hover:shadow-md' onClick={controlNav}>
       {nav ?  <IoClose size={30}/> : <IoMenu size={30}/>}
