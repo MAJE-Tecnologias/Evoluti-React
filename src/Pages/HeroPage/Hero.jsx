@@ -1,38 +1,85 @@
-import React from 'react'
-import FancyText from '@carefully-coded/react-text-gradient';
+import React, { useState } from "react";
+import { IoMdClose } from "react-icons/io";
 
 export default function Hero() {
-  sessionStorage.setItem('acess', 0)
+  sessionStorage.setItem("acess", 0);
 
-    return (
-        
-<section id="Hero" className='flex md:flex-col flex-col h-screen pt-20 -z-10'>
-      <div className='flex-1 flex justify-center items-center text-center md:text-justify px-8 xl:pl-16 sm:px-16 md:pl-6 h-full gap-x-6'>
-        <div className='w-full'>
-            <img src="src\assets\Logo_Sem_fundo.png" alt="" className='mb-8'/>
-      <h1 className="mb-4 text-3xl font-extrabold leading-none tracking-tight
-        md:text-4xl lg:text-5xl text-white whitespace-nowrap">Seja bem-vindo(a) ao <FancyText
-       gradient={{from: '#30EED6', to: '#30A8EE', type: 'linear'}} animate animateDuration={1000} 
-       >Evoluti</FancyText>.</h1>
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-       <p className='text-justify text-white text-lg'>Analise o progresso dos seus pacientes mergulhando em gráficos e dados que revelam insights valiosos.</p>
-       
-        <div className='flex py-12 gap-x-8 items-center text-center md:text-justify'>
-          <button className='border-2 text-white p-2 font-bold text-xl w-full overflow-hidden group relative'>
-              <span className='absolute h-0 group-hover:h-full transition-all ease-out duration-300 w-full bg-white left-0 bottom-0'></span>
-              <span className='relative text-white group-hover:text-black transition-all ease-out duration-300'>COMEÇAR</span>
-          </button>
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  return (
+    <section id="Hero" className="flex md:flex-col bg-white flex-col h-fit">
+      <div className="relative w-full">
+        <img src="src/assets/HeroNewImage.png" alt="" className="z-10" />
+        <img
+          src="src/assets/HeroNewImage2.png"
+          alt=""
+          className="absolute top-0 w-full z-0"
+        />
+        <a
+          href="/cadastro"
+          className="absolute flex justify-center items-center bg-evolutiGreen px-8 py-2 
+        text-white text-base rounded-3xl gap-x-2 z-10 bottom-8 left-1/2 hover:bg-evolutiGreenDarker"
+        >
+          Começar <img src="src/assets/LongArrow.svg" alt="Arrow Icon" />
+        </a>
+
+        <div className="absolute right-8 top-28 max-w-[235px] text-white">
+          <div className="relative">
+            <img
+              src="src/assets/Video.png"
+              alt="Video Thumbnail"
+              className="relative"
+            />
+            <button className="absolute bottom-0 right-0" onClick={openModal}>
+              <img
+                src="src/assets/PlayButton.svg"
+                alt="Play Button Icon"
+                className="hover:brightness-90"
+              />
+            </button>
+          </div>
+          <p className="font-light text-base mt-2">
+            Bem-vindo ao{" "}
+            <span className="font-bold">
+              Evoluti: seu software de evolução médica.
+            </span>
+            Analise o progresso dos seus pacientes mergulhando em gráficos que
+            revelam insights valiosos.
+          </p>
         </div>
-
-       </div>
-
-       <div className='hidden md:flex h-full w-full mt-auto justify-end relative'>
-          <img src="src\assets\Card_Img2.png" alt="Descrição da Imagem" className='mt-auto h-full z-10 shadow-[-30px_0px_200px_0px_0] shadow-white'/>
-       </div>
-
-       
       </div>
-    </section>
-    )
 
+      {/* Modal */}
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50"
+          onClick={closeModal}
+        >
+          <div
+            className="bg-white p-8 rounded-lg max-w-4xl h-3/4 w-full relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="absolute top-1 right-1 text-gray-500 hover:text-gray-700"
+              onClick={closeModal}
+            >
+              <IoMdClose size={30} />
+            </button>
+
+            <iframe
+              className="h-full w-full"
+              src="https://www.youtube.com/embed/fMd6k-YafbY?autoplay=1"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen={true}
+            ></iframe>
+          </div>
+        </div>
+      )}
+    </section>
+  );
 }
