@@ -64,6 +64,21 @@ export const createClinica = async (cnpj, nome, email) => {
       nome,
       email,
       adicionadoEm: dataAtual,
+      profissoes: [
+        "Masso",
+        "Fisio",
+        "Estagiario"
+      ],
+      verificadorProf: [
+        true,
+        true,
+        false
+      ],
+      nivel: [
+        2,
+        0,
+        3
+      ]
     });
     return await fetchLatestClinicaId();
   } catch (error) {

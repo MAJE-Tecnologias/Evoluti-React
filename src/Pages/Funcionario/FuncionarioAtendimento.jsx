@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import { FiPlusCircle } from "react-icons/fi";
 import { FaUsers, FaUserInjured, FaFileAlt, FaLink, FaPlus, FaStethoscope, FaCaretDown } from "react-icons/fa";
@@ -10,6 +9,7 @@ import { CiPill } from "react-icons/ci";
 import { MdAssignment } from "react-icons/md";
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { fetchPacienteById, fetchAtendimentosByPacienteId } from '../../services/funcServices';
 
 export default function FuncAtend() {
   const id = sessionStorage.getItem("id");
@@ -18,31 +18,21 @@ export default function FuncAtend() {
   const [atendimentos, setAtendimentos] = useState([]);
 
   useEffect(() => {
-    const fetchPaciente = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/Paciente?id=${id}`);
-        const respostas = response.data;
-        if (respostas.length > 0) {
-          const pacienteData = respostas[0];
+        const pacienteData = await fetchPacienteById(id);
+        if (pacienteData.length > 0) {
           setPaciente({
-            nome: pacienteData.nome,
-            cpf: pacienteData.cpf,
-            nascimento: pacienteData.data,
+            nome: pacienteData[0].nome,
+            cpf: pacienteData[0].cpf,
+            nascimento: pacienteData[0].data,
           });
         } else {
           setPaciente(null);
         }
-      } catch (error) {
-        console.error("Fetch error:", error);
-        setPaciente(null);
-      }
-    };
 
-    const fetchAtendimentos = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/Atendimento?idPaciente=${id}`);
-        const respostas = response.data;
-        const sortedAtendimentos = respostas.sort((a, b) => {
+        const atendimentosData = await fetchAtendimentosByPacienteId(id);
+        const sortedAtendimentos = atendimentosData.sort((a, b) => {
           const dateA = new Date(a.data);
           const dateB = new Date(b.data);
           return dateA - dateB;
@@ -50,12 +40,12 @@ export default function FuncAtend() {
         setAtendimentos(sortedAtendimentos);
       } catch (error) {
         console.error("Fetch error:", error);
+        setPaciente(null);
         setAtendimentos([]);
       }
     };
 
-    fetchPaciente();
-    fetchAtendimentos();
+    fetchData();
   }, [id]);
 
   const showAtendimentos = (atendimentos) => {
@@ -65,7 +55,7 @@ export default function FuncAtend() {
           atendimentos.map((atendimento) => (
             <div key={atendimento.id} className="py-2">
               <button className="w-full text-left p-4 border-2 border-black rounded-2xl">
-                {format(atendimento.data, 'dd MMMM yyyy HH:mm', { locale: ptBR }) || "No Title"}
+                {format(new Date(atendimento.data), 'dd MMMM yyyy HH:mm', { locale: ptBR }) || "No Title"}
               </button>
             </div>
           ))

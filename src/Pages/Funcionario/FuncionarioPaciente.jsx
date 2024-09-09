@@ -1,15 +1,12 @@
-import Sidebar, {
-  ItemsSidebar,
-} from "../../Components/SideBar";
-import "../CSS/AnimacaoFlutuar.css";
-
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
+import "../CSS/AnimacaoFlutuar.css";
 
 import { FiPlusCircle } from "react-icons/fi";
-import { FaUsers } from "react-icons/fa6";
-import { FaUserInjured, FaFileAlt, FaSearch, FaEye } from "react-icons/fa";
+import { FaUsers, FaUserInjured, FaFileAlt, FaSearch, FaEye } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
+import { fetchPacientes } from "../../services/funcServices";
 
 export default function AdminUsuarios() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -20,27 +17,25 @@ export default function AdminUsuarios() {
 
   useEffect(() => {
     if (!mounted.current) {
-      sessionStorage.setItem("id", null)
-      let variaveisAPI = {
-        method: "GET",
-      };
-      fetch(
-        `http://localhost:3000/Paciente?fk_clinica=${idClinica}`,
-        variaveisAPI
-      )
-        .then((response) => response.json())
-        .then((respostas) => {
-          console.log(respostas);
-          const pacienteArray = respostas.map((paciente) => ({
+      sessionStorage.setItem("id", null);
+      const loadPacientes = async () => {
+        try {
+          const pacientesData = await fetchPacientes(idClinica);
+          const pacienteArray = pacientesData.map((paciente) => ({
             id: paciente.id,
             nome: paciente.nome,
             email: paciente.email,
           }));
           setPaciente(pacienteArray);
-          mounted.current = true;
-        });
+        } catch (error) {
+          console.error("Error loading pacientes:", error);
+        }
+      };
+
+      loadPacientes();
+      mounted.current = true;
     }
-  });
+  }, [idClinica]);
 
   function showPaciente(paciente) {
     return (
@@ -57,8 +52,8 @@ export default function AdminUsuarios() {
                 </div>
                 {paciente.nome}
               </th>
+              <td className="px-6 py-4">Profissão</td>
               <td className="px-6 py-4">{paciente.email}</td>
-              <td className="px-6 py-4">renatofisio@gmail.com</td>
               <td className="px-6 py-4">
                 <button
                   onClick={(e) => redirectAtendimento(paciente.id, e)}

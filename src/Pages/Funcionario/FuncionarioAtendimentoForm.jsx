@@ -1,20 +1,13 @@
 import { useState } from "react";
-import Sidebar, {
-  ItemsSidebar,
-} from "../../Components/SideBar";
+import { useNavigate } from "react-router-dom";
+import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import { FiPlusCircle } from "react-icons/fi";
-import {
-  FaUsers,
-  FaUserInjured,
-  FaFileAlt,
-  FaStethoscope,
-} from "react-icons/fa";
+import { FaUsers, FaUserInjured, FaFileAlt, FaStethoscope } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 import { AiFillFileAdd } from "react-icons/ai";
 import { CiPill } from "react-icons/ci";
 import { MdAdsClick } from "react-icons/md";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { createAtendimento } from "../../services/funcServices";
 import MarcacaoPontosDor from "./MarcacaoPontosDor";
 
 export default function FuncAtendForm() {
@@ -26,7 +19,7 @@ export default function FuncAtendForm() {
   const [marcacaoOpen, setMarcacaoOpen] = useState(false);
 
   const navigate = useNavigate();
-  const id = sessionStorage.getItem("id")
+  const id = sessionStorage.getItem("id");
 
   const DropdownOptions = [
     { id: 1, label: "Avaliação" },
@@ -39,7 +32,7 @@ export default function FuncAtendForm() {
     { id: 8, label: "Opção 8" },
   ];
 
-  const criarAtend = (e) => {
+  const criarAtend = async (e) => {
     e.preventDefault();
     if (validaCadastro()) {
       const body = {
@@ -47,17 +40,17 @@ export default function FuncAtendForm() {
         tipo: selectedOption,
         diagnostico,
         corpo,
-        idPaciente: id, 
-        data: new Date()
+        idPaciente: id,
+        data: new Date(),
       };
 
-      axios
-        .post(`http://localhost:3000/Atendimento`, body)
-        .then(() => {
-          alert("Cadastrado com sucesso");
-          navigate("/Funcatend");
-        })
-        .catch((error) => console.error("Error:", error));
+      try {
+        await createAtendimento(body);
+        alert("Cadastrado com sucesso");
+        navigate("/Funcatend");
+      } catch (error) {
+        console.error("Error creating atendimento:", error);
+      }
     }
   };
 
@@ -76,8 +69,8 @@ export default function FuncAtendForm() {
   };
 
   const toggleMarcacaoPontosDor = () => {
-    setMarcacaoOpen(!marcacaoOpen)
-  }
+    setMarcacaoOpen(!marcacaoOpen);
+  };
 
   return (
     <>
@@ -123,7 +116,8 @@ export default function FuncAtendForm() {
                     />
                   </div>
                   <div className="relative w-fit">
-                    <button type="button"
+                    <button
+                      type="button"
                       onClick={toggleDropdown}
                       className="w-fit h-fit bg-white border border-gray-400 rounded-md py-1 px-2 outline-none shadow-md text-nowrap"
                     >
@@ -203,7 +197,9 @@ export default function FuncAtendForm() {
                   />
                 </div>
                 <div className="w-full flex justify-center items-center pt-5">
-                  <button type="button" onClick={toggleMarcacaoPontosDor}
+                  <button
+                    type="button"
+                    onClick={toggleMarcacaoPontosDor}
                     className="w-fit h-20 bg-white rounded-3xl flex justify-center items-center gap-x-4 p-4 
                 border border-evolutiGreen transition-all ease-in-out hover:shadow-md hover:bg-gray-100"
                   >
@@ -218,10 +214,10 @@ export default function FuncAtendForm() {
               </form>
             </div>
             {marcacaoOpen && (
-                      <div className="flex h-full w-full justify-center md:w-1/2">
-                          <MarcacaoPontosDor/>
-                      </div>
-                    )}
+              <div className="flex h-full w-full justify-center md:w-1/2">
+                <MarcacaoPontosDor />
+              </div>
+            )}
           </div>
         </div>
       </section>

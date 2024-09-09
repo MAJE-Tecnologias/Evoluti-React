@@ -1,9 +1,18 @@
-import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createAtendimento } from "../../services/AtendimentoService"; // Import the service
 
 export const FuncionarioCardAtendimento = ({ isOpen, hideDetalhes, detalhes }) => {
   if (!isOpen) return null;
 
-  const updatePonto = (e) => {
+  const navigate = useNavigate();
+  const [titulo, setTitulo] = useState(detalhes.titulo || "");
+  const [diagnostico, setDiagnostico] = useState(""); // Initialize state as needed
+  const [corpo, setCorpo] = useState(""); // Initialize state as needed
+  const [selectedOption, setSelectedOption] = useState(""); // Initialize state as needed
+  const [id] = useState(""); // Initialize with actual ID or pass it if necessary
+
+  const updatePonto = async (e) => {
     e.preventDefault();
     const body = {
       titulo,
@@ -14,14 +23,13 @@ export const FuncionarioCardAtendimento = ({ isOpen, hideDetalhes, detalhes }) =
       data: new Date()
     };
 
-    axios
-      .post(`http://localhost:3000/Atendimento`, body)
-      .then(() => {
-        alert("Cadastrado com sucesso");
-        navigate("/Funcatend");
-      })
-      .catch((error) => console.error("Error:", error));
-
+    try {
+      await createAtendimento(body);
+      alert("Cadastrado com sucesso");
+      navigate("/Funcatend");
+    } catch (error) {
+      console.error("Error creating atendimento:", error);
+    }
   };
 
   return (
@@ -59,8 +67,8 @@ export const FuncionarioCardAtendimento = ({ isOpen, hideDetalhes, detalhes }) =
             <p>Titulo</p>
             <textarea
               className="w-full h-full rounded-lg rounded-t-none resize-none bg-[#E7E5E5] outline-none p-4"
-              value={detalhes.titulo}
-              readOnly // If the textarea is read-only, add this attribute
+              value={titulo}
+              onChange={(e) => setTitulo(e.target.value)}
             ></textarea>
             <p>Descrição</p>
             <textarea
@@ -68,7 +76,8 @@ export const FuncionarioCardAtendimento = ({ isOpen, hideDetalhes, detalhes }) =
               id="tratamentoText"
               rows="10"
               className="w-full h-full rounded-lg rounded-t-none resize-none bg-[#E7E5E5] outline-none p-4"
-              value={detalhes.desc}
+              value={diagnostico}
+              onChange={(e) => setDiagnostico(e.target.value)}
             >
             </textarea>
             <button className="py-2 px-4 w-fit bg-evolutiLightGreen rounded-lg font-bold text-white self-center cursor-pointer transition-all ease-in-out hover:bg-evolutiGreen">Salvar</button>

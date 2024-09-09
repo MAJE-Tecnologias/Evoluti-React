@@ -1,18 +1,24 @@
 import { useRef, useEffect, useState } from "react";
 import backgroundImg from "../../assets/corpoHomem.png";
-import axios from "axios";
 import Modal from "./Components/FuncionarioModal";
 import "./ImageClickTracker.css";
 import "../CSS/ScrollStyle.css";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import { FuncionarioCardAtendimento } from "./Components/FuncionarioCardAtendimento";
+import { 
+  fetchPontosDor, 
+  fetchPacienteById, 
+  deletePontoDor, 
+  addPontoDor, 
+  updatePacientePontosDor 
+} from "../../services/PontosDorService";
 
 export default function MarcacaoPontosDor() {
   const [circulos, setCirculos] = useState([]);
   const [numCirculos, setNumCirculos] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [newCircle, setNewCircle] = useState(null);
-  const [selectedColor, setSelectedColor] = useState("blue"); // Default color
+  const [selectedColor, setSelectedColor] = useState("blue");
   const [detalhes, setDetalhes] = useState(false);
   const [pointerCirculo, setPointerCirculo] = useState(null);
 
@@ -22,15 +28,9 @@ export default function MarcacaoPontosDor() {
     const fetchData = async () => {
       try {
         if (!mounted.current) {
-          const pacienteResponse = await axios.get(
-            `http://localhost:3000/Paciente?id=${sessionStorage.getItem("id")}`
-          );
-          const pacienteData = pacienteResponse.data[0];
-
-          const pontosDorResponse = await axios.get(
-            "http://localhost:3000/PontosDor/"
-          );
-          const pontosDorData = pontosDorResponse.data;
+          const pacienteId = sessionStorage.getItem("id");
+          const pacienteData = await fetchPacienteById(pacienteId);
+          const pontosDorData = await fetchPontosDor();
 
           const filteredData = pontosDorData.filter((item) =>
             pacienteData.pontosDor.includes(item.id)
@@ -51,7 +51,7 @@ export default function MarcacaoPontosDor() {
           mounted.current = true;
         }
       } catch (error) {
-        console.error("Erro ao buscar dados da API:", error);
+        console.error("Erro ao buscar dados:", error);
       }
     };
 
@@ -73,57 +73,40 @@ export default function MarcacaoPontosDor() {
     setCirculos(circulosAtualizados);
 
     try {
-      await axios.delete(
-        `http://localhost:3000/PontosDor/${circuloToDelete.id}`
-      );
+      await deletePontoDor(circuloToDelete.id);
     } catch (error) {
-      console.error("Erro ao deletar o ponto na API:", error);
+      console.error("Erro ao deletar ponto de dor:", error);
     }
   };
 
   const handleFormSubmit = async (data) => {
     if (newCircle) {
       try {
-        // POST request to create a new circle
-        const response = await axios.post("http://localhost:3000/PontosDor", {
+        const novoPonto = {
           cord: { x: newCircle.x, y: newCircle.y },
           desc: data.description,
           titulo: data.titulo,
           cor: newCircle.cor,
-        });
-
-        const newCircleWithId = {
-          ...newCircle,
-          id: response.data.id,
-          desc: data.description,
-          titulo: data.titulo,
         };
 
-        // Update the local state with the new circle
+        const response = await addPontoDor(novoPonto);
+        const newCircleWithId = { ...newCircle, id: response.id, desc: data.description, titulo: data.titulo };
+
         setCirculos((prevCirculos) => {
           const updatedCirculos = [...prevCirculos, newCircleWithId];
-          // Send PATCH request to update the paciente data with the new circle's ID
-          axios
-            .patch(
-              `http://localhost:3000/Paciente/${sessionStorage.getItem("id")}`,
-              { pontosDor: updatedCirculos.map((c) => c.id) }
-            )
-            .then((response1) => {
-              console.log(
-                "Dados da clínica atualizados com sucesso:",
-                response1.data
-              );
+          updatePacientePontosDor(sessionStorage.getItem("id"), updatedCirculos.map((c) => c.id))
+            .then(response1 => {
+              console.log("Dados da clínica atualizados com sucesso:", response1.data);
             })
-            .catch((error) => {
+            .catch(error => {
               console.error("Erro ao atualizar dados na API:", error);
             });
           return updatedCirculos;
         });
 
-        // Clear the newCircle state after updating
         setNewCircle(null);
       } catch (error) {
-        console.error("Erro ao salvar dados na API:", error);
+        console.error("Erro ao salvar dados:", error);
       }
     }
   };
@@ -160,7 +143,7 @@ export default function MarcacaoPontosDor() {
 
             {circulos.map((circulo, indice) => (
               <div
-                key={circulo.id} // Changed key to use unique id
+                key={circulo.id}
                 className="circle flex justify-center items-center text-white font-bold"
                 style={{
                   backgroundColor: `${circulo.cor}`,
@@ -179,8 +162,8 @@ export default function MarcacaoPontosDor() {
           show={showModal}
           onClose={closeModal}
           onSubmit={handleFormSubmit}
-          selectedColor={selectedColor} // Pass selectedColor to Modal
-          onColorChange={handleColorChange} // Pass handleColorChange to Modal
+          selectedColor={selectedColor}
+          onColorChange={handleColorChange}
         ></Modal>
       </div>
 
@@ -224,7 +207,7 @@ export default function MarcacaoPontosDor() {
                     <button
                       className="flex justify-center items-center px-2 py-1 border-2 border-black 
                     rounded-xl bg-evolutiLightBlueText font-bold text-white gap-x-2 hover:brightness-90"
-                      onClick={() => showDetalhes(indice)} // Correctly pass the index
+                      onClick={() => showDetalhes(indice)}
                     >
                       <FaEdit /> Editar
                     </button>
@@ -238,11 +221,10 @@ export default function MarcacaoPontosDor() {
           <FuncionarioCardAtendimento
             isOpen={detalhes}
             hideDetalhes={hideDetalhes}
-            detalhes={circulos[pointerCirculo]} // Safely access details using optional chaining
+            detalhes={circulos[pointerCirculo]}
           />
         )}
       </div>
     </>
   );
 }
-
