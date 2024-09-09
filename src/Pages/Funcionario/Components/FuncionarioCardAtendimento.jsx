@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createAtendimento } from "../../services/AtendimentoService"; // Import the service
+import { createAtendimento } from "../../../services/funcServices"; // Import the service
 
 export const FuncionarioCardAtendimento = ({ isOpen, hideDetalhes, detalhes }) => {
   if (!isOpen) return null;

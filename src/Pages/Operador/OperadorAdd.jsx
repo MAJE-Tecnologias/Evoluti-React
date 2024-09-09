@@ -1,6 +1,4 @@
-// Importações de componentes e ícones necessários
 import { useRef, useEffect, useState } from "react";
-
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import "../CSS/AnimacaoFlutuar.css";
 import {
@@ -12,7 +10,7 @@ import {
   FaUpload,
 } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
-import axios from "axios";
+import { fetchPacienteWithMaxId, createPaciente } from '../../services/operadorServices'; // Importando os serviços
 
 // Definindo o componente OperadorAdd
 export default function OperadorAdd() {
@@ -31,10 +29,8 @@ export default function OperadorAdd() {
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
-      axios
-        .get("http://localhost:3000/Paciente?_sort=-id")
-        .then((response) => {
-          const respostas = response.data;
+      fetchPacienteWithMaxId()
+        .then((respostas) => {
           if (respostas && respostas.length > 0) {
             setId(respostas[0].id);
           }
@@ -47,7 +43,7 @@ export default function OperadorAdd() {
     };
   }, [idClinica]);
 
-  const createPaciente = async (e) => {
+  const handleCreatePaciente = async (e) => {
     e.preventDefault();
     const newId = parseInt(id) + 1;
     const body = {
@@ -62,17 +58,16 @@ export default function OperadorAdd() {
       fk_clinica: idClinica,
     };
 
-    axios
-      .post("http://localhost:3000/Paciente", body)
-      .then(() => {
-        alert("Cadastrado com sucesso");
-      })
-      .catch((error) => console.log("error", error));
+    try {
+      await createPaciente(body);
+      alert("Cadastrado com sucesso");
+    } catch (error) {
+      console.log("Error creating paciente:", error);
+    }
   };
 
   return (
     <>
-      {/* Sidebar do administrador com itens de navegação */}
       <Sidebar>
         <ItemsSidebar
           icon={<FaUserCheck size={30} />}
@@ -89,7 +84,6 @@ export default function OperadorAdd() {
         <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
       </Sidebar>
 
-      {/* Seção principal do formulário de adição de paciente */}
       <section
         id="FuncHome"
         className="flex md:flex-col flex-col h-full pl-[78px] justify-center items-center transition-all
@@ -106,7 +100,7 @@ export default function OperadorAdd() {
           shadow-black shadow-md p-5 gap-x-8 md:gap-x-0 md:flex-row
           dark:bg-neutral-900 dark:border-gray-300 dark:shadow-white dark:shadow-2xl"
           >
-            <form onSubmit={createPaciente} className="md:w-full md:flex md:gap-x-8">
+            <form onSubmit={handleCreatePaciente} className="md:w-full md:flex md:gap-x-8">
               <div
                 className="flex flex-col items-center justify-center pb-5 border-b-2 border-gray-300 
               md:w-1/4 md:border-b-0 md:justify-normal"
@@ -200,10 +194,7 @@ export default function OperadorAdd() {
                 </div>
 
                 <div className="flex flex-col gap-y-2">
-                  <label
-                    htmlFor="dataNascimento"
-                    className="font-bold dark:text-white lg:text-xl"
-                  >
+                  <label htmlFor="dataNascimento" className="font-bold dark:text-white lg:text-xl">
                     Data de Nascimento:
                   </label>
                   <input
@@ -218,10 +209,7 @@ export default function OperadorAdd() {
                 </div>
 
                 <div className="flex flex-col gap-y-2">
-                  <label
-                    htmlFor="cadastroGeneroClinica"
-                    className="font-bold dark:text-white lg:text-xl"
-                  >
+                  <label htmlFor="cadastroGeneroClinica" className="font-bold dark:text-white lg:text-xl">
                     Gênero
                   </label>
                   <select
@@ -233,29 +221,16 @@ export default function OperadorAdd() {
                             p-2 rounded-lg shadow-md focus:outline-evolutiGreenDarker lg:text-lg lg:p-3"
                   >
                     <option defaultValue="">Selecione o gênero</option>
-                    <option value="1" className="text-black">
-                      Homem-Cis
-                    </option>
-                    <option value="2" className="text-black">
-                      Mulher-Cis
-                    </option>
-                    <option value="3" className="text-black">
-                      Homem-Trans
-                    </option>
-                    <option value="4" className="text-black">
-                      Mulher-Trans
-                    </option>
-                    <option value="5" className="text-black">
-                      Outro
-                    </option>
+                    <option value="1" className="text-black">Homem-Cis</option>
+                    <option value="2" className="text-black">Mulher-Cis</option>
+                    <option value="3" className="text-black">Homem-Trans</option>
+                    <option value="4" className="text-black">Mulher-Trans</option>
+                    <option value="5" className="text-black">Outro</option>
                   </select>
                 </div>
 
                 <div className="flex flex-col gap-y-2">
-                  <label
-                    htmlFor="telefone"
-                    className="font-bold dark:text-white lg:text-xl"
-                  >
+                  <label htmlFor="telefone" className="font-bold dark:text-white lg:text-xl">
                     Telefone:
                   </label>
                   <input
@@ -265,7 +240,7 @@ export default function OperadorAdd() {
                     className="w-full bg-loginButtonsBackground 
                 border border-evolutiLightGreen placeholder:text-evolutiGreenDarker
                 p-2 rounded-lg shadow-md focus:outline-evolutiGreenDarker lg:text-lg lg:p-3"
-                    placeholder="Insira o nome do paciente"
+                    placeholder="Insira o telefone do paciente"
                     onChange={(e) => setTelefone(e.target.value)}
                   />
                 </div>
@@ -273,6 +248,7 @@ export default function OperadorAdd() {
                   <input
                     type="submit"
                     className="px-8 py-2 bg-evolutiGreen text-white rounded-md font-semibold lg:px-20 lg:py-3"
+                    value="Cadastrar"
                   />
                 </div>
               </div>

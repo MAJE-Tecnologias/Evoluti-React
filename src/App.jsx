@@ -20,6 +20,7 @@ import FuncPaciente from "./Pages/Funcionario/FuncionarioPaciente"; // Página d
 
 // Importações de páginas e componentes relacionados a operadores
 import OperadorHome from "./Pages/Operador/OperadorHome"; // Página inicial do operador
+import OperadorStats from "./Pages/Operador/OperadorStats";
 
 // Importações de componentes e métodos necessários do React Router
 import { Route, Routes } from "react-router-dom";
@@ -68,6 +69,7 @@ function App() {
         <Route path="/OperadorHome" element={<OperadorHome />} />{" "}
         {/* Página inicial do operador */}
         <Route path="/OperadorAdd" element={<OperadorAdd />} />
+        <Route path="/OperadorStats" element={<OperadorStats />} />
         {/* Rota padrão para página de erro (404 Not Found) */}
         <Route path="*" element={<NotFound />} /> {/* Página de erro 404 */}
       </Routes>

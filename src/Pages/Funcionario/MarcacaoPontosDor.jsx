@@ -11,7 +11,7 @@ import {
   deletePontoDor, 
   addPontoDor, 
   updatePacientePontosDor 
-} from "../../services/PontosDorService";
+} from "../../services/funcServices";
 
 export default function MarcacaoPontosDor() {
   const [circulos, setCirculos] = useState([]);
