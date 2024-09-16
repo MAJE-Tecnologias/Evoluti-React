@@ -1,16 +1,20 @@
-import { Bar } from "react-chartjs-2";
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
   BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
   Title,
   Tooltip,
-  Legend,
 } from "chart.js";
-import { useState, useEffect } from "react";
-import { fetchPacientesAtend } from "../../services/statsServices";
+import { useEffect, useState } from "react";
+import { Bar } from "react-chartjs-2";
+import {
+  fetchAtendData,
+  fetchPacientesAtend,
+} from "../../services/statsServices";
 
+// Register Chart.js components
 ChartJS.register(
   Title,
   Tooltip,
@@ -22,40 +26,64 @@ ChartJS.register(
 
 export default function OperadorStats() {
   const idClinica = sessionStorage.getItem("idClinica");
-  const [pacientesInfo, setPacientesInfo] = useState([]);
+  const [dadosAtendimentos, setDadosAtendimentos] = useState([]);
+  const [infoPacientes, setInfoPacientes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const loadPacientesAtendimentos = async () => {
-      try {
-        const data = await fetchPacientesAtend(idClinica);
-        setPacientesInfo(data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Function to load data
+  const carregarDados = async () => {
+    try {
+      const pacientes = await fetchPacientesAtend(idClinica);
+      const atendimentos = await fetchAtendData(idClinica);
 
-    loadPacientesAtendimentos();
+      setInfoPacientes(pacientes);
+      setDadosAtendimentos(atendimentos);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch data on component mount
+  useEffect(() => {
+    carregarDados();
   }, [idClinica]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  // Return loading or error states
+  if (loading) return <p>Carregando...</p>;
+  if (error) return <p>Erro: {error.message}</p>;
 
-  // Prepare data for the chart
-  const labels = pacientesInfo.map((paciente) => paciente.nome);
-  const data = pacientesInfo.map((paciente) => paciente.atendimentos);
+  // Prepare data for the patient chart
+  const labelsPacientes = infoPacientes.map((paciente) => paciente.nome);
+  const dataPacientes = infoPacientes.map((paciente) => paciente.atendimentos);
 
-  const chartData = {
-    labels: labels,
+  const dadosGraficoPacientes = {
+    labels: labelsPacientes,
     datasets: [
       {
-        label: "Número de Atendimentos",
-        data: data,
+        label: "Número de Atendimentos por Paciente",
+        data: dataPacientes,
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  // Prepare data for the daily chart
+  const labelsDatas = dadosAtendimentos.map((dado) => dado.data);
+  const dataDatas = dadosAtendimentos.map((dado) => dado.atendimentos);
+
+  const dadosGraficoDatas = {
+    labels: labelsDatas,
+    datasets: [
+      {
+        label: "Número de Atendimentos por Dia",
+        data: dataDatas,
+        backgroundColor: "rgba(153, 102, 255, 0.2)",
+        borderColor: "rgba(153, 102, 255, 1)",
         borderWidth: 1,
       },
     ],
@@ -66,7 +94,35 @@ export default function OperadorStats() {
       <div>
         <h1>Atendimentos por Paciente</h1>
         <Bar
-          data={chartData}
+          data={dadosGraficoPacientes}
+          options={{
+            responsive: true,
+            plugins: {
+              legend: {
+                position: "top",
+              },
+              tooltip: {
+                callbacks: {
+                  label: (context) => {
+                    let label = context.dataset.label || "";
+                    if (label) {
+                      label += ": ";
+                    }
+                    if (context.parsed.y !== null) {
+                      label += new Intl.NumberFormat().format(context.parsed.y);
+                    }
+                    return label;
+                  },
+                },
+              },
+            },
+          }}
+        />
+      </div>
+      <div>
+        <h1>Atendimentos por Dia</h1>
+        <Bar
+          data={dadosGraficoDatas}
           options={{
             responsive: true,
             plugins: {
