@@ -2,7 +2,15 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import { FiPlusCircle } from "react-icons/fi";
-import { FaUsers, FaUserInjured, FaFileAlt, FaLink, FaPlus, FaStethoscope, FaCaretDown } from "react-icons/fa";
+import {
+  FaUsers,
+  FaUserInjured,
+  FaFileAlt,
+  FaLink,
+  FaPlus,
+  FaStethoscope,
+  FaCaretDown,
+} from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 import { AiFillFileAdd } from "react-icons/ai";
 import { CiPill } from "react-icons/ci";
@@ -10,6 +18,7 @@ import { MdAssignment } from "react-icons/md";
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { fetchPacienteById, fetchAtendimentosByPacienteId } from '../../services/funcServices';
+import "../CSS/ScrollStyle.css";
 
 export default function FuncAtend() {
   const id = sessionStorage.getItem("id");
@@ -91,14 +100,16 @@ export default function FuncAtend() {
 
       <section
         id="FuncHome"
-        className="flex md:flex-col flex-col h-full pl-[78px] justify-center items-center dark:bg-neutral-800"
+        className="flex md:flex-col flex-col h-screen pl-[78px] justify-center items-center dark:bg-neutral-800"
       >
         <div className="w-full h-full pt-20 md:px-10 md:pt-10">
-          <div className="bg-neutral-100 flex flex-col border-2 border-b-0 w-full h-full rounded-bl-none rounded-br-none 
-            shadow-black shadow-md p-5 gap-x-8 md:gap-x-0 md:flex-row md:rounded-3xl dark:bg-neutral-900 dark:border-gray-800"
+          <div
+            className="bg-neutral-100 flex flex-col border-2 border-b-0 w-full h-full rounded-3xl rounded-bl-none rounded-br-none 
+            shadow-gray-500 shadow-md p-5 gap-x-8 md:gap-x-0 md:flex-row dark:bg-neutral-900 dark:border-transparent"
           >
-            <div className="flex flex-col justify-center items-center md:w-full">
-              <div className="flex flex-col justify-center items-center text-center gap-x-2 
+            <div className="flex flex-col items-center md:w-full">
+              <div
+                className="flex flex-col justify-center items-center text-center gap-x-2 
                 md:flex-row md:text-left md:justify-normal md:pb-8"
               >
                 <div className="w-32 h-32 rounded-full bg-gray-400"></div>
@@ -108,7 +119,13 @@ export default function FuncAtend() {
                   </h1>
                   <p>
                     <b>Data de nascimento: </b>
-                    <span>{paciente ? format(new Date(paciente.nascimento), 'dd/MM/yyyy', { locale: ptBR }) : "Loading..."}</span>
+                    <span>
+                      {paciente
+                        ? format(new Date(paciente.nascimento), "dd/MM/yyyy", {
+                            locale: ptBR,
+                          })
+                        : "Loading..."}
+                    </span>
                   </p>
                   <p>
                     <b>CPF: </b>
@@ -151,17 +168,23 @@ export default function FuncAtend() {
                 </div>
               </div>
 
-              <div className="hidden md:flex flex-col w-full h-fit p-5 mt-8 bg-[#D9D9D9] rounded-xl overflow-y-auto">
+              <div
+                className="hidden md:flex flex-col w-full h-full p-5 mt-8 bg-[#D9D9D9] 
+              rounded-xl"
+              >
                 <h1 className="w-full text-xl text-center font-bold border-b-2 border-gray-500">
                   Histórico de tratamentos
                 </h1>
-                {showAtendimentos(atendimentos)}
-                <button
-                  className="bg-blue text-white px-4 py-2 rounded-md"
-                  onClick={redirectAtendimento}
-                >
-                  Novo Tratamento
-                </button>
+                <div className="h-full flex flex-col overflow-y-scroll scrollable-container">
+                  {showAtendimentos(atendimentos)}
+                  <button
+                    className="bg-blue text-black border-2 border-black px-4 py-2 rounded-md mt-auto w-fit
+                    transition-colors hover:bg-black hover:text-white"
+                    onClick={redirectAtendimento}
+                  >
+                    Novo Tratamento
+                  </button>
+                </div>
               </div>
             </div>
 

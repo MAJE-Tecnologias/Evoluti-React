@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Hero() {
   sessionStorage.setItem("acess", 0);
@@ -53,33 +54,42 @@ export default function Hero() {
       </div>
 
       {/* Modal */}
-      {isModalOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50"
-          onClick={closeModal}
-        >
-          <div
-            className="bg-white p-8 rounded-lg max-w-4xl h-3/4 w-full relative"
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50"
+            onClick={closeModal}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            <button
-              className="absolute top-1 right-1 text-gray-500 hover:text-gray-700"
-              onClick={closeModal}
+            <motion.div
+              className="bg-white p-8 rounded-lg max-w-4xl h-3/4 w-full relative"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
             >
-              <IoMdClose size={30} />
-            </button>
+              <button
+                className="absolute top-1 right-1 text-gray-500 hover:text-gray-700"
+                onClick={closeModal}
+              >
+                <IoMdClose size={30} />
+              </button>
 
-            <iframe
-              className="h-full w-full"
-              src="https://www.youtube.com/embed/fMd6k-YafbY?autoplay=1"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen={true}
-            ></iframe>
-          </div>
-        </div>
-      )}
+              <iframe
+                className="h-full w-full"
+                src="https://www.youtube.com/embed/fMd6k-YafbY?autoplay=1"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen={true}
+              ></iframe>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
