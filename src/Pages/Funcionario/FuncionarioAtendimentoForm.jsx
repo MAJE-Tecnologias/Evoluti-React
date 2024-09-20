@@ -2,7 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import { FiPlusCircle } from "react-icons/fi";
-import { FaUsers, FaUserInjured, FaFileAlt, FaStethoscope } from "react-icons/fa";
+import {
+  FaUsers,
+  FaUserInjured,
+  FaFileAlt,
+  FaStethoscope,
+} from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 import { AiFillFileAdd } from "react-icons/ai";
 import { CiPill } from "react-icons/ci";
@@ -91,35 +96,31 @@ export default function FuncAtendForm() {
         <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
       </Sidebar>
 
-      <section
-        id="FuncHome"
-        className="flex md:flex-col flex-col h-full pl-[78px] justify-center items-center dark:bg-neutral-800"
-      >
-        <div className="w-full h-full pt-20 md:px-10 md:pt-10">
+      <section className="flex md:flex-col flex-col h-full pl-[78px] justify-center items-center dark:bg-neutral-800">
+        <div className="w-full min-h-screen pt-20 md:px-10 md:pt-10">
           <div
-            className="bg-neutral-100 flex flex-col border-2 border-b-0 w-full h-fit rounded-bl-none rounded-br-none 
-          shadow-black shadow-md p-5 gap-x-8 md:gap-x-0 md:flex-row md:rounded-3xl dark:bg-neutral-900 dark:border-gray-800"
+            className=" flex flex-col w-full h-full rounded-bl-none rounded-br-none 
+           p-5 gap-x-8 ld:gap-x-0 lg:flex-row md:rounded-3xl  "
           >
-            <div className="sm:px-8 md:px-0 md:w-1/2 h-full">
-              <form onSubmit={criarAtend}>
-                <div className="relative flex w-full h-12 border rounded-t-md items-center bg-gray-300 px-4 gap-x-4">
-                  <div className="flex gap-x-3 items-center w-full">
-                    <label htmlFor="title" className="font-bold text-xl">
-                      Título:
-                    </label>
-                    <input
-                      type="text"
-                      className="outline-none rounded-md py-1 px-2 w-full"
-                      id="title"
-                      value={titulo}
-                      onChange={(e) => setTitulo(e.target.value)}
-                    />
-                  </div>
-                  <div className="relative w-fit">
+            <div className="lg:w-1/2 items-stretch">
+              <form onSubmit={criarAtend} className="flex flex-col h-full">
+                <div className="flex items-center bg-gray-500 border rounded-t-md px-4 py-2">
+                  <label htmlFor="title" className="font-bold text-xl mr-2">
+                    Título:
+                  </label>
+                  <input
+                    type="text"
+                    id="title"
+                    className="flex-grow outline-none rounded-md py-1 px-2"
+                    value={titulo}
+                    onChange={(e) => setTitulo(e.target.value)}
+                    placeholder="Digite o título..."
+                  />
+                  <div className="relative pl-2">
                     <button
                       type="button"
                       onClick={toggleDropdown}
-                      className="w-fit h-fit bg-white border border-gray-400 rounded-md py-1 px-2 outline-none shadow-md text-nowrap"
+                      className="bg-white border border-gray-400 rounded-md py-1 px-2 shadow-md"
                     >
                       {selectedOption || "Selecione"}
                     </button>
@@ -140,84 +141,82 @@ export default function FuncAtendForm() {
                     )}
                   </div>
                 </div>
+
                 <textarea
                   name="tratamentoText"
                   id="tratamentoText"
-                  rows="20"
-                  className="w-full h-full rounded-lg rounded-t-none resize-none bg-[#E7E5E5] outline-none p-4"
+                  className="flex-grow h-96 resize-none bg-[#E7E5E5] outline-none p-4"
                   value={corpo}
                   onChange={(e) => setCorpo(e.target.value)}
-                ></textarea>
-                <div className="flex flex-col gap-y-5 h-fit bg-[#d2cfcf] rounded-lg p-4">
+                  placeholder="Digite aqui o tratamento..."
+                />
+
+                <div className="flex flex-col gap-y-4 bg-[#d2cfcf] rounded-b-lg p-4">
                   <div className="flex justify-between">
-                    <div className="flex flex-col justify-center items-center">
+                    {[
+                      {
+                        icon: <AiFillFileAdd size={30} />,
+                        label: "Novo anexo",
+                      },
+                      {
+                        icon: <FaStethoscope size={30} />,
+                        label: "Novo pedido",
+                      },
+                      { icon: <CiPill size={30} />, label: "Nova receita" },
+                    ].map((button, index) => (
                       <button
-                        className="flex flex-col justify-center items-center p-4 border border-transparent rounded-xl 
-                    transition-all ease-in-out hover:bg-opacity-10 hover:bg-black"
+                        key={index}
+                        className="flex flex-col justify-center items-center p-4 border border-transparent rounded-xl transition-all ease-in-out hover:bg-opacity-10 hover:bg-black"
                       >
-                        <AiFillFileAdd size={30} className="pb-1" />
-                        Novo anexo
+                        {button.icon}
+                        <span>{button.label}</span>
                       </button>
-                    </div>
-                    <div className="flex flex-col justify-center items-center">
-                      <button
-                        className="flex flex-col justify-center items-center p-4 border border-transparent rounded-xl 
-                    transition-all ease-in-out hover:bg-opacity-10 hover:bg-black"
-                      >
-                        <FaStethoscope size={30} className="pb-1" />
-                        Novo pedido
-                      </button>
-                    </div>
-                    <div className="flex flex-col justify-center items-center">
-                      <button
-                        className="flex flex-col justify-center items-center p-4 border border-transparent rounded-xl 
-                    transition-all ease-in-out hover:bg-opacity-10 hover:bg-black"
-                      >
-                        <CiPill size={30} className="pb-1" />
-                        Nova receita
-                      </button>
-                    </div>
+                    ))}
                   </div>
-                  <div className="flex gap-x-3 justify-center items-center">
+
+                  <div className="flex gap-x-3 items-center">
                     <h1 className="text-xl font-bold">Diagnóstico:</h1>
                     <input
                       type="text"
-                      className="peer w-full placeholder-transparent bg-loginButtonsBackground 
-                border border-evolutiLightGreen placeholder-evolutiGreen 
-                p-3.5 rounded-lg focus:outline-evolutiGreenDarker"
+                      className="flex-grow bg-loginButtonsBackground border border-evolutiLightGreen rounded-lg p-3.5 focus:outline-evolutiGreenDarker"
                       value={diagnostico}
                       onChange={(e) => setDiagnostico(e.target.value)}
+                      placeholder="Digite o diagnóstico..."
                     />
                   </div>
+
                   <input
                     type="submit"
                     value="Salvar Tratamento"
-                    className="py-2 px-4 w-fit bg-evolutiLightGreen rounded-lg font-bold text-white self-center 
-                  cursor-pointer transition-all ease-in-out hover:bg-evolutiGreen"
+                    className="py-2 px-4 w-fit bg-evolutiLightGreen rounded-lg font-bold text-white self-center cursor-pointer transition-all ease-in-out hover:bg-evolutiGreen"
                   />
-                </div>
-                <div className="w-full flex justify-center items-center pt-5">
-                  <button
-                    type="button"
-                    onClick={toggleMarcacaoPontosDor}
-                    className="w-fit h-20 bg-white rounded-3xl flex justify-center items-center gap-x-4 p-4 
-                border border-evolutiGreen transition-all ease-in-out hover:shadow-md hover:bg-gray-100"
-                  >
-                    <div className="flex justify-center items-center p-2 rounded-full bg-evolutiGreen text-white">
-                      <MdAdsClick size={30} />
-                    </div>
-                    <span className="font-bold text-2xl text-evolutiGreen">
-                      Marcação de pontos de dor
-                    </span>
-                  </button>
                 </div>
               </form>
             </div>
-            {marcacaoOpen && (
-              <div className="h-full w-full justify-center mt-4 md:flex md:mt-0 md:w-1/2">
+
+            <div
+              className="w-full md:mt-0 lg:w-1/2 bg-white rounded-t-3xl shadow-gray-300 shadow-lg border border-evolutiGreen rounded-3xl
+            overflow-hidden dark:shadow-none dark:bg-zinc-600 dark:border-gray-900"
+            >
+              <div
+                className="w-full h-20 bg-white rounded-t-3xl flex justify-center items-center gap-x-4 p-4 
+                border-b border-evolutiGreen dark:bg-zinc-400 dark:border-gray-900"
+              >
+                <div
+                  className="flex justify-center items-center p-2 rounded-full 
+                bg-evolutiGreen text-white dark:bg-gray-900"
+                >
+                  <MdAdsClick size={30} />
+                </div>
+                <span className="font-bold text-2xl text-evolutiGreen dark:text-white">
+                  Marcação de pontos de dor
+                </span>
+              </div>
+
+              <div className="w-full justify-center flex lg:flex">
                 <MarcacaoPontosDor />
               </div>
-            )}
+            </div>
           </div>
         </div>
       </section>

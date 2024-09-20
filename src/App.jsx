@@ -14,7 +14,7 @@ import AdminPacientes from "./Pages/Admin/AdminPacientes"; // Página de gerenci
 
 // Importações de páginas e componentes relacionados a funcionários
 import CadastroFunc from "./Pages/Acesso/CadastroFunc"; // Página de cadastro de funcionários
-// import FuncionarioHome from "./Pages/Funcionario/MarcacaoPontosDor"; // Página inicial do funcionário
+import FuncionarioHome from "./Pages/Funcionario/FuncionarioHome";
 import FuncAtend from "./Pages/Funcionario/FuncionarioAtendimento"; // Página de atendimento do funcionário
 import FuncPaciente from "./Pages/Funcionario/FuncionarioPaciente"; // Página de gestão de pacientes do funcionário
 
@@ -55,7 +55,7 @@ function App() {
         <Route path="/CadastroCod" element={<CadastroCod />} />{" "}
         {/* Página de cadastro de código */}
         {/* Rotas para páginas de funcionários */}
-        {/* <Route path="/FuncHome" element={<FuncionarioHome />} />{" "} */}
+        <Route path="/FuncHome" element={<FuncionarioHome />} />{" "}
         {/* Página inicial do funcionário */}
         <Route path="/FuncAtend" element={<FuncAtend />} />{" "}
         {/* Página de atendimento do funcionário */}

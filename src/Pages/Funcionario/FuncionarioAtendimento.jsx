@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
-import { FiPlusCircle } from "react-icons/fi";
 import {
-  FaUsers,
-  FaUserInjured,
-  FaFileAlt,
   FaLink,
   FaPlus,
   FaStethoscope,
   FaCaretDown,
+  FaHome,
+  FaClipboard,
 } from "react-icons/fa";
-import { VscGraph } from "react-icons/vsc";
 import { AiFillFileAdd } from "react-icons/ai";
 import { CiPill } from "react-icons/ci";
 import { MdAssignment } from "react-icons/md";
@@ -84,18 +81,16 @@ export default function FuncAtend() {
     <>
       <Sidebar>
         <ItemsSidebar
-          icon={<FiPlusCircle size={30} />}
-          text="Cadastros"
-          route={"/FuncCadastro"}
+          icon={<FaHome size={30} />}
+          text="Home"
+          route="/FuncionarioHome"
         />
         <ItemsSidebar
-          icon={<FaUsers size={30} />}
-          text="Usuários"
-          route={"/FuncUsuarios"}
+          icon={<FaClipboard size={30} />}
+          text="Atendimentos"
+          route="/FuncAtend"
+          ativo
         />
-        <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
-        <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
-        <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
       </Sidebar>
 
       <section
@@ -172,10 +167,10 @@ export default function FuncAtend() {
                 className="hidden md:flex flex-col w-full h-full p-5 mt-8 bg-[#D9D9D9] 
               rounded-xl"
               >
-                <h1 className="w-full text-xl text-center font-bold border-b-2 border-gray-500">
+                <h1 className="w-full text-xl text-center font-bold border-gray-500">
                   Histórico de tratamentos
                 </h1>
-                <div className="h-full flex flex-col overflow-y-scroll scrollable-container">
+                <div className="h-full flex flex-col overflow-y-scroll scrollable-container border-2 border-gray-500">
                   {showAtendimentos(atendimentos)}
                   <button
                     className="bg-blue text-black border-2 border-black px-4 py-2 rounded-md mt-auto w-fit

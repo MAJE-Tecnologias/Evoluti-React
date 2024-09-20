@@ -5,12 +5,12 @@ import "./ImageClickTracker.css";
 import "../CSS/ScrollStyle.css";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import { FuncionarioCardAtendimento } from "./Components/FuncionarioCardAtendimento";
-import { 
-  fetchPontosDor, 
-  fetchPacienteById, 
-  deletePontoDor, 
-  addPontoDor, 
-  updatePacientePontosDor 
+import {
+  fetchPontosDor,
+  fetchPacienteById,
+  deletePontoDor,
+  addPontoDor,
+  updatePacientePontosDor,
 } from "../../services/funcServices";
 
 export default function MarcacaoPontosDor() {
@@ -90,15 +90,26 @@ export default function MarcacaoPontosDor() {
         };
 
         const response = await addPontoDor(novoPonto);
-        const newCircleWithId = { ...newCircle, id: response.id, desc: data.description, titulo: data.titulo };
+        const newCircleWithId = {
+          ...newCircle,
+          id: response.id,
+          desc: data.description,
+          titulo: data.titulo,
+        };
 
         setCirculos((prevCirculos) => {
           const updatedCirculos = [...prevCirculos, newCircleWithId];
-          updatePacientePontosDor(sessionStorage.getItem("id"), updatedCirculos.map((c) => c.id))
-            .then(response1 => {
-              console.log("Dados da clínica atualizados com sucesso:", response1.data);
+          updatePacientePontosDor(
+            sessionStorage.getItem("id"),
+            updatedCirculos.map((c) => c.id)
+          )
+            .then((response1) => {
+              console.log(
+                "Dados da clínica atualizados com sucesso:",
+                response1.data
+              );
             })
-            .catch(error => {
+            .catch((error) => {
               console.error("Erro ao atualizar dados na API:", error);
             });
           return updatedCirculos;
@@ -131,8 +142,8 @@ export default function MarcacaoPontosDor() {
 
   return (
     <>
-      <div className="w-full flex-col justify-center lg:flex lg:flex-row">
-        <div className="image-container">
+      <div className="flex-col justify-center lg:flex lg:flex-row w-1/2 bg-gray-200">
+        <div className="image-container ">
           <div className="image-wrapper">
             <img
               src={backgroundImg}
@@ -167,55 +178,59 @@ export default function MarcacaoPontosDor() {
         ></Modal>
       </div>
 
-      <div className="relative w-full bg-[#E7E5E5] rounded-xl border-black overflow-y-scroll scrollable-container">
-        <div className="absolute w-full p-4">
-          <h2 className="font-extrabold text-2xl text-center border-b-2 border-black mb-4">
-            PONTOS DE DOR
-          </h2>
-          <ul className="flex flex-col gap-y-4">
-            {circulos.map((circulo, indice) => (
-              <div
-                key={circulo.id}
-                className="w-full bg-white p-2 rounded-xl shadow-lg"
-              >
-                <li className="truncate">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-lg">
-                      Marcação #{indice + 1}
-                    </span>
-                    <div
-                      className="border-2 border-black w-5 h-5 rounded-full"
-                      style={{ backgroundColor: circulo.cor }}
-                    ></div>
-                  </div>
-                  <p className="font-bold font-poppins">
-                    Título:{" "}
-                    <span className="font-normal">{circulo.titulo}</span>
-                  </p>
-                  <p className="font-bold font-poppins">
-                    Descrição do ponto de dor:{" "}
-                  </p>
-                  <span className="">{circulo.desc}</span>
-                  <div className="flex items-center gap-x-2">
-                    <button
-                      className="flex justify-center items-center px-2 py-1 border-2 border-black 
+      <div
+        className="bg-white overflow-hidden border-l border-evolutiGreen w-1/2 
+      dark:bg-zinc-600 dark:border-gray-900"
+      >
+        <div className="h-full p-1">
+          <div className="relative w-full h-full overflow-y-scroll scrollable-container">
+            <div className="absolute w-full p-4">
+              <ul className="flex flex-col gap-y-4">
+                {circulos.map((circulo, indice) => (
+                  <div
+                    key={circulo.id}
+                    className="w-full bg-white border border-evolutiGreen p-2 rounded-xl shadow-lg"
+                  >
+                    <li className="truncate">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-lg">
+                          Marcação #{indice + 1}
+                        </span>
+                        <div
+                          className="border-2 border-black w-5 h-5 rounded-full"
+                          style={{ backgroundColor: circulo.cor }}
+                        ></div>
+                      </div>
+                      <p className="font-bold font-poppins">
+                        Título:{" "}
+                        <span className="font-normal">{circulo.titulo}</span>
+                      </p>
+                      <p className="font-bold font-poppins">
+                        Descrição do ponto de dor:{" "}
+                      </p>
+                      <span className="">{circulo.desc}</span>
+                      <div className="flex items-center gap-x-2">
+                        <button
+                          className="flex justify-center items-center px-2 py-1 border-2 border-black 
                     rounded-xl bg-evolutiGreenDarker font-bold text-white gap-x-2 hover:brightness-90"
-                      onClick={() => lidarComCliqueCirculo(indice)}
-                    >
-                      <FaTrashAlt /> Remover
-                    </button>
-                    <button
-                      className="flex justify-center items-center px-2 py-1 border-2 border-black 
+                          onClick={() => lidarComCliqueCirculo(indice)}
+                        >
+                          <FaTrashAlt /> Remover
+                        </button>
+                        <button
+                          className="flex justify-center items-center px-2 py-1 border-2 border-black 
                     rounded-xl bg-evolutiLightBlueText font-bold text-white gap-x-2 hover:brightness-90"
-                      onClick={() => showDetalhes(indice)}
-                    >
-                      <FaEdit /> Editar
-                    </button>
+                          onClick={() => showDetalhes(indice)}
+                        >
+                          <FaEdit /> Editar
+                        </button>
+                      </div>
+                    </li>
                   </div>
-                </li>
-              </div>
-            ))}
-          </ul>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
         {detalhes && (
           <FuncionarioCardAtendimento

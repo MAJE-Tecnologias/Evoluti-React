@@ -69,7 +69,7 @@ export default function Sidebar({ children }) {
 
   return (
     <motion.nav
-      className="h-full fixed flex flex-col bg-evolutiLightGreen shadow-sm z-20"
+      className="h-full fixed flex flex-col bg-evolutiLightGreen shadow-sm z-20 transition-colors dark:bg-gray-900"
       initial={{ width: 78 }}
       animate={{ width: expandido ? 298 : 78 }}
       transition={{ duration: 0.3 }}
@@ -230,7 +230,7 @@ export function ItemsSidebar({ icon, text, ativo, route }) {
       >
         <span>{icon}</span>
         <span
-          className={`overflow-hidden transition-all ${
+          className={`overflow-hidden whitespace-nowrap transition-all ${
             expandido ? "w-52 ml-3" : "w-0"
           }`}
         >
@@ -238,7 +238,7 @@ export function ItemsSidebar({ icon, text, ativo, route }) {
         </span>
         {!expandido && (
           <div
-            className={`absolute left-full rounded-md px-2 py-1 ml-6 bg-evolutiGoldenLighter 
+            className={`absolute left-full whitespace-nowrap rounded-md px-2 py-1 ml-6 bg-evolutiGoldenLighter 
               text-evolutiGoldenSuperDarker text-sm opacity-20 -translate-x-3 transition-all 
               invisible group-hover:visible group-hover:opacity-100 group-hover:translate-x-0`}
           >

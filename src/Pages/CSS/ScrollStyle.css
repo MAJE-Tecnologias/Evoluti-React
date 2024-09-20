@@ -4,12 +4,18 @@
 
   .scrollable-container::-webkit-scrollbar-track {
       background: lightgray;
+      margin-bottom: 16px;
+      border-radius: 20px;
   }
 
   .scrollable-container::-webkit-scrollbar-thumb {
       background: #13b675;
-      border-radius: 10px;
+      border-radius: 20px;
   }
+
+body.dark .scrollable-container::-webkit-scrollbar-thumb {
+    @apply bg-gray-900;
+}
 
   .scrollable-container::-webkit-scrollbar-thumb:hover {
       background: #555;

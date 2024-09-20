@@ -2,17 +2,14 @@ import { useRef, useEffect, useState } from "react";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import "../CSS/AnimacaoFlutuar.css";
 import {
-  FaUsers,
-  FaUserInjured,
-  FaFileAlt,
   FaUserCheck,
   FaCamera,
   FaUpload,
+  FaUserPlus,
+  FaHome,
 } from "react-icons/fa";
-import { VscGraph } from "react-icons/vsc";
-import { fetchPacienteWithMaxId, createPaciente } from '../../services/operadorServices'; // Importando os serviços
+import { fetchPacienteWithMaxId, createPaciente } from '../../services/operadorServices';
 
-// Definindo o componente OperadorAdd
 export default function OperadorAdd() {
   const idClinica = sessionStorage.getItem("idClinica");
   const [id, setId] = useState(null);
@@ -69,19 +66,17 @@ export default function OperadorAdd() {
   return (
     <>
       <Sidebar>
+      <ItemsSidebar
+          icon={<FaHome size={30} />}
+          text="Home"
+          route="/OperadorHome"
+        />
         <ItemsSidebar
-          icon={<FaUserCheck size={30} />}
+          icon={<FaUserPlus size={30} />}
           text="Adicionar Paciente"
           route="/OperadorAdd"
+          ativo
         />
-        <ItemsSidebar
-          icon={<FaUsers size={30} />}
-          text="Usuários"
-          route="/AdminUsuarios"
-        />
-        <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
-        <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
-        <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
       </Sidebar>
 
       <section
@@ -98,7 +93,7 @@ export default function OperadorAdd() {
             className="bg-neutral-100 flex flex-col border-t-2 border-b-0 w-full h-fit rounded-bl-none rounded-br-none
              sm:border-b-0 sm:border-2 sm:rounded-t-3xl
           shadow-black shadow-md p-5 gap-x-8 md:gap-x-0 md:flex-row
-          dark:bg-neutral-900 dark:border-gray-300 dark:shadow-white dark:shadow-2xl"
+          dark:bg-neutral-900 dark:border-gray-300  dark:shadow-2xl"
           >
             <form onSubmit={handleCreatePaciente} className="md:w-full md:flex md:gap-x-8">
               <div
