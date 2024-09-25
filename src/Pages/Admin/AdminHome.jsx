@@ -1,19 +1,22 @@
-import Sidebar, {
-  ItemsSidebar,
-} from "../../Components/SideBar";
+import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import "../CSS/AnimacaoFlutuar.css";
 import { FaUsers } from "react-icons/fa6";
-import { FaUserInjured, FaFileAlt, FaUserCheck } from "react-icons/fa";
+import { FaUserInjured, FaFileAlt, FaUserCheck, FaHome } from "react-icons/fa";
 import { VscGraph } from "react-icons/vsc";
 
 import { FaQuestion } from "react-icons/fa";
 
 export default function AdminHome() {
-
   return (
     <>
       <Sidebar>
-      <ItemsSidebar
+        <ItemsSidebar
+          icon={<FaHome size={30} />}
+          text="Home"
+          route={"/AdminHome"}
+          ativo
+        />
+        <ItemsSidebar
           icon={<FaUserCheck size={30} />}
           text="Aceitar"
           route={"/AdminAceitar"}
@@ -23,9 +26,11 @@ export default function AdminHome() {
           text="Usuários"
           route={"/AdminUsuarios"}
         />
-        <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
-        <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
-        <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
+        <ItemsSidebar
+          icon={<FaUserInjured size={30} />}
+          text="Pacientes"
+          route={"/AdminPaciente"}
+        />
       </Sidebar>
 
       <section

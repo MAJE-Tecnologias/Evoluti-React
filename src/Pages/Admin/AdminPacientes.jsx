@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { FaEye, FaFileAlt, FaSearch, FaTrash, FaUserInjured, FaUsers } from "react-icons/fa";
-import { VscGraph } from "react-icons/vsc";
+import { FaEye, FaHome, FaSearch, FaTrash, FaUserCheck, FaUserInjured } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa6";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import { fetchPacientes } from "../../services/adminServices"; // Importar o serviço
 import "../CSS/AnimacaoFlutuar.css";
@@ -101,6 +101,11 @@ export default function AdminPacientes() {
   return (
     <>
       <Sidebar>
+      <ItemsSidebar
+          icon={<FaHome size={30} />}
+          text="Home"
+          route={"/AdminHome"}
+        />
         <ItemsSidebar
           icon={<FaUserCheck size={30} />}
           text="Aceitar"
@@ -114,11 +119,9 @@ export default function AdminPacientes() {
         <ItemsSidebar
           icon={<FaUserInjured size={30} />}
           text="Pacientes"
-          Ativo
+          ativo
           route={"/AdminPaciente"}
         />
-        <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
-        <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
       </Sidebar>
 
       <section
@@ -127,7 +130,7 @@ export default function AdminPacientes() {
       >
         <div>
           <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">
-            <FaUsers size={40} /> Visualização de Pacientes
+            <FaUserInjured size={40} /> Visualização de Pacientes
           </h1>
 
           <div className="flex mt-10 justify-center items-center gap-x-3 dark:text-white">
@@ -152,7 +155,7 @@ export default function AdminPacientes() {
               <th className="px-6 py-3">AÇÕES</th>
             </tr>
           </thead>
-          {showpacientes(pacientes)}
+          {showPacientes(pacientes)}
         </table>
         <div className="flex justify-between w-3/4 items-center mt-4 dark:text-white">
           <div>

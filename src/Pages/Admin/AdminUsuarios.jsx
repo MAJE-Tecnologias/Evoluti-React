@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import {
   FaEye,
-  FaFileAlt,
+  FaHome,
   FaSearch,
   FaTrash,
   FaUserCheck,
   FaUserInjured,
 } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa6";
-import { VscGraph } from "react-icons/vsc";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import { fetchUsuarios } from "../../services/adminServices"; // Importar o serviço
 import "../CSS/AnimacaoFlutuar.css";
@@ -108,6 +107,11 @@ export default function AdminUsuarios() {
   return (
     <>
       <Sidebar>
+      <ItemsSidebar
+          icon={<FaHome size={30} />}
+          text="Home"
+          route={"/AdminHome"}
+        />
         <ItemsSidebar
           icon={<FaUserCheck size={30} />}
           text="Aceitar"
@@ -119,9 +123,11 @@ export default function AdminUsuarios() {
           ativo
           route={"/AdminUsuarios"}
         />
-        <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
-        <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
-        <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
+        <ItemsSidebar
+          icon={<FaUserInjured size={30} />}
+          text="Pacientes"
+          route={"/AdminPaciente"}
+        />
       </Sidebar>
 
       <section

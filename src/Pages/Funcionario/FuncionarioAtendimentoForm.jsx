@@ -5,10 +5,8 @@ import { FiPlusCircle } from "react-icons/fi";
 import {
   FaUsers,
   FaUserInjured,
-  FaFileAlt,
   FaStethoscope,
 } from "react-icons/fa";
-import { VscGraph } from "react-icons/vsc";
 import { AiFillFileAdd } from "react-icons/ai";
 import { CiPill } from "react-icons/ci";
 import { MdAdsClick } from "react-icons/md";
@@ -92,8 +90,6 @@ export default function FuncAtendForm() {
           route={"/FuncUsuarios"}
         />
         <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
-        <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
-        <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
       </Sidebar>
 
       <section className="flex md:flex-col flex-col h-full pl-[78px] justify-center items-center dark:bg-neutral-800">
@@ -103,15 +99,16 @@ export default function FuncAtendForm() {
            p-5 gap-x-8 ld:gap-x-0 lg:flex-row md:rounded-3xl  "
           >
             <div className="lg:w-1/2 items-stretch">
-              <form onSubmit={criarAtend} className="flex flex-col h-full">
-                <div className="flex items-center bg-gray-500 border rounded-t-md px-4 py-2">
-                  <label htmlFor="title" className="font-bold text-xl mr-2">
+              <form onSubmit={criarAtend} className="flex flex-col h-full shadow">
+                <div className="flex items-center h-20 rounded-t-3xl bg-evolutiGreen border px-4 py-2
+                dark:bg-gray-900">
+                  <label htmlFor="title" className="font-bold text-white text-xl mr-2">
                     Título:
                   </label>
                   <input
                     type="text"
                     id="title"
-                    className="flex-grow outline-none rounded-md py-1 px-2"
+                    className="flex-grow outline-none rounded-md py-2 px-2"
                     value={titulo}
                     onChange={(e) => setTitulo(e.target.value)}
                     placeholder="Digite o título..."
@@ -151,8 +148,8 @@ export default function FuncAtendForm() {
                   placeholder="Digite aqui o tratamento..."
                 />
 
-                <div className="flex flex-col gap-y-4 bg-[#d2cfcf] rounded-b-lg p-4">
-                  <div className="flex justify-between">
+                <div className="flex flex-col gap-y-4 bg-evolutiGreen rounded-b-lg p-4 dark:bg-gray-900">
+                  <div className="flex justify-between dark:text-white">
                     {[
                       {
                         icon: <AiFillFileAdd size={30} />,

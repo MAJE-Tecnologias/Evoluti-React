@@ -1,16 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  FaFileAlt,
+  FaHome,
   FaRegCheckCircle,
   FaRegTimesCircle,
   FaSearch,
   FaUserCheck,
   FaUserInjured,
-  FaUsers,
 } from "react-icons/fa";
-import { VscGraph } from "react-icons/vsc";
+import { FaUsers } from "react-icons/fa6";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
-import { aceitarUsuario, fetchUsuarios, negarUsuario } from '../../services/adminServices'; // Importar as funções do serviço
+import {
+  aceitarUsuario,
+  fetchUsuarios,
+  negarUsuario,
+} from "../../services/adminServices"; // Importar as funções do serviço
 
 export default function AdminAceitar() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -81,8 +84,9 @@ export default function AdminAceitar() {
       pageNumbers.push(
         <button
           key={i}
-          className={`px-3 py-1 mx-1 border rounded-lg ${currentPage === i ? "bg-gray-500" : "bg-gray-300"
-            }`}
+          className={`px-3 py-1 mx-1 border rounded-lg ${
+            currentPage === i ? "bg-gray-500" : "bg-gray-300"
+          }`}
           onClick={() => setCurrentPage(i)}
         >
           {i}
@@ -138,6 +142,11 @@ export default function AdminAceitar() {
     <>
       <Sidebar>
         <ItemsSidebar
+          icon={<FaHome size={30} />}
+          text="Home"
+          route={"/AdminHome"}
+        />
+        <ItemsSidebar
           icon={<FaUserCheck size={30} />}
           text="Aceitar"
           ativo
@@ -148,9 +157,11 @@ export default function AdminAceitar() {
           text="Usuários"
           route={"/AdminUsuarios"}
         />
-        <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
-        <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
-        <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
+        <ItemsSidebar
+          icon={<FaUserInjured size={30} />}
+          text="Pacientes"
+          route={"/AdminPaciente"}
+        />
       </Sidebar>
 
       <section
