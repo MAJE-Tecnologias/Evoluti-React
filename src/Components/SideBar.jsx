@@ -85,7 +85,7 @@ export default function Sidebar({ children }) {
   return (
     <div>
       <div
-        className="fixed opacity-0 data-[is-open=true]:pointer-events-auto data-[is-open=true]:opacity-100 h-screen inset-0 z-10 
+        className="fixed opacity-0 data-[is-open=true]:pointer-events-auto data-[is-open=true]:opacity-100 h-screen inset-0 z-20 
         transition-opacity bg-black bg-opacity-50 pointer-events-none"
         data-is-open={expandido}
         onClick={handleCloseSidebar}

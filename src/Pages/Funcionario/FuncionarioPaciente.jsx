@@ -96,7 +96,7 @@ export default function AdminUsuarios() {
 
       <section
         id="AdminHome"
-        className="flex md:flex-col flex-col h-full pl-[89px] items-center dark:bg-neutral-800"
+        className="flex md:flex-col flex-col h-full pl-[89px] pt-[89px] items-center dark:bg-neutral-800"
       >
         <div>
           <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">

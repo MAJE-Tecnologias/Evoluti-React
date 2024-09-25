@@ -5,11 +5,13 @@ import {
   FaUserCheck,
   FaCamera,
   FaUpload,
-  FaUserPlus,
-  FaHome,
 } from "react-icons/fa";
-import { fetchPacienteWithMaxId, createPaciente } from '../../services/operadorServices';
+import {
+  fetchPacienteWithMaxId,
+  createPaciente,
+} from "../../services/operadorServices";
 import { LuHome, LuUserPlus } from "react-icons/lu";
+import NavBar from "../../Components/NavBar";
 
 export default function OperadorAdd() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -67,7 +69,7 @@ export default function OperadorAdd() {
   return (
     <>
       <Sidebar>
-      <ItemsSidebar
+        <ItemsSidebar
           icon={<LuHome size={24} />}
           text="Home"
           route="/OperadorHome"
@@ -80,9 +82,14 @@ export default function OperadorAdd() {
         />
       </Sidebar>
 
+      <NavBar
+        icon={<LuUserPlus size={24} />}
+        title={"Adicionar Pacientes"}
+      />
+
       <section
         id="FuncHome"
-        className="flex md:flex-col flex-col h-full pl-[89px] justify-center items-center transition-all
+        className="flex md:flex-col flex-col h-full pl-[89px] pt-[89px] justify-center items-center transition-all
         dark:bg-neutral-800 "
       >
         <div className="w-full h-full pt-10 md:px-10 md:pt-10 sm:px-5">
@@ -96,7 +103,10 @@ export default function OperadorAdd() {
           shadow-black shadow-md p-5 gap-x-8 md:gap-x-0 md:flex-row
           dark:bg-neutral-900 dark:border-gray-300  dark:shadow-2xl"
           >
-            <form onSubmit={handleCreatePaciente} className="md:w-full md:flex md:gap-x-8">
+            <form
+              onSubmit={handleCreatePaciente}
+              className="md:w-full md:flex md:gap-x-8"
+            >
               <div
                 className="flex flex-col items-center justify-center pb-5 border-b-2 border-gray-300 
               md:w-1/4 md:border-b-0 md:justify-normal"
@@ -121,13 +131,22 @@ export default function OperadorAdd() {
                     alt="default image"
                   />
                 </div>
-                <button type="button" className="w-fit px-2 flex justify-center items-center gap-x-2 font-bold bg-white py-2 transition-all
+                <button
+                  type="button"
+                  className="w-fit px-2 flex justify-center items-center gap-x-2 font-bold bg-white py-2 transition-all
                 border-2 rounded-lg border-evolutiGreen mt-5 lg:w-full lg:px-0 lg:text-lg lg:py-3
-                hover:bg-evolutiGreen hover:text-white"> <FaUpload/> Adicionar Foto</button>
+                hover:bg-evolutiGreen hover:text-white"
+                >
+                  {" "}
+                  <FaUpload /> Adicionar Foto
+                </button>
               </div>
               <div className="flex flex-col gap-y-4 pt-5 md:w-3/4 md:pt-0">
                 <div className="flex flex-col gap-y-2">
-                  <label htmlFor="nome" className="font-bold dark:text-white lg:text-xl">
+                  <label
+                    htmlFor="nome"
+                    className="font-bold dark:text-white lg:text-xl"
+                  >
                     Nome:
                   </label>
                   <input
@@ -142,7 +161,10 @@ export default function OperadorAdd() {
                   />
                 </div>
                 <div className="flex flex-col gap-y-2">
-                  <label htmlFor="email" className="font-bold dark:text-white lg:text-xl">
+                  <label
+                    htmlFor="email"
+                    className="font-bold dark:text-white lg:text-xl"
+                  >
                     Email:
                   </label>
                   <input
@@ -158,7 +180,10 @@ export default function OperadorAdd() {
                 </div>
 
                 <div className="flex flex-col gap-y-2">
-                  <label htmlFor="cpf" className="font-bold dark:text-white lg:text-xl">
+                  <label
+                    htmlFor="cpf"
+                    className="font-bold dark:text-white lg:text-xl"
+                  >
                     CPF:
                   </label>
                   <input
@@ -174,7 +199,10 @@ export default function OperadorAdd() {
                 </div>
 
                 <div className="flex flex-col gap-y-2">
-                  <label htmlFor="rg" className="font-bold dark:text-white lg:text-xl">
+                  <label
+                    htmlFor="rg"
+                    className="font-bold dark:text-white lg:text-xl"
+                  >
                     RG:
                   </label>
                   <input
@@ -190,7 +218,10 @@ export default function OperadorAdd() {
                 </div>
 
                 <div className="flex flex-col gap-y-2">
-                  <label htmlFor="dataNascimento" className="font-bold dark:text-white lg:text-xl">
+                  <label
+                    htmlFor="dataNascimento"
+                    className="font-bold dark:text-white lg:text-xl"
+                  >
                     Data de Nascimento:
                   </label>
                   <input
@@ -205,7 +236,10 @@ export default function OperadorAdd() {
                 </div>
 
                 <div className="flex flex-col gap-y-2">
-                  <label htmlFor="cadastroGeneroClinica" className="font-bold dark:text-white lg:text-xl">
+                  <label
+                    htmlFor="cadastroGeneroClinica"
+                    className="font-bold dark:text-white lg:text-xl"
+                  >
                     Gênero
                   </label>
                   <select
@@ -217,16 +251,29 @@ export default function OperadorAdd() {
                             p-2 rounded-lg shadow-md focus:outline-evolutiGreenDarker lg:text-lg lg:p-3"
                   >
                     <option defaultValue="">Selecione o gênero</option>
-                    <option value="1" className="text-black">Homem-Cis</option>
-                    <option value="2" className="text-black">Mulher-Cis</option>
-                    <option value="3" className="text-black">Homem-Trans</option>
-                    <option value="4" className="text-black">Mulher-Trans</option>
-                    <option value="5" className="text-black">Outro</option>
+                    <option value="1" className="text-black">
+                      Homem-Cis
+                    </option>
+                    <option value="2" className="text-black">
+                      Mulher-Cis
+                    </option>
+                    <option value="3" className="text-black">
+                      Homem-Trans
+                    </option>
+                    <option value="4" className="text-black">
+                      Mulher-Trans
+                    </option>
+                    <option value="5" className="text-black">
+                      Outro
+                    </option>
                   </select>
                 </div>
 
                 <div className="flex flex-col gap-y-2">
-                  <label htmlFor="telefone" className="font-bold dark:text-white lg:text-xl">
+                  <label
+                    htmlFor="telefone"
+                    className="font-bold dark:text-white lg:text-xl"
+                  >
                     Telefone:
                   </label>
                   <input

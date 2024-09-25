@@ -4,6 +4,7 @@ import { FaUserInjured } from "react-icons/fa";
 import { LuHome, LuUserCheck, LuUsers,  } from "react-icons/lu";
 
 import { FaQuestion } from "react-icons/fa";
+import NavBar from "../../Components/NavBar";
 
 export default function AdminHome() {
   return (
@@ -31,10 +32,11 @@ export default function AdminHome() {
           route={"/AdminPaciente"}
         />
       </Sidebar>
+      <NavBar icon={<LuHome size={24}/>} title={"Home - Admin"}/>
 
       <section
         id="AdminHome"
-        className="flex md:flex-col flex-col h-screen pl-[89px] justify-center items-center transition-all bg-slate-100
+        className="flex md:flex-col flex-col h-screen pl-[89px] pt-[89px] justify-center items-center transition-all bg-slate-100
         dark:bg-neutral-800 dark:text-white"
       >
         <img

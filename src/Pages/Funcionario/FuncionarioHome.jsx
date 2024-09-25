@@ -3,6 +3,7 @@ import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import "../CSS/AnimacaoFlutuar.css";
 
 import { FaQuestion } from "react-icons/fa";
+import NavBar from "../../Components/NavBar";
 
 export default function FuncionarioHome() {
   return (
@@ -21,8 +22,10 @@ export default function FuncionarioHome() {
         />
       </Sidebar>
 
+      <NavBar icon={<LuHome size={24}/>} title={"Home - Funcionário"}/>
+
       <section
-        className="flex md:flex-col flex-col h-screen pl-[89px] justify-center items-center transition-all 
+        className="flex md:flex-col flex-col h-screen pl-[89px] pt-[89px] justify-center items-center transition-all 
             dark:bg-neutral-800 dark:text-white"
       >
         <img

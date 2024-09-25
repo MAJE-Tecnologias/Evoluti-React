@@ -11,8 +11,9 @@ import {
   aceitarUsuario,
   fetchUsuarios,
   negarUsuario,
-} from "../../services/adminServices"; // Importar as funções do serviço
+} from "../../services/adminServices";
 import { LuHome, LuUserCheck, LuUsers } from "react-icons/lu";
+import NavBar from "../../Components/NavBar";
 
 export default function AdminAceitar() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -163,9 +164,11 @@ export default function AdminAceitar() {
         />
       </Sidebar>
 
+      <NavBar icon={<LuUserCheck size={24}/>} title={"Aceitar Novos Usuários"}/>
+
       <section
         id="AdminHome"
-        className="flex md:flex-col flex-col h-screen pl-[89px] items-center dark:bg-neutral-800"
+        className="flex md:flex-col flex-col h-screen pl-[89px] pt-[89px] items-center dark:bg-neutral-800"
       >
         <div>
           <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">

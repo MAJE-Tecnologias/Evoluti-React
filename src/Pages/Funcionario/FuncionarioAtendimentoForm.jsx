@@ -11,6 +11,7 @@ import { MdAdsClick } from "react-icons/md";
 import { createAtendimento } from "../../services/funcServices";
 import MarcacaoPontosDor from "./MarcacaoPontosDor";
 import { LuClipboard, LuHome } from "react-icons/lu";
+import NavBar from "../../Components/NavBar";
 
 export default function FuncAtendForm() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -85,7 +86,9 @@ export default function FuncAtendForm() {
         />
       </Sidebar>
 
-      <section className="flex md:flex-col flex-col h-full pl-[89px] justify-center items-center bg-slate-100 dark:bg-neutral-800">
+      <NavBar icon={<LuClipboard size={24}/>} title={"Atendimento - Formulário"}/>
+
+      <section className="flex md:flex-col flex-col h-full pl-[89px] pt-[89px] justify-center items-center bg-slate-100 dark:bg-neutral-800">
         <div className="w-full min-h-screen pt-20 md:px-10 md:pt-10">
           <div
             className=" flex flex-col w-full h-full rounded-bl-none rounded-br-none 

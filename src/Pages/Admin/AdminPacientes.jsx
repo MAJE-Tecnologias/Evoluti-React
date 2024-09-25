@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { FaEye, FaSearch, FaTrash, FaUserInjured } from "react-icons/fa";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
-import { fetchPacientes } from "../../services/adminServices"; // Importar o serviço
+import { fetchPacientes } from "../../services/adminServices";
 import "../CSS/AnimacaoFlutuar.css";
 import { LuHome, LuUserCheck, LuUsers } from "react-icons/lu";
+import NavBar from "../../Components/NavBar";
 
 export default function AdminPacientes() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -123,10 +124,11 @@ export default function AdminPacientes() {
           route={"/AdminPaciente"}
         />
       </Sidebar>
+      <NavBar icon={<FaUserInjured size={24}/>} title={"Lista de Pacientes"}/>
 
       <section
         id="AdminHome"
-        className="flex md:flex-col flex-col h-screen pl-[89px] items-center dark:bg-neutral-800"
+        className="flex md:flex-col flex-col h-screen pl-[89px] pt-[89px] items-center dark:bg-neutral-800"
       >
         <div>
           <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">

@@ -15,6 +15,7 @@ import { ptBR } from 'date-fns/locale';
 import { fetchPacienteById, fetchAtendimentosByPacienteId } from '../../services/funcServices';
 import "../CSS/ScrollStyle.css";
 import { LuClipboard, LuHome } from "react-icons/lu";
+import NavBar from "../../Components/NavBar";
 
 export default function FuncAtend() {
   const id = sessionStorage.getItem("id");
@@ -92,9 +93,11 @@ export default function FuncAtend() {
         />
       </Sidebar>
 
+      <NavBar icon={<LuClipboard size={24}/>} title={"Atendimentos"}/>
+
       <section
         id="FuncHome"
-        className="flex md:flex-col flex-col h-screen pl-[89px] justify-center items-center dark:bg-neutral-800"
+        className="flex md:flex-col flex-col h-screen pl-[89px] pt-[89px] justify-center items-center dark:bg-neutral-800"
       >
         <div className="w-full h-full pt-20 md:px-10 md:pt-10">
           <div
