@@ -1,10 +1,11 @@
 import { useRef, useEffect, useState } from "react";
-import backgroundImg from "../../assets/corpoHomem.png";
 import Modal from "./Components/FuncionarioModal";
 import "./ImageClickTracker.css";
-import "../CSS/ScrollStyle.css";
+import backgroundImg1 from "../../assets/MDP_MasculinoFrente.png";
+import backgroundImg2 from "../../assets/MDP_MasculinoLadoD.png";
+import backgroundImg3 from "../../assets/MDP_MasculinoCostas.png";
+import backgroundImg4 from "../../assets/MDP_MasculinoLadoE.png";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
-import { FuncionarioCardAtendimento } from "./Components/FuncionarioCardAtendimento";
 import {
   fetchPontosDor,
   fetchPacienteById,
@@ -12,6 +13,7 @@ import {
   addPontoDor,
   updatePacientePontosDor,
 } from "../../services/funcServices";
+import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
 
 export default function MarcacaoPontosDor() {
   const [circulos, setCirculos] = useState([]);
@@ -21,7 +23,14 @@ export default function MarcacaoPontosDor() {
   const [selectedColor, setSelectedColor] = useState("blue");
   const [detalhes, setDetalhes] = useState(false);
   const [pointerCirculo, setPointerCirculo] = useState(null);
+  const [imagemAtual, setImagemAtual] = useState(0); // 0: frente, 1: lado, 2: costas
 
+  const imagens = [
+    backgroundImg1,
+    backgroundImg2,
+    backgroundImg3,
+    backgroundImg4,
+  ];
   const mounted = useRef(false);
 
   useEffect(() => {
@@ -47,7 +56,6 @@ export default function MarcacaoPontosDor() {
 
           setNumCirculos(circulosIniciais.length);
           setCirculos(circulosIniciais);
-
           mounted.current = true;
         }
       } catch (error) {
@@ -140,34 +148,38 @@ export default function MarcacaoPontosDor() {
     setSelectedColor(color);
   };
 
+  const nextImage = () => {
+    setImagemAtual((prev) => (prev + 1) % imagens.length);
+  };
+
+  const prevImage = () => {
+    setImagemAtual((prev) => (prev - 1 + imagens.length) % imagens.length);
+  };
+
   return (
     <>
-      <div className="flex-col justify-center lg:flex lg:flex-row w-1/2 bg-gray-200">
-        <div className="image-container ">
-          <div className="image-wrapper">
-            <img
-              src={backgroundImg}
-              alt="Imagem"
-              className="background-image"
-              onClick={lidarComClique}
-            />
+      <div className="h-full">
+        <img
+          src={imagens[imagemAtual]}
+          alt="Imagem do corpo humano"
+          className=""
+          onClick={lidarComClique}
+        />
 
-            {circulos.map((circulo, indice) => (
-              <div
-                key={circulo.id}
-                className="circle flex justify-center items-center text-white font-bold"
-                style={{
-                  backgroundColor: `${circulo.cor}`,
-                  top: `${circulo.y}%`,
-                  left: `${circulo.x}%`,
-                }}
-                onClick={() => lidarComCliqueCirculo(indice)}
-              >
-                <span>{indice + 1}</span>
-              </div>
-            ))}
+        {circulos.map((circulo, indice) => (
+          <div
+            key={circulo.id}
+            className="circle flex justify-center items-center text-white font-bold"
+            style={{
+              backgroundColor: `${circulo.cor}`,
+              top: `${circulo.y}%`,
+              left: `${circulo.x}%`,
+            }}
+            onClick={() => lidarComCliqueCirculo(indice)}
+          >
+            <span>{indice + 1}</span>
           </div>
-        </div>
+        ))}
 
         <Modal
           show={showModal}
@@ -175,10 +187,10 @@ export default function MarcacaoPontosDor() {
           onSubmit={handleFormSubmit}
           selectedColor={selectedColor}
           onColorChange={handleColorChange}
-        ></Modal>
+        />
       </div>
 
-      <div
+      {/* <div
         className="bg-white overflow-hidden border-l border-evolutiGreen w-1/2 
       dark:bg-zinc-600 dark:border-gray-900"
       >
@@ -193,22 +205,15 @@ export default function MarcacaoPontosDor() {
                   >
                     <li className="truncate">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-lg">
-                          Marcação #{indice + 1}
-                        </span>
+                        <span className="font-bold text-lg">Marcação #{indice + 1}</span>
                         <div
                           className="border-2 border-black w-5 h-5 rounded-full"
                           style={{ backgroundColor: circulo.cor }}
                         ></div>
                       </div>
-                      <p className="font-bold font-poppins">
-                        Título:{" "}
-                        <span className="font-normal">{circulo.titulo}</span>
-                      </p>
-                      <p className="font-bold font-poppins">
-                        Descrição do ponto de dor:{" "}
-                      </p>
-                      <span className="">{circulo.desc}</span>
+                      <p className="font-bold font-poppins">Título: <span className="font-normal">{circulo.titulo}</span></p>
+                      <p className="font-bold font-poppins">Descrição do ponto de dor:</p>
+                      <span>{circulo.desc}</span>
                       <div className="flex items-center gap-x-2">
                         <button
                           className="flex justify-center items-center px-2 py-1 border-2 border-black 
@@ -239,6 +244,21 @@ export default function MarcacaoPontosDor() {
             detalhes={circulos[pointerCirculo]}
           />
         )}
+      </div> */}
+
+      <div className="absolute flex right-8 bottom-12 gap-x-2">
+        <button
+          onClick={prevImage}
+          className="p-2 text-slate-600 bg-slate-200 rounded-md hover:bg-slate-300 transition-colors"
+        >
+          <LuArrowLeft />
+        </button>
+        <button
+          onClick={nextImage}
+          className="p-2 text-slate-600 bg-slate-200 rounded-md hover:bg-slate-300 transition-colors"
+        >
+          <LuArrowRight />
+        </button>
       </div>
     </>
   );
