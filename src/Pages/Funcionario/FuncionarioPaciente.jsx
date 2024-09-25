@@ -79,24 +79,24 @@ export default function AdminUsuarios() {
     <>
       <Sidebar>
         <ItemsSidebar
-          icon={<FiPlusCircle size={30} />}
+          icon={<FiPlusCircle size={24} />}
           text="Cadastros"
           route={"/AdminCadastro"}
         />
         <ItemsSidebar
-          icon={<FaUsers size={30} />}
+          icon={<FaUsers size={24} />}
           text="Usuários"
           ativo
           route={"/AdminUsuarios"}
         />
-        <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
-        <ItemsSidebar icon={<FaFileAlt size={30} />} text="Documentos" />
-        <ItemsSidebar icon={<VscGraph size={30} />} text="Relatórios" />
+        <ItemsSidebar icon={<FaUserInjured size={24} />} text="Pacientes" />
+        <ItemsSidebar icon={<FaFileAlt size={24} />} text="Documentos" />
+        <ItemsSidebar icon={<VscGraph size={24} />} text="Relatórios" />
       </Sidebar>
 
       <section
         id="AdminHome"
-        className="flex md:flex-col flex-col h-full pl-[78px] items-center dark:bg-neutral-800"
+        className="flex md:flex-col flex-col h-full pl-[89px] items-center dark:bg-neutral-800"
       >
         <div>
           <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">

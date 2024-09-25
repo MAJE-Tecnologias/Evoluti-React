@@ -36,7 +36,7 @@ export default function Navbar(){
           </a>
 
       <div className='block sm:hidden transition-all cursor-pointer rounded-lg border-2 border-transparent hover:border-black hover:shadow-md' onClick={controlNav}>
-      {nav ?  <IoClose size={30}/> : <IoMenu size={30}/>}
+      {nav ?  <IoClose size={24}/> : <IoMenu size={24}/>}
 
     </div>
 

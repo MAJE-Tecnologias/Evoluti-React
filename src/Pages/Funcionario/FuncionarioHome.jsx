@@ -1,6 +1,6 @@
+import { LuClipboard, LuHome } from "react-icons/lu";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import "../CSS/AnimacaoFlutuar.css";
-import { FaClipboard, FaHome } from "react-icons/fa";
 
 import { FaQuestion } from "react-icons/fa";
 
@@ -9,20 +9,20 @@ export default function FuncionarioHome() {
     <>
       <Sidebar>
         <ItemsSidebar
-          icon={<FaHome size={30} />}
+          icon={<LuHome size={24} />}
           text="Home"
-          route="/FuncionarioHome"
+          route="/FuncHome"
           ativo
         />
         <ItemsSidebar
-          icon={<FaClipboard size={30} />}
+          icon={<LuClipboard size={24} />}
           text="Atendimentos"
           route="/FuncAtend"
         />
       </Sidebar>
 
       <section
-        className="flex md:flex-col flex-col h-screen pl-[78px] justify-center items-center transition-all 
+        className="flex md:flex-col flex-col h-screen pl-[89px] justify-center items-center transition-all 
             dark:bg-neutral-800 dark:text-white"
       >
         <img

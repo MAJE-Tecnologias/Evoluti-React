@@ -1,16 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import {
   FaEye,
-  FaHome,
   FaSearch,
   FaTrash,
-  FaUserCheck,
   FaUserInjured,
 } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa6";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import { fetchUsuarios } from "../../services/adminServices"; // Importar o serviço
 import "../CSS/AnimacaoFlutuar.css";
+import { LuHome, LuUserCheck, LuUsers } from "react-icons/lu";
 
 export default function AdminUsuarios() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -108,23 +107,23 @@ export default function AdminUsuarios() {
     <>
       <Sidebar>
       <ItemsSidebar
-          icon={<FaHome size={30} />}
+          icon={<LuHome size={24} />}
           text="Home"
           route={"/AdminHome"}
         />
         <ItemsSidebar
-          icon={<FaUserCheck size={30} />}
+          icon={<LuUserCheck size={24} />}
           text="Aceitar"
           route={"/AdminAceitar"}
         />
         <ItemsSidebar
-          icon={<FaUsers size={30} />}
+          icon={<LuUsers size={24} />}
           text="Usuários"
           ativo
           route={"/AdminUsuarios"}
         />
         <ItemsSidebar
-          icon={<FaUserInjured size={30} />}
+          icon={<FaUserInjured size={24} />}
           text="Pacientes"
           route={"/AdminPaciente"}
         />
@@ -132,7 +131,7 @@ export default function AdminUsuarios() {
 
       <section
         id="AdminHome"
-        className="flex md:flex-col flex-col h-screen pl-[78px] items-center dark:bg-neutral-800"
+        className="flex md:flex-col flex-col h-screen pl-[89px] items-center dark:bg-neutral-800"
       >
         <div>
           <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">

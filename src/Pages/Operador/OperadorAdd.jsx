@@ -9,6 +9,7 @@ import {
   FaHome,
 } from "react-icons/fa";
 import { fetchPacienteWithMaxId, createPaciente } from '../../services/operadorServices';
+import { LuHome, LuUserPlus } from "react-icons/lu";
 
 export default function OperadorAdd() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -67,12 +68,12 @@ export default function OperadorAdd() {
     <>
       <Sidebar>
       <ItemsSidebar
-          icon={<FaHome size={30} />}
+          icon={<LuHome size={24} />}
           text="Home"
           route="/OperadorHome"
         />
         <ItemsSidebar
-          icon={<FaUserPlus size={30} />}
+          icon={<LuUserPlus size={24} />}
           text="Adicionar Paciente"
           route="/OperadorAdd"
           ativo
@@ -81,7 +82,7 @@ export default function OperadorAdd() {
 
       <section
         id="FuncHome"
-        className="flex md:flex-col flex-col h-full pl-[78px] justify-center items-center transition-all
+        className="flex md:flex-col flex-col h-full pl-[89px] justify-center items-center transition-all
         dark:bg-neutral-800 "
       >
         <div className="w-full h-full pt-10 md:px-10 md:pt-10 sm:px-5">

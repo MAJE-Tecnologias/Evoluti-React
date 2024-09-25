@@ -1,8 +1,7 @@
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import "../CSS/AnimacaoFlutuar.css";
-import { FaUsers } from "react-icons/fa6";
-import { FaUserInjured, FaFileAlt, FaUserCheck, FaHome } from "react-icons/fa";
-import { VscGraph } from "react-icons/vsc";
+import { FaUserInjured } from "react-icons/fa";
+import { LuHome, LuUserCheck, LuUsers,  } from "react-icons/lu";
 
 import { FaQuestion } from "react-icons/fa";
 
@@ -11,23 +10,23 @@ export default function AdminHome() {
     <>
       <Sidebar>
         <ItemsSidebar
-          icon={<FaHome size={30} />}
+          icon={<LuHome size={24} />}
           text="Home"
           route={"/AdminHome"}
           ativo
         />
         <ItemsSidebar
-          icon={<FaUserCheck size={30} />}
+          icon={<LuUserCheck size={24} />}
           text="Aceitar"
           route={"/AdminAceitar"}
         />
         <ItemsSidebar
-          icon={<FaUsers size={30} />}
+          icon={<LuUsers size={24} />}
           text="Usuários"
           route={"/AdminUsuarios"}
         />
         <ItemsSidebar
-          icon={<FaUserInjured size={30} />}
+          icon={<FaUserInjured size={24} />}
           text="Pacientes"
           route={"/AdminPaciente"}
         />
@@ -35,7 +34,7 @@ export default function AdminHome() {
 
       <section
         id="AdminHome"
-        className="flex md:flex-col flex-col h-screen pl-[78px] justify-center items-center transition-all 
+        className="flex md:flex-col flex-col h-screen pl-[89px] justify-center items-center transition-all bg-slate-100
         dark:bg-neutral-800 dark:text-white"
       >
         <img

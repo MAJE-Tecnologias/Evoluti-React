@@ -6,8 +6,6 @@ import {
   FaPlus,
   FaStethoscope,
   FaCaretDown,
-  FaHome,
-  FaClipboard,
 } from "react-icons/fa";
 import { AiFillFileAdd } from "react-icons/ai";
 import { CiPill } from "react-icons/ci";
@@ -16,6 +14,7 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { fetchPacienteById, fetchAtendimentosByPacienteId } from '../../services/funcServices';
 import "../CSS/ScrollStyle.css";
+import { LuClipboard, LuHome } from "react-icons/lu";
 
 export default function FuncAtend() {
   const id = sessionStorage.getItem("id");
@@ -81,12 +80,12 @@ export default function FuncAtend() {
     <>
       <Sidebar>
         <ItemsSidebar
-          icon={<FaHome size={30} />}
+          icon={<LuHome size={24} />}
           text="Home"
-          route="/FuncionarioHome"
+          route="/FuncHome"
         />
         <ItemsSidebar
-          icon={<FaClipboard size={30} />}
+          icon={<LuClipboard size={24} />}
           text="Atendimentos"
           route="/FuncAtend"
           ativo
@@ -95,7 +94,7 @@ export default function FuncAtend() {
 
       <section
         id="FuncHome"
-        className="flex md:flex-col flex-col h-screen pl-[78px] justify-center items-center dark:bg-neutral-800"
+        className="flex md:flex-col flex-col h-screen pl-[89px] justify-center items-center dark:bg-neutral-800"
       >
         <div className="w-full h-full pt-20 md:px-10 md:pt-10">
           <div

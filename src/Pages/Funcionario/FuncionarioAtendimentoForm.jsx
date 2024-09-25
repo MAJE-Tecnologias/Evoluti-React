@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
-import { FiPlusCircle } from "react-icons/fi";
 import {
-  FaUsers,
-  FaUserInjured,
+
   FaStethoscope,
 } from "react-icons/fa";
 import { AiFillFileAdd } from "react-icons/ai";
@@ -12,6 +10,7 @@ import { CiPill } from "react-icons/ci";
 import { MdAdsClick } from "react-icons/md";
 import { createAtendimento } from "../../services/funcServices";
 import MarcacaoPontosDor from "./MarcacaoPontosDor";
+import { LuClipboard, LuHome } from "react-icons/lu";
 
 export default function FuncAtendForm() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -71,28 +70,22 @@ export default function FuncAtendForm() {
     return true;
   };
 
-  const toggleMarcacaoPontosDor = () => {
-    setMarcacaoOpen(!marcacaoOpen);
-  };
-
   return (
     <>
       <Sidebar>
         <ItemsSidebar
-          icon={<FiPlusCircle size={30} />}
-          text="Cadastros"
-          alert
-          route={"/FuncCadastro"}
+          icon={<LuHome size={24} />}
+          text="Home"
+          route="/FuncHome"
         />
         <ItemsSidebar
-          icon={<FaUsers size={30} />}
-          text="Usuários"
-          route={"/FuncUsuarios"}
+          icon={<LuClipboard size={24} />}
+          text="Atendimentos"
+          route="/FuncAtend"
         />
-        <ItemsSidebar icon={<FaUserInjured size={30} />} text="Pacientes" />
       </Sidebar>
 
-      <section className="flex md:flex-col flex-col h-full pl-[78px] justify-center items-center dark:bg-neutral-800">
+      <section className="flex md:flex-col flex-col h-full pl-[89px] justify-center items-center bg-slate-100 dark:bg-neutral-800">
         <div className="w-full min-h-screen pt-20 md:px-10 md:pt-10">
           <div
             className=" flex flex-col w-full h-full rounded-bl-none rounded-br-none 
@@ -152,14 +145,14 @@ export default function FuncAtendForm() {
                   <div className="flex justify-between dark:text-white">
                     {[
                       {
-                        icon: <AiFillFileAdd size={30} />,
+                        icon: <AiFillFileAdd size={24} />,
                         label: "Novo anexo",
                       },
                       {
-                        icon: <FaStethoscope size={30} />,
+                        icon: <FaStethoscope size={24} />,
                         label: "Novo pedido",
                       },
-                      { icon: <CiPill size={30} />, label: "Nova receita" },
+                      { icon: <CiPill size={24} />, label: "Nova receita" },
                     ].map((button, index) => (
                       <button
                         key={index}
@@ -203,7 +196,7 @@ export default function FuncAtendForm() {
                   className="flex justify-center items-center p-2 rounded-full 
                 bg-evolutiGreen text-white dark:bg-gray-900"
                 >
-                  <MdAdsClick size={30} />
+                  <MdAdsClick size={24} />
                 </div>
                 <span className="font-bold text-2xl text-evolutiGreen dark:text-white">
                   Marcação de pontos de dor
