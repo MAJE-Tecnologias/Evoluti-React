@@ -14,9 +14,10 @@ import {
   updatePacientePontosDor,
 } from "../../services/funcServices";
 import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
+import { usePontos } from "Contexts/PontosProvider";
 
 export default function MarcacaoPontosDor() {
-  const [circulos, setCirculos] = useState([]);
+  const [circulos, setCirculos] = usePontos();
   const [numCirculos, setNumCirculos] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [newCircle, setNewCircle] = useState(null);
@@ -31,40 +32,7 @@ export default function MarcacaoPontosDor() {
     backgroundImg3,
     backgroundImg4,
   ];
-  const mounted = useRef(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (!mounted.current) {
-          const pacienteId = sessionStorage.getItem("id");
-          const pacienteData = await fetchPacienteById(pacienteId);
-          const pontosDorData = await fetchPontosDor();
-
-          const filteredData = pontosDorData.filter((item) =>
-            pacienteData.pontosDor.includes(item.id)
-          );
-
-          const circulosIniciais = filteredData.map((ponto) => ({
-            id: ponto.id,
-            x: ponto.cord.x,
-            y: ponto.cord.y,
-            desc: ponto.desc,
-            cor: ponto.cor,
-            titulo: ponto.titulo,
-          }));
-
-          setNumCirculos(circulosIniciais.length);
-          setCirculos(circulosIniciais);
-          mounted.current = true;
-        }
-      } catch (error) {
-        console.error("Erro ao buscar dados:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const mounted = useRef(false);  
 
   const lidarComClique = (evento) => {
     const boundingRect = evento.target.getBoundingClientRect();
