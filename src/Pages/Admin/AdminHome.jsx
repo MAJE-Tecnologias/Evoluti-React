@@ -1,7 +1,7 @@
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import "../CSS/AnimacaoFlutuar.css";
 import { FaUserInjured } from "react-icons/fa";
-import { LuHome, LuUserCheck, LuUsers,  } from "react-icons/lu";
+import { LuBookPlus, LuHome, LuUserCheck, LuUsers } from "react-icons/lu";
 
 import { FaQuestion } from "react-icons/fa";
 import NavBar from "../../Components/NavBar";
@@ -18,8 +18,13 @@ export default function AdminHome() {
         />
         <ItemsSidebar
           icon={<LuUserCheck size={24} />}
-          text="Aceitar"
+          text="Aceitar Usuários"
           route={"/AdminAceitar"}
+        />
+        <ItemsSidebar
+          icon={<LuBookPlus size={24} />}
+          text="Adicionar Profissão"
+          route={"/AdminAdd"}
         />
         <ItemsSidebar
           icon={<LuUsers size={24} />}
@@ -32,7 +37,7 @@ export default function AdminHome() {
           route={"/AdminPaciente"}
         />
       </Sidebar>
-      <NavBar icon={<LuHome size={24}/>} title={"Home - Admin"}/>
+      <NavBar icon={<LuHome size={24} />} title={"Home - Admin"} />
 
       <section
         id="AdminHome"

@@ -279,8 +279,8 @@ export function ItemsSidebar({ icon, text, ativo, route }) {
         transition={{ duration: 0.4 }}
         className={`relative flex items-center p-3 rounded-xl cursor-pointer transition-colors group border border-transparent ${
           ativo
-            ? "border border-slate-200 text-emerald-600 font-bold bg-slate-50 dark:bg-neutral-800 dark:text-white dark:border-neutral-600"
-            : "text-slate-400 font-medium hover:border hover:border-slate-200 hover:text-emerald-600 hover:bg-slate-50 dark:text-white dark:hover:border-neutral-600 dark:hover:bg-neutral-800"
+            ? "border border-slate-300 text-emerald-600 font-bold bg-slate-50 dark:bg-neutral-800 dark:text-white dark:border-neutral-600"
+            : "text-slate-400 font-medium hover:border hover:border-slate-300 hover:text-emerald-600 hover:bg-slate-50 dark:text-white dark:hover:border-neutral-600 dark:hover:bg-neutral-800"
         }`}
       >
         <span>{icon}</span>

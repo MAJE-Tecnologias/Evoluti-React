@@ -14,10 +14,10 @@ import {
   updatePacientePontosDor,
 } from "../../services/funcServices";
 import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
-import { usePontos } from "Contexts/PontosProvider";
+import { usePontos } from "../../Contexts/PontosProvider";
 
 export default function MarcacaoPontosDor() {
-  const [circulos, setCirculos] = usePontos();
+  const {circulos, setCirculos} = usePontos();
   const [numCirculos, setNumCirculos] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [newCircle, setNewCircle] = useState(null);
