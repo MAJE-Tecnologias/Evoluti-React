@@ -1,10 +1,17 @@
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import "../CSS/AnimacaoFlutuar.css";
 import { FaUserInjured } from "react-icons/fa";
-import { LuBookPlus, LuHome, LuUserCheck, LuUsers } from "react-icons/lu";
+import {
+  LuBookPlus,
+  LuHome,
+  LuSettings,
+  LuUserCheck,
+  LuUsers,
+} from "react-icons/lu";
 
 import { FaQuestion } from "react-icons/fa";
 import NavBar from "../../Components/NavBar";
+import { ItemsNavBar } from "../../Components/ItemsNavBar";
 
 export default function AdminHome() {
   return (
@@ -37,7 +44,24 @@ export default function AdminHome() {
           route={"/AdminPaciente"}
         />
       </Sidebar>
-      <NavBar icon={<LuHome size={24} />} title={"Home - Admin"} />
+      <NavBar icon={<LuHome size={24} />} title={"Home - Admin"}>
+        <ItemsNavBar
+          icon={<LuHome size={24} />}
+          text="Home"
+          route="/AdminHome"
+          ativo
+        />
+        <ItemsNavBar
+          icon={<LuUserCheck size={24} />}
+          text="Usuários"
+          route="/AdminUsuarios"
+        />
+        <ItemsNavBar
+          icon={<LuSettings size={24} />}
+          text="Configurações"
+          route="/AdminConfig"
+        />
+      </NavBar>
 
       <section
         id="AdminHome"

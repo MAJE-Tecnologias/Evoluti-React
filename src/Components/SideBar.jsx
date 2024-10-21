@@ -91,7 +91,7 @@ export default function Sidebar({ children }) {
         onClick={handleCloseSidebar}
       />
       <motion.nav
-        className="h-full fixed flex flex-col bg-white shadow-sm z-50 px-3 pt-6
+        className="h-full fixed flex flex-col bg-white shadow-sm z-50 px-3 pt-6 invisible sm:visible
         transition-colors dark:bg-neutral-900 min-w-[89px] border-r border-slate-200"
         initial={{ width: 89 }}
         animate={{ width: expandido ? 298 : 89 }}
