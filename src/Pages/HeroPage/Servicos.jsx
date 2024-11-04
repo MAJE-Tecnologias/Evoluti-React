@@ -1,73 +1,87 @@
-import React, { useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-
-import 'swiper/css';
-import 'swiper/css/pagination';
-
-import "./swiperStyle.css"
+import { LuClipboardList, LuHeartPulse, LuLock } from "react-icons/lu";
+import HomeButton from "./Components/HomeButton";
 
 export default function Servicos() {
-
-    return (
-        <section id="Servicos" className='flex md:flex-col flex-col h-screen pt-20'>
-            <div className='flex flex-col items-center px-6 py-6 h-full'>
-
-            <h1 className="mb-4 text-3xl font-normal leading-none tracking-tight
-             md:text-3xl  dark:text-white text-white text-center"><b className='text-white'>Serviços</b> que oferecem o 
-             <b className='text-white'> melhor ecossistema</b> para o seu dia-a-dia</h1>
-
-            <div className='h-full w-full'>
-            <Swiper 
-            spaceBetween={30} 
-            centeredSlides={true} 
-            slidesPerView={1}
-            grabCursor={true}
-            loop={true}
-            autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-            }}
-            pagination={{
-                clickable: true,
-            }}
-            modules={[Autoplay, Pagination]}
-            className="shadow-2xl"
+  return (
+    <section
+      id="Servicos"
+      className="flex h-full py-16 md:px-8 md:h-fit"
+    >
+      <div className="w-full h-fit flex flex-col gap-x-11 gap-y-4 md:gap-y-0 md:flex-row">
+        <div
+          className="w-[calc(100vw-24px)] h-[calc(100vw-24px)] bg-gradient-to-b from-[#4794a479] to-[#658E96] 
+        rounded-3xl mt-auto self-center ss:w-[75vw] ss:h-[75vw] md:h-[70vh] md:w-[70vh]"
+        ><img src="src\assets\ServicesImageTest.png" alt="" className="w-full h-full"/></div>
+        <div className="flex flex-col w-full mt-auto px-3 md:px-0 md:w-7/12">
+          <h1 className="font-medium text-4xl pb-4 text-center md:text-left md:text-5xl">
+            Serviços que transformam seu dia a dia
+          </h1>
+          <p className="pb-10 text-lg text-justify">
+            Com o Evoluti, oferecemos flexibilidade total para profissionais da
+            saúde. Nossa plataforma permite que o administrador crie profissões
+            em diversas áreas de atuação, adaptando-se às necessidades de cada
+            equipe.
+          </p>
+          <HomeButton
+            href="/cadastro"
+            text="Começar"
+            bgColor="bg-evolutiDarkBlueText"
+            hoverColor="hover:bg-evolutiDarkBlue"
+          />
+          <div className="flex flex-col gap-y-5 pt-10 md:gap-y-0 md:gap-x-5 md:flex-row">
+            <div
+              className="flex flex-col gap-y-4 w-full h-auto rounded-3xl border drop-shadow-xl p-6 group 
+              hover:bg-evolutiDarkBlue hover:text-white transition-all hover:scale-105"
             >
-                <SwiperSlide>
-                    <div><b><p>Prontuário Eletrônico</p></b></div>
-                    <div>
-                    <p>Nosso software de evolução fisioterapêutica prioriza a organização e o acesso rápido às informações clínicas. 
-                        Os prontuários eletrônicos fornecem uma solução digital e segura para armazenar e gerenciar todas as 
-                        informações essenciais do paciente.</p>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                <div><b><p>Marcação de pontos de dor</p></b></div>
-                    <div>
-                    <p>Nossa plataforma oferece uma ferramenta de marcação de pontos de dor, permitindo que os fisioterapeutas
-                         registrem com precisão a localização e a intensidade da dor dos pacientes.</p>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                <div><b><p>Documentação</p></b></div>
-                    <div>
-                    <p>Os fisioterapeutas podem registrar o progresso do paciente, anotar observações importantes, 
-                        detalhar os exercícios recomendados e acompanhar as respostas aos tratamentos.</p>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                <div><b><p>Relatórios</p></b></div>
-                    <div>
-                    <p>Nossos relatórios são projetados para serem claros e informativos, contribuindo para uma 
-                        melhor tomada de decisões clínicas e uma experiência mais envolvente para os pacientes.</p>
-                    </div>
-                </SwiperSlide>
-            </Swiper>
-            </div>
+              <div
+                className="flex justify-center items-center rounded-full w-fit p-2.5 bg-black 
+              group-hover:bg-white"
+              >
+                <LuLock className="text-white group-hover:text-evolutiDarkBlue" />
+              </div>
 
+              <div>
+                <p className="font-bold pb-1">Prontuário Eletrônico</p>
+                <p>
+                  Simplifique o acesso e organização das informações clínicas.
+                </p>
+              </div>
             </div>
-        </section>
-    )
+            <div
+              className="flex flex-col gap-y-4 w-full h-auto rounded-3xl border drop-shadow-xl p-6 group 
+              hover:bg-evolutiDarkBlue hover:text-white transition-all hover:scale-105"
+            >
+              <div
+                className="flex justify-center items-center rounded-full w-fit p-2.5 bg-black
+              group-hover:bg-white"
+              >
+                <LuHeartPulse className="text-white group-hover:text-evolutiDarkBlue" />
+              </div>
 
+              <div>
+                <p className="font-bold pb-1">Questionários</p>
+                <p>Avalie a dor do paciente de forma precisa.</p>
+              </div>
+            </div>
+            <div
+              className="flex flex-col gap-y-4 w-full h-auto rounded-3xl border drop-shadow-xl p-6 group 
+              hover:bg-evolutiDarkBlue hover:text-white transition-all hover:scale-105"
+            >
+              <div
+                className="flex justify-center items-center rounded-full w-fit p-2.5 bg-black
+              group-hover:bg-white"
+              >
+                <LuClipboardList className="text-white group-hover:text-evolutiDarkBlue" />
+              </div>
+
+              <div>
+                <p className="font-bold pb-1">Relatórios</p>
+                <p>Transforme os questionários em insights claros.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

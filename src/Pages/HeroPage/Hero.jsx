@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
+import HomeButton from "./Components/HomeButton";
 
 export default function Hero() {
   sessionStorage.setItem("acess", 0);
@@ -19,15 +20,18 @@ export default function Hero() {
           alt=""
           className="absolute top-0 w-full z-0"
         />
-        <a
-          href="/cadastro"
-          className="absolute flex justify-center items-center bg-evolutiGreen px-8 py-2 
-        text-white text-base rounded-3xl gap-x-2 z-10 bottom-8 left-1/2 hover:bg-evolutiGreenDarker"
+        <div
+          className="absolute z-10 bottom-8 left-1/2"
         >
-          Começar <img src="src/assets/LongArrow.svg" alt="Arrow Icon" />
-        </a>
+          <HomeButton
+            href="/cadastro"
+            text="Começar"
+            bgColor="bg-evolutiGreen"
+            hoverColor="hover:bg-evolutiGreenDarker"
+          />
+        </div>
 
-        <div className="absolute right-8 top-28 max-w-[235px] text-white">
+        <div className="invisible md:visible absolute right-8 top-28 max-w-[235px] text-white">
           <div className="relative">
             <img
               src="src/assets/Video.png"
