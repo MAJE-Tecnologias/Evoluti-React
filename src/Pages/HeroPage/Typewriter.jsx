@@ -8,7 +8,7 @@ function TextAnimation() {
             <h1 className="text-4xl font-bold text-white">
             Muito além da fisioterapia...
             </h1>
-            <p className="inline-block bg-evolutiGolden text-4xl rounded-xl p-3 font-extrabold">
+            <p className="inline-block bg-[#96C8D2] text-4xl rounded-xl p-3 font-extrabold">
             <Typewriter
                 options={{
                     strings: ['<span class="font-bold">a autonomia</span>', 

@@ -2,10 +2,10 @@ import React from "react";
 import Navbar from "/src/Pages/HeroPage/Components/Navbar";
 import Hero from "/src/Pages/HeroPage/Hero";
 import Servicos from "/src/Pages/HeroPage/Servicos";
-import Transicao from "/src/Pages/HeroPage/Transicao";
 import SobreNos from "/src/Pages/HeroPage/SobreNos";
 import Footer from "/src/Pages/HeroPage/Footer";
 import Proposito from "/src/Pages/HeroPage/Proposito";
+import Proposito2 from "/src/Pages/HeroPage/Proposito2";
 
 export default function Home() {
   return (
@@ -26,13 +26,13 @@ export default function Home() {
 
         <div className="relative flex justify-center items-start">
           <div className="w-full">
-            <Transicao />
+            <Proposito />
           </div>
         </div>
 
         <div className="relative flex justify-center items-start">
           <div className="w-full">
-            <Proposito />
+            <Proposito2 />
           </div>
         </div>
 
