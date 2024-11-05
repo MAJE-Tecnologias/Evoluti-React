@@ -6,7 +6,7 @@ export default function Footer() {
     return (
         <footer id="Footer" className='flex md:flex-col flex-col h-[50vh] w-full'>
             <div className="flex items-center justify-evenly p-6">
-            <img src="src/assets/Logo_Sem_fundo.png" className="w-1/3"></img>
+            <img src="src/assets/Nova_Logo_Verde.svg" className="w-1/3"></img>
             <div className="flex justify-center">
                 <ul className='mr-6 whitespace-nowrap'>
                     <h1 className='font-bold text-base'>

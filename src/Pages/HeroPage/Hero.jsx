@@ -14,15 +14,23 @@ export default function Hero() {
   return (
     <section id="Hero" className="flex md:flex-col bg-white flex-col h-fit">
       <div className="relative w-full">
-        <img src="src/assets/HeroNewImage.png" alt="" className="z-10" />
+        <img
+          src="src/assets/HeroImageNoCut.png"
+          alt=""
+          className="filter brightness-75 md:rounded-t-3xl lg:hidden"
+        />
+
+        <img
+          src="src/assets/HeroNewImage.png"
+          alt=""
+          className="z-10 hidden lg:block"
+        />
         <img
           src="src/assets/HeroNewImage2.png"
           alt=""
-          className="absolute top-0 w-full z-0"
+          className="absolute top-0 w-full z-0 hidden lg:block"
         />
-        <div
-          className="absolute z-10 bottom-8 left-1/2"
-        >
+        <div className="absolute z-10 bottom-8 left-1/2 hidden lg:block">
           <HomeButton
             href="/cadastro"
             text="Começar"
@@ -56,6 +64,9 @@ export default function Hero() {
           </p>
         </div>
       </div>
+      <p className="text-4xl text-center text-white bg-evolutiDarkBlue py-4 lg:hidden">
+        A Evolução em cada passo.
+      </p>
 
       {/* Modal */}
       <AnimatePresence>

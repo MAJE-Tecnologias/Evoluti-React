@@ -2,8 +2,8 @@ import HomeButton from "./Components/HomeButton";
 
 export default function Proposito2() {
   return (
-    <section id="Proposito" className="h-fit px-4">
-      <div className="flex relative h-[626px] bg-[#96C8D2] w-full rounded-3xl rounded-b-none p-10">
+    <section id="Proposito" className="h-fit md:px-4">
+      <div className="flex relative h-[626px] bg-[#96C8D2] w-full md:rounded-3xl md:rounded-b-none p-10">
         <img
           src="src\assets\Line.png"
           alt=""

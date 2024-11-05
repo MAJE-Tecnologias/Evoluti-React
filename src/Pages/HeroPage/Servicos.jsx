@@ -12,7 +12,7 @@ export default function Servicos() {
           className="w-[calc(100vw-24px)] h-[calc(100vw-24px)] bg-gradient-to-b from-[#4794a479] to-[#658E96] 
         rounded-3xl mt-auto self-center ss:w-[75vw] ss:h-[75vw] md:h-[70vh] md:w-[70vh]"
         ><img src="src\assets\ServicesImageTest.png" alt="" className="w-full h-full"/></div>
-        <div className="flex flex-col w-full mt-auto px-3 md:px-0 md:w-7/12">
+        <div className="flex flex-col w-full mt-auto px-4 md:px-0 md:w-7/12">
           <h1 className="font-medium text-4xl pb-4 text-center md:text-left md:text-5xl">
             Serviços que transformam seu dia a dia
           </h1>
@@ -28,7 +28,7 @@ export default function Servicos() {
             bgColor="bg-evolutiDarkBlueText"
             hoverColor="hover:bg-evolutiDarkBlue"
           />
-          <div className="flex flex-col gap-y-5 pt-10 md:gap-y-0 md:gap-x-5 md:flex-row">
+          <div className="flex flex-col gap-y-5 pt-10 sm:px-2 md:gap-y-0 md:gap-x-5 md:flex-row">
             <div
               className="flex flex-col gap-y-4 w-full h-auto rounded-3xl border drop-shadow-xl p-6 group 
               hover:bg-evolutiDarkBlue hover:text-white transition-all hover:scale-105"

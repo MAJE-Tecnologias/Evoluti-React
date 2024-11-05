@@ -5,10 +5,10 @@ export default function Proposito2() {
   return (
     <section
       id="Proposito2"
-      className="flex md:flex-col flex-col h-fit lg:px-4 lg:pb-[135px] items-end"
+      className="flex flex-col h-fit items-end pb-16 md:px-4 md:flex-col"
     >
-      <div className="w-[95%] h-full bg-evolutiDarkBlue rounded-t-none lg:w-full lg:relative lg:rounded-bl-3xl">
-        <div className="p-8 h-full lg:p-14 lg:pb-0">
+      <div className="w-full h-full bg-evolutiDarkBlue rounded-t-none lg:relative lg:rounded-b-3xl">
+        <div className="p-4 h-full sm:p-8 lg:p-14 lg:pb-0">
           <div
             className="flex flex-col h-full 
           lg:flex-row"
@@ -29,9 +29,9 @@ export default function Proposito2() {
                 </p>
               </div>
               <img
-                src="src\assets\LogoBranco.png"
+                src="src\assets\Nova_Logo_Branca.svg"
                 alt=""
-                className="hidden lg:block lg:p-8"
+                className="hidden w-[50vw] lg:block lg:p-8"
               />
             </div>
             <div className="flex mt-6">

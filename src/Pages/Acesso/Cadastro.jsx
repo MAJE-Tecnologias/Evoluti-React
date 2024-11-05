@@ -78,7 +78,7 @@ export default function Cadastro() {
     <>
       <main className="bg-[url('src/assets/Fundo.png')] dark:bg-[url('src/assets/FundoInverso.png')] transition-all bg-cover w-screen h-screen flex items-center justify-center">
         <img
-          src="src\assets\Logo_Sem_fundo.png"
+          src="src\assets\Nova_Logo_Verde.svg"
           className="absolute w-1/12 top-0 left-0 m-5"
         ></img>
         <section className="flex w-full h-full">

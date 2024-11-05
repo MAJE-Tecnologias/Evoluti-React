@@ -11,8 +11,8 @@ export default function Home() {
   return (
     <>
       <Navbar></Navbar>
-      <div className=" w-full overflow-hidden md:p-4 bg-white">
-        <div className="bg-evolutiDarkBlue flex justify-center items-start">
+      <div className=" w-full overflow-hidden bg-white">
+        <div className="flex justify-center items-start md:p-4">
           <div className=" w-full">
             <Hero />
           </div>
