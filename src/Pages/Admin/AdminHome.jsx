@@ -152,7 +152,7 @@ export default function AdminHome() {
     );
   };
 
-  const showUsuariosCadastrados = (usuarios) => {
+  const showUsuariosCadastradosSlide = (usuarios) => {
     const currentUsers = usuarios.slice(0, 5);
 
     return (
@@ -200,6 +200,42 @@ export default function AdminHome() {
           </SwiperSlide>
         ))}
       </Swiper>
+    );
+  };
+
+  const showUsuariosCadastrados = (usuarios) => {
+    const currentUsers = usuarios.slice(0, 5);
+
+    return (
+      <>
+        {currentUsers.map((usuario, index) => (
+          <div key={index} className="flex justify-center">
+            <div className="w-full my-3 border rounded-xl shadow bg-white dark:bg-neutral-800 max-w-[320px] dark:shadow-none">
+              <div className="flex justify-between bg-neutral-500 text-sm text-white rounded-t-xl py-1 px-4">
+                <p>Aceito em:</p>
+                <p>10/11/2024</p>
+              </div>
+              <div className="flex gap-x-2 items-center p-4 truncate">
+                <div className="min-h-16 min-w-16">
+                  <img
+                    className="rounded-xl"
+                    src="https://picsum.photos/80/80"
+                    alt="User Avatar"
+                  />
+                </div>
+                <div className="flex flex-col truncate">
+                  <p className="text-evolutiDarkBlueText font-semibold truncate dark:text-white">
+                    {usuario.nome}
+                  </p>
+                  <p className="text-sm text-neutral-400">
+                    {usuario.profissao}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </>
     );
   };
 
@@ -273,17 +309,21 @@ export default function AdminHome() {
         className="flex md:flex-col flex-col h-full pt-[89px] transition-all bg-slate-100
         dark:bg-neutral-800 dark:text-white sm:pl-[89px]"
       >
-        {usuario ? (
-          <h1 className="text-3xl my-4 text-center">Olá, {usuario.Nome}.</h1>
-        ) : (
-          <p>Carregando dados do usuário...</p>
-        )}
+        <div className="px-20">
+          {usuario ? (
+            <h1 className="text-3xl my-4 text-center lg:text-left">
+              Olá, {usuario.Nome}.
+            </h1>
+          ) : (
+            <p>Carregando dados do usuário...</p>
+          )}
 
-        <p className="text-center pb-4">
-          Seja bem-vindo(a) a sua página inicial!
-        </p>
+          <p className="text-center pb-4 lg:text-left">
+            Seja bem-vindo(a) a sua página inicial!
+          </p>
+        </div>
 
-        <div className=" text-white bg-evolutiGreenDarker rounded-3xl p-4 mx-2 mb-12 font-bold text-center sm:mx-8">
+        <div className=" text-white bg-evolutiGreenDarker rounded-3xl p-4 mx-2 mb-12 font-bold text-center lg:mx-20 sm:mx-8">
           <p>Código da sua Clínica Evoluti:</p>
           <div className="relative w-full flex flex-col items-center">
             <p
@@ -310,55 +350,63 @@ export default function AdminHome() {
           </p>
         </div>
 
-        <div className="px-2">
-          <div className="bg-white w-full h-full rounded-3xl p-2 dark:bg-neutral-900 mb-12">
-            <p className="text-center text-2xl font-semibold text-evolutiDarkBlueText dark:text-white">
-              Aceitar novos usuários
-            </p>
-            <div className="flex relative items-center pt-3">
-              <input
-                type="text"
-                className="border w-full pl-8 pr-14 py-2 rounded-xl"
-                placeholder="Procurar"
-              />
-              <LuSearch className="absolute right-8"></LuSearch>
-            </div>
-            {showUsuarios(usuarios)}
+        <div className="flex flex-col lg:flex-row lg:px-20 lg:gap-x-12">
+          <div className="px-2 w-full">
+            <div className="bg-white w-full h-full rounded-3xl p-2 dark:bg-neutral-900 mb-12 drop-shadow-lg lg:mb-0 dark:drop-shadow-none">
+              <p className="text-center text-2xl font-semibold text-evolutiDarkBlueText dark:text-white">
+                Aceitar novos usuários
+              </p>
+              <div className="flex relative items-center pt-3">
+                <input
+                  type="text"
+                  className="border w-full pl-8 pr-14 py-2 rounded-xl"
+                  placeholder="Procurar"
+                />
+                <LuSearch className="absolute right-8"></LuSearch>
+              </div>
+              {showUsuarios(usuarios)}
 
-            <a
-              href={"/AdminAceitar"}
-              className="flex items-center place-self-end gap-x-2 w-fit py-1 px-3 rounded-lg transition-all
+              <a
+                href={"/AdminAceitar"}
+                className="flex items-center place-self-end gap-x-2 w-fit py-1 px-3 rounded-lg transition-all
           border-2 border-evolutiDarkBlue hover:text-white hover:bg-evolutiDarkBlueText 
           dark:border-white dark:text-white dark:bg-none dark:hover:bg-white dark:hover:text-black"
-            >
-              Ver todos <LuMoveRight />
-            </a>
+              >
+                Ver todos <LuMoveRight />
+              </a>
+            </div>
+          </div>
+
+          <div className="lg:w-fit">
+            <p className="text-center text-2xl font-semibold text-evolutiDarkBlueText px-2 dark:text-white">
+              Usuários aceitos recentemente:
+            </p>
+            <div>{showUsuariosCadastrados(usuarios)}</div>
+
+            <div className="flex w-full h-fit items-center px-2 mb-12 lg:hidden">
+              {showUsuariosCadastradosSlide(usuarios)}
+            </div>
           </div>
         </div>
+        <div className="w-full h-fit px-5 pt-5 bg-white lg:mt-12 lg:flex lg:w-fit lg:rounded-t-xl lg:gap-x-12 lg:self-center
+        dark:bg-neutral-900 dark:border-t dark:lg:border dark:lg:border-b-0">
+          <div>
+            <p className="font-semibold text-2xl">Dúvidas?</p>
+            <p>Acesse os tutoriais:</p>
 
-        <p className="text-center text-2xl font-semibold text-evolutiDarkBlueText px-2 dark:text-white">
-          Usuários aceitos recentemente:
-        </p>
-        <div className="flex w-full h-fit items-center px-2 mb-12">
-          {showUsuariosCadastrados(usuarios)}
-        </div>
-
-        <div className="w-full h-fit px-5 pt-5 bg-white dark:bg-neutral-900 dark:border-t">
-          <p className="font-semibold text-2xl">Dúvidas?</p>
-          <p>Acesse os tutoriais:</p>
-
-          <button
-            className="px-6 py-3 my-6 bg-[#6FCFD4] text-evolutiDarkBlueText font-semibold rounded-xl 
+            <button
+              className="px-6 py-3 my-6 bg-[#6FCFD4] text-evolutiDarkBlueText font-semibold rounded-xl 
           transition-all hover:scale-105 hover:bg-[#5bb7b3]"
-            onClick={openModal}
-          >
-            Como faço para aceitar um novo funcionário?
-          </button>
+              onClick={openModal}
+            >
+              Como faço para aceitar um novo funcionário?
+            </button>
+          </div>
 
           <img
             src="src\assets\ImgTutoriaisAdminHome.png"
             alt=""
-            className="xs:justify-self-end"
+            className="xs:justify-self-end lg:"
           />
         </div>
       </section>
