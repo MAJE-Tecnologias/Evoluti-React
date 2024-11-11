@@ -30,6 +30,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay } from "swiper/modules";
+import { motion } from "framer-motion";
+import { IoMdClose } from "react-icons/io";
 
 export default function AdminHome() {
   const [usuario, setUsuario] = useState(null);
@@ -37,6 +39,11 @@ export default function AdminHome() {
   const [copied, setCopied] = useState(false);
   const idClinica = sessionStorage.getItem("idClinica");
   const mounted = useRef(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     const id = sessionStorage.getItem("idUsuario");
@@ -318,7 +325,8 @@ export default function AdminHome() {
             </div>
             {showUsuarios(usuarios)}
 
-            <a href={"/AdminAceitar"}
+            <a
+              href={"/AdminAceitar"}
               className="flex items-center place-self-end gap-x-2 w-fit py-1 px-3 rounded-lg transition-all
           border-2 border-evolutiDarkBlue hover:text-white hover:bg-evolutiDarkBlueText 
           dark:border-white dark:text-white dark:bg-none dark:hover:bg-white dark:hover:text-black"
@@ -328,14 +336,12 @@ export default function AdminHome() {
           </div>
         </div>
 
-
-          <p className="text-center text-2xl font-semibold text-evolutiDarkBlueText px-2 dark:text-white">
-            Usuários aceitos recentemente:
-          </p>
-          <div className="flex w-full h-fit items-center px-2 mb-12">
-            {showUsuariosCadastrados(usuarios)}
-          </div>
-
+        <p className="text-center text-2xl font-semibold text-evolutiDarkBlueText px-2 dark:text-white">
+          Usuários aceitos recentemente:
+        </p>
+        <div className="flex w-full h-fit items-center px-2 mb-12">
+          {showUsuariosCadastrados(usuarios)}
+        </div>
 
         <div className="w-full h-fit px-5 pt-5 bg-white dark:bg-neutral-900 dark:border-t">
           <p className="font-semibold text-2xl">Dúvidas?</p>
@@ -344,6 +350,7 @@ export default function AdminHome() {
           <button
             className="px-6 py-3 my-6 bg-[#6FCFD4] text-evolutiDarkBlueText font-semibold rounded-xl 
           transition-all hover:scale-105 hover:bg-[#5bb7b3]"
+            onClick={openModal}
           >
             Como faço para aceitar um novo funcionário?
           </button>
@@ -355,6 +362,76 @@ export default function AdminHome() {
           />
         </div>
       </section>
+
+      {isModalOpen && (
+        <motion.div
+          className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50"
+          onClick={closeModal}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <motion.div
+            className="bg-slate-200 rounded-lg max-w-4xl h-[50vh] w-full relative xss:h-3/4 dark:bg-neutral-800 dark:text-white"
+            onClick={(e) => e.stopPropagation()}
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex flex-col h-full">
+              <p className="text-center w-full bg-[#6FCFD4] py-6 text-evolutiDarkBlueText font-bold rounded-t-lg">
+                Como aceitar um novo funcionário?
+              </p>
+
+              <Swiper
+                modules={[Autoplay]}
+                spaceBetween={20}
+                slidesPerView={1}
+                loop={true}
+                autoplay={{ delay: 5000, pauseOnMouseEnter: true }}
+                className="w-full h-full"
+              >
+                <SwiperSlide className="flex flex-col gap-y-4 items-center justify-center">
+                  <img
+                    src="src\assets\Tutoriais\Print1_AceitarUsuarios.png"
+                    className="rounded-2xl w-fit h-[50vh] border-2 border-neutral-500 dark:border-transparent"
+                  />
+                  <p className="text-center">
+                    Acesse “aceitar novos usuários” no menu lateral
+                  </p>
+                </SwiperSlide>
+                <SwiperSlide className="flex flex-col gap-y-4 items-center justify-center">
+                  <img
+                    src="src\assets\Tutoriais\Print2_AceitarUsuarios.png"
+                    className="rounded-2xl w-fit h-1/2 border-2 border-neutral-500 dark:border-transparent"
+                  />
+                  <p className="text-center">
+                    Localize o usuário que gostaria de aceitar
+                  </p>
+                </SwiperSlide>
+                <SwiperSlide className="flex flex-col gap-y-4 items-center justify-center">
+                  <img
+                    src="src\assets\Tutoriais\Print3_AceitarUsuarios.png"
+                    className="rounded-2xl w-fit h-1/2 border-2 border-neutral-500 dark:border-transparent"
+                  />
+                  <p className="text-center">
+                    Clique em ✔ e seu usuário será adicionado
+                  </p>
+                </SwiperSlide>
+              </Swiper>
+            </div>
+
+            <button
+              className="absolute top-1 right-1 text-gray-600 hover:text-gray-900"
+              onClick={closeModal}
+            >
+              <IoMdClose size={24} />
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
     </>
   );
 }
