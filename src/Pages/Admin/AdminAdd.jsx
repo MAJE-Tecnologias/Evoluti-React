@@ -97,35 +97,67 @@ export default function AdminAdd() {
 
       <section
         id="AdminHome"
-        className="flex md:flex-col flex-col h-screen pl-[89px] pt-[89px] justify-center items-center transition-all bg-slate-100
+        className="flex md:flex-col flex-col h-screen sm:pl-[89px] pt-[89px] justify-center items-center transition-all bg-slate-100
         dark:bg-neutral-800 dark:text-white"
       >
-        <form onSubmit={addProf}>
-          <input
-            type="text"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-          />
-          <input
-            type="checkbox"
-            onChange={(e) => setVerificador(e.target.checked)}
-            checked={verificador}
-          />
-          <select
-            multiple
-            value={nivel}
-            onChange={(e) =>
-              setNivel(
-                Array.from(e.target.selectedOptions, (option) => option.value)
-              )
-            }
-          >
-            <option value="1">Operador</option>
-            <option value="2">Profissional</option>
-            <option value="3">Estagiario</option>
-          </select>
-          <input type="submit" />
-        </form>
+        <h1
+          className="flex flex-col gap-y-2 text-evolutiGreen font-semibold text-2xl items-center
+        md:flex-row md:gap-x-2 md:items-start"
+        >
+          <LuBookPlus size={24} />
+          Adicionar nova profissão
+        </h1>
+        <div className=" w-full bg-white p-4">
+          <form onSubmit={addProf}>
+            <div className="flex flex-col gap-y-3.5">
+              <label
+                htmlFor="NomeProf"
+                className="text-lg font-semibold text-neutral-600"
+              >
+                Nome da Profissão
+              </label>
+              <input
+                type="text"
+                name="NomeProf"
+                className="px-4 py-2 border border-neutral-400 rounded-lg"
+                placeholder="Fisioterapeuta"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label
+                htmlFor="NomeProf"
+                className="text-lg font-semibold text-neutral-600"
+              >
+                Órgão regulador
+              </label>
+              <input
+                type="checkbox"
+                onChange={(e) => setVerificador(e.target.checked)}
+                checked={verificador}
+              />
+
+              <select
+                multiple
+                value={nivel}
+                onChange={(e) =>
+                  setNivel(
+                    Array.from(
+                      e.target.selectedOptions,
+                      (option) => option.value
+                    )
+                  )
+                }
+              >
+                <option value="1">Operador</option>
+                <option value="2">Profissional</option>
+                <option value="3">Estagiario</option>
+              </select>
+            </div>
+            <input type="submit" />
+          </form>
+        </div>
       </section>
     </>
   );

@@ -20,6 +20,7 @@ module.exports = {
         evolutiGoldenSuperDarker: "#72562e",
         evolutiGoldenLighter: "#e1e1a6",
         evolutiGoldenSuperLight: "#f1f1d4",
+        evolutiGrayText:"#5C5B5B",
 
         // Cor dos Blocos
 
