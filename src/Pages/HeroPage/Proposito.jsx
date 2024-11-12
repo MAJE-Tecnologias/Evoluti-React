@@ -3,27 +3,28 @@ import HomeButton from "./Components/HomeButton";
 export default function Proposito2() {
   return (
     <section id="Proposito" className="h-fit md:px-4">
-      <div className="flex relative h-[626px] bg-[#96C8D2] w-full md:rounded-3xl md:rounded-b-none p-10">
+      <div className="flex flex-col relative h-fit bg-[#96C8D2] w-full gap-x-4
+      md:rounded-3xl md:rounded-b-none p-5 md:flex-row md:h-[626px] md:p-10">
         <img
           src="src\assets\Line.png"
           alt=""
           className="absolute left-0 top-20"
         />
-        <div className="flex flex-col h-full w-1/2">
+        <div className="w-full flex flex-col h-full z-10 md:w-1/2">
           <p className="w-fit px-10 py-1.5 bg-evolutiDarkBlue rounded-full text-white">
             Nosso Propósito
           </p>
 
-          <h1 className="text-5xl text-evolutiDarkBlue mt-auto pb-4">
+          <h1 className="text-3xl text-center text-evolutiDarkBlue pt-4 mt-auto pb-4 md:text-5xl md:text-left md:pt-0">
             Do tratamento para uma nova vida
           </h1>
-          <p className="text-lg opacity-50">
+          <p className="text-lg opacity-50 pb-4 text-center md:text-left md:pb-0">
             Nossa missão é simples: transformar o cuidado com a saúde,
             tornando-o mais humano, personalizado e eficiente.
           </p>
         </div>
 
-        <div className="w-1/2 flex flex-col z-10">
+        <div className="w-full flex flex-col z-10 lg:w-1/2">
           <div className="relative flex w-full h-[420px] bg-white p-4 rounded-3xl">
             <div className="absolute bottom-0 right-0 z-10 m-4">
               <HomeButton
