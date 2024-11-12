@@ -294,13 +294,18 @@ export default function AdminHome() {
         />
         <ItemsNavBar
           icon={<LuUserCheck size={24} />}
-          text="Usuários"
-          route="/AdminUsuarios"
+          text="Aceitar Usuários"
+          route={"/AdminAceitar"}
         />
         <ItemsNavBar
-          icon={<LuSettings size={24} />}
-          text="Configurações"
-          route="/AdminConfig"
+          icon={<LuBookPlus size={24} />}
+          text="Adicionar Profissão"
+          route={"/AdminAdd"}
+        />
+        <ItemsNavBar
+          icon={<LuUserCheck size={24} />}
+          text="Usuários"
+          route="/AdminUsuarios"
         />
       </NavBar>
 
@@ -378,18 +383,20 @@ export default function AdminHome() {
           </div>
 
           <div className="lg:w-fit">
-            <p className="text-center text-2xl font-semibold text-evolutiDarkBlueText px-2 dark:text-white">
+            <p className="text-center text-2xl font-semibold text-evolutiDarkBlueText px-2 dark:text-white ">
               Usuários aceitos recentemente:
             </p>
-            <div>{showUsuariosCadastrados(usuarios)}</div>
+            <div className="hidden lg:block">{showUsuariosCadastrados(usuarios)}</div>
 
             <div className="flex w-full h-fit items-center px-2 mb-12 lg:hidden">
               {showUsuariosCadastradosSlide(usuarios)}
             </div>
           </div>
         </div>
-        <div className="w-full h-fit px-5 pt-5 bg-white lg:mt-12 lg:flex lg:w-fit lg:rounded-t-xl lg:gap-x-12 lg:self-center
-        dark:bg-neutral-900 dark:border-t dark:lg:border dark:lg:border-b-0">
+        <div
+          className="w-full h-fit px-5 pt-5 bg-white lg:mt-12 lg:flex lg:w-fit lg:rounded-t-xl lg:gap-x-12 lg:self-center
+        dark:bg-neutral-900 dark:border-t dark:lg:border dark:lg:border-b-0"
+        >
           <div>
             <p className="font-semibold text-2xl">Dúvidas?</p>
             <p>Acesse os tutoriais:</p>

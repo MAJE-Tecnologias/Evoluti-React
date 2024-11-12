@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
-import Modal from "./Modal";
+import Modal from "./ModalConfig";
 import {
   LuChevronLeft,
   LuChevronRight,

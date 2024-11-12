@@ -12,6 +12,7 @@ import {
 } from "../../services/adminServices";
 import {
   LuArrowDownAZ,
+  LuBookPlus,
   LuFilter,
   LuHome,
   LuSearch,
@@ -166,6 +167,11 @@ export default function AdminAceitar() {
           route={"/AdminAceitar"}
         />
         <ItemsSidebar
+          icon={<LuBookPlus size={24} />}
+          text="Adicionar Profissão"
+          route={"/AdminAdd"}
+        />
+        <ItemsSidebar
           icon={<LuUsers size={24} />}
           text="Usuários"
           route={"/AdminUsuarios"}
@@ -197,7 +203,7 @@ export default function AdminAceitar() {
               <LuSearch size={24} />
               <input
                 type="text"
-                className="w-1/2 rounded py-1 px-4 dark:text-black"
+                className="w-1/2 rounded py-1 px-4 border border-neutral-500 dark:text-black"
                 placeholder="Pesquisar usuário"
               ></input>
             </div>

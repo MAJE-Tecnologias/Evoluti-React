@@ -70,7 +70,6 @@ export default function AdminAdd() {
           icon={<LuHome size={24} />}
           text="Home"
           route={"/AdminHome"}
-          ativo
         />
         <ItemsSidebar
           icon={<LuUserCheck size={24} />}
@@ -81,6 +80,7 @@ export default function AdminAdd() {
           icon={<LuBookPlus size={24} />}
           text="Adicionar Profissão"
           route={"/AdminAdd"}
+          ativo
         />
         <ItemsSidebar
           icon={<LuUsers size={24} />}
