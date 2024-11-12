@@ -17,6 +17,7 @@ import {
   LuUser,
 } from "react-icons/lu";
 import NavBar from "../../Components/NavBar";
+import { PontosProvider } from "../../Contexts/PontosProvider";
 
 export default function FuncAtendForm() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -191,8 +192,7 @@ export default function FuncAtendForm() {
                     Descrição do tratamento:
                   </label>
                   <textarea
-                    name="tratamentoText"
-                    id="tratamentoText"
+                    id="descricao"
                     className="flex-grow resize-none p-2 h-36 border border-slate-200 rounded-xl
                     dark:bg-neutral-900 dark:text-white"
                     value={corpo}

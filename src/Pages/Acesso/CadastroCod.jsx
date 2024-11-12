@@ -31,7 +31,7 @@ export default function CadastroCod() {
         h-screen flex items-center justify-center"
       >
         <img
-          src="src/assets/Logo_Sem_fundo.png"
+          src="src/assets/Nova_Logo_Verde.svg"
           className="absolute w-1/12 top-0 left-0 m-5"
           alt="Logo"
         ></img>

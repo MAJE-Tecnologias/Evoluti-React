@@ -3,7 +3,7 @@ import { FaEye, FaSearch, FaTrash, FaUserInjured } from "react-icons/fa";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import { fetchPacientes } from "../../services/adminServices";
 import "../CSS/AnimacaoFlutuar.css";
-import { LuHome, LuUserCheck, LuUsers } from "react-icons/lu";
+import { LuBookPlus, LuHome, LuUserCheck, LuUsers } from "react-icons/lu";
 import NavBar from "../../Components/NavBar";
 
 export default function AdminPacientes() {
@@ -87,8 +87,9 @@ export default function AdminPacientes() {
       pageNumbers.push(
         <button
           key={i}
-          className={`px-3 py-1 mx-1 border rounded-lg ${currentPage === i ? "bg-gray-500" : "bg-gray-300"
-            }`}
+          className={`px-3 py-1 mx-1 border rounded-lg ${
+            currentPage === i ? "bg-gray-500" : "bg-gray-300"
+          }`}
           onClick={() => setCurrentPage(i)}
         >
           {i}
@@ -98,11 +99,10 @@ export default function AdminPacientes() {
     return pageNumbers;
   };
 
-
   return (
     <>
       <Sidebar>
-      <ItemsSidebar
+        <ItemsSidebar
           icon={<LuHome size={24} />}
           text="Home"
           route={"/AdminHome"}
@@ -111,6 +111,11 @@ export default function AdminPacientes() {
           icon={<LuUserCheck size={24} />}
           text="Aceitar"
           route={"/AdminAceitar"}
+        />
+        <ItemsSidebar
+          icon={<LuBookPlus size={24} />}
+          text="Adicionar Profissão"
+          route={"/AdminAdd"}
         />
         <ItemsSidebar
           icon={<LuUsers size={24} />}
@@ -124,7 +129,7 @@ export default function AdminPacientes() {
           route={"/AdminPaciente"}
         />
       </Sidebar>
-      <NavBar icon={<FaUserInjured size={24}/>} title={"Lista de Pacientes"}/>
+      <NavBar icon={<FaUserInjured size={24} />} title={"Lista de Pacientes"} />
 
       <section
         id="AdminHome"
@@ -147,7 +152,7 @@ export default function AdminPacientes() {
 
         <table
           className="w-3/4 text-sm text-left rtl:text-right border-black text-black dark:border-white
-         dark:text-white border rounded-lg border-separate shadow-md shadow-black dark:shadow-white mt-4"
+         dark:text-white border rounded-lg border-separate shadow-md shadow-black dark:shadow-none mt-4"
         >
           <thead className="text-xs dark:text-white uppercase bg-gray-200 dark:bg-neutral-950 dark:border-gray-800">
             <tr>

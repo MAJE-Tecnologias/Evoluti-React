@@ -9,8 +9,8 @@ export default function SobreNos() {
             md:grid md:grid-cols-3 md:gap-y-8 md:w-full md:p-0"
       >
         <div className="flex-col justify-center items-center block pb-8 md:hidden">
-          <p className="font-bold text-6xl mb-4 text-evolutiLightGreen flex-col justify-center items-center text-right">
-            <span className="text-9xl">MAJE</span>
+          <p className="font-bold text-4xl mb-4 text-evolutiLightGreen flex-col justify-center items-center text-right xs:text-6xl">
+            <span className="text-6xl xs:text-9xl">MAJE</span>
             <br /> Tecnologias
           </p>
           <p className="text-white text-justify text-lg">

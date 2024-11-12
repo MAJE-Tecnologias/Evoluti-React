@@ -1,15 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  FaEye,
-  FaSearch,
-  FaTrash,
-  FaUserInjured,
-} from "react-icons/fa";
+import { FaEye, FaSearch, FaTrash, FaUserInjured } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa6";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import { fetchUsuarios } from "../../services/adminServices"; // Importar o serviço
 import "../CSS/AnimacaoFlutuar.css";
-import { LuHome, LuUserCheck, LuUsers } from "react-icons/lu";
+import { LuBookPlus, LuHome, LuUserCheck, LuUsers } from "react-icons/lu";
 import NavBar from "../../Components/NavBar";
 
 export default function AdminUsuarios() {
@@ -51,12 +46,19 @@ export default function AdminUsuarios() {
                 className="flex gap-x-2 px-6 items-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
                 <div className="h-10 w-10">
-                  <div className="h-full w-full rounded-full bg-gray-200"></div>
+                  <div className="h-full w-full rounded-full bg-gray-200">
+                    {" "}
+                    <img
+                      className="rounded-full"
+                      src="https://picsum.photos/48/48"
+                      alt="User Avatar"
+                    />
+                  </div>
                 </div>
                 {usuario.nome}
               </th>
               <td className="px-6 py-4">{usuario.Profissao}</td>
-              <td className="px-6 py-4">{usuario.Email}</td>
+              <td className="px-6 py-4 max-w-96 truncate">{usuario.Email}</td>
               <td className="px-6 py-4 text-center">
                 <button className="p-1 rounded-lg transition-all hover:bg-evolutiLightBlueText hover:text-white">
                   <FaEye size={20} />
@@ -93,8 +95,9 @@ export default function AdminUsuarios() {
       pageNumbers.push(
         <button
           key={i}
-          className={`px-3 py-1 mx-1 border rounded-lg ${currentPage === i ? "bg-gray-500" : "bg-gray-300"
-            }`}
+          className={`px-3 py-1 mx-1 border rounded-lg ${
+            currentPage === i ? "bg-gray-500" : "bg-gray-300"
+          }`}
           onClick={() => setCurrentPage(i)}
         >
           {i}
@@ -107,7 +110,7 @@ export default function AdminUsuarios() {
   return (
     <>
       <Sidebar>
-      <ItemsSidebar
+        <ItemsSidebar
           icon={<LuHome size={24} />}
           text="Home"
           route={"/AdminHome"}
@@ -116,6 +119,11 @@ export default function AdminUsuarios() {
           icon={<LuUserCheck size={24} />}
           text="Aceitar"
           route={"/AdminAceitar"}
+        />
+        <ItemsSidebar
+          icon={<LuBookPlus size={24} />}
+          text="Adicionar Profissão"
+          route={"/AdminAdd"}
         />
         <ItemsSidebar
           icon={<LuUsers size={24} />}
@@ -129,7 +137,7 @@ export default function AdminUsuarios() {
           route={"/AdminPaciente"}
         />
       </Sidebar>
-      <NavBar icon={<LuUsers size={24}/>} title={"Visualização de Usuários"}/>
+      <NavBar icon={<LuUsers size={24} />} title={"Visualização de Usuários"} />
 
       <section
         id="AdminHome"
@@ -152,7 +160,7 @@ export default function AdminUsuarios() {
 
         <table
           className="w-3/4 text-sm text-left rtl:text-right border-black text-black dark:border-white
-         dark:text-white border rounded-lg border-separate shadow-md shadow-black dark:shadow-white mt-4"
+         dark:text-white border rounded-lg border-separate shadow-md shadow-black dark:shadow-none mt-4"
         >
           <thead className="text-xs dark:text-white uppercase bg-gray-200 dark:bg-neutral-950 dark:border-gray-800">
             <tr>
