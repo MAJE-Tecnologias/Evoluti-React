@@ -122,6 +122,20 @@
       "fk_clinica": "0c2b"
     },
     {
+      "id": "300",
+      "Nome": "Somos a equipe Evoluti",
+      "Email": "eduardopsanchez2005@terra.com",
+      "Telefone": "11971103001",
+      "Senha": "123",
+      "RG": "123",
+      "DataNascimento": "2005-01-30",
+      "Profissao": "Secretario",
+      "Verificador": "185",
+      "Genero": "1",
+      "stats": true,
+      "fk_clinica": "0c2b"
+    },
+    {
       "id": "19",
       "Nome": "Somos a equipe Evoluti",
       "Email": "eduardopsanchez2005@gmail.com",
@@ -322,7 +336,7 @@
   "Paciente": [
     {
       "id": "19",
-      "nome": "Teste",
+      "nome": "Marco Antonio",
       "email": "Poggers@gmail.com",
       "data": "2005-01-30",
       "genero": "2",
@@ -358,6 +372,17 @@
       "rg": "",
       "cpf": "",
       "fk_clinica": "null"
+    },
+    {
+      "id": 22,
+      "nome": "Eu",
+      "email": "teste@gmail.com",
+      "data": "2005-01-30",
+      "genero": "1",
+      "telefone": "11971103001",
+      "rg": "123",
+      "cpf": "123",
+      "fk_clinica": "0c2b"
     }
   ],
   "Atendimento": [
@@ -372,7 +397,7 @@
       "id": "c6a0",
       "titulo": "teste",
       "tipo": "Opção 5",
-      "diagnostico": "",
+      "diagnostico": "O paciente apresenta dor localizada na região cervical e ombros, irradiando para a cabeça e membros superiores, caracterizada por pontos-gatilho dolorosos. A avaliação postural indica sobrecarga nas regiões afetadas, provavelmente devido a má postura no trabalho e tensões acumuladas. A abordagem fisioterapêutica inclui técnicas de liberação miofascial, alongamentos e fortalecimento dos músculos estabilizadores para reduzir a dor e melhorar a mobilidade.",
       "corpo": "",
       "idPaciente": "19",
       "data": "2024-08-20T14:36:00.032Z"
@@ -381,7 +406,7 @@
       "id": "106b",
       "titulo": "ok",
       "tipo": "Opção 5",
-      "diagnostico": "",
+      "diagnostico": "O paciente relata dor lombar persistente há mais de seis meses, exacerbada por longos períodos sentado e atividades de flexão lombar. Observa-se encurtamento dos músculos isquiotibiais e fraqueza dos músculos do core, comprometendo a estabilidade lombopélvica. O plano de tratamento propõe exercícios de fortalecimento para o core, reeducação postural e técnicas de terapia manual para alívio da dor e reabilitação funcional.",
       "corpo": "",
       "idPaciente": "19",
       "data": "2024-08-19T14:36:55.714Z"
@@ -390,7 +415,7 @@
       "id": "a064",
       "titulo": "Teste",
       "tipo": "Opção 5",
-      "diagnostico": "Sim",
+      "diagnostico": "O paciente apresenta dor no ombro direito ao realizar movimentos de elevação e abdução do braço, com limitação funcional e redução da força muscular. A ultrassonografia revelou tendinopatia no supraespinhal. O tratamento inclui crioterapia para controle da inflamação, fortalecimento muscular progressivo dos rotadores e trabalho de propriocepção para reestabelecer a função e prevenir recidivas.",
       "corpo": "Legal",
       "idPaciente": "19",
       "data": "2024-08-20T21:56:53.245Z"
@@ -809,6 +834,16 @@
       },
       "desc": "sim",
       "titulo": "sim",
+      "cor": "blue"
+    },
+    {
+      "id": "e532",
+      "cord": {
+        "x": 49.26360645933015,
+        "y": 31.800262812089358
+      },
+      "desc": "aaaaaaaaa",
+      "titulo": "teste",
       "cor": "blue"
     }
   ]

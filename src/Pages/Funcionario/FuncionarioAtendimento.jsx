@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
-import {
-  FaLink,
-  FaPlus,
-  FaStethoscope,
-  FaCaretDown,
-} from "react-icons/fa";
+import { FaLink, FaPlus, FaStethoscope, FaCaretDown } from "react-icons/fa";
 import { AiFillFileAdd } from "react-icons/ai";
 import { CiPill } from "react-icons/ci";
 import { MdAssignment } from "react-icons/md";
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
-import { fetchPacienteById, fetchAtendimentosByPacienteId } from '../../services/funcServices';
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import {
+  fetchPacienteById,
+  fetchAtendimentosByPacienteId,
+} from "../../services/funcServices";
 import "../CSS/ScrollStyle.css";
 import { LuClipboard, LuHome } from "react-icons/lu";
 import NavBar from "../../Components/NavBar";
@@ -22,6 +20,8 @@ export default function FuncAtend() {
   const navigate = useNavigate();
   const [paciente, setPaciente] = useState(null);
   const [atendimentos, setAtendimentos] = useState([]);
+  const [selectedAtendimento, setSelectedAtendimento] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,14 +54,29 @@ export default function FuncAtend() {
     fetchData();
   }, [id]);
 
+  const openModal = (atendimento) => {
+    setSelectedAtendimento(atendimento);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedAtendimento(null);
+    setIsModalOpen(false);
+  };
+
   const showAtendimentos = (atendimentos) => {
     return (
       <>
         {atendimentos.length > 0 ? (
           atendimentos.map((atendimento) => (
             <div key={atendimento.id} className="py-2">
-              <button className="w-full text-left p-4 border-2 border-black rounded-2xl">
-                {format(new Date(atendimento.data), 'dd MMMM yyyy HH:mm', { locale: ptBR }) || "No Title"}
+              <button
+                className="w-full text-left p-4 border-2 border-black rounded-2xl"
+                onClick={() => openModal(atendimento)}
+              >
+                {format(new Date(atendimento.data), "dd MMMM yyyy HH:mm", {
+                  locale: ptBR,
+                }) || "No Title"}
               </button>
             </div>
           ))
@@ -93,7 +108,7 @@ export default function FuncAtend() {
         />
       </Sidebar>
 
-      <NavBar icon={<LuClipboard size={24}/>} title={"Atendimentos"}/>
+      <NavBar icon={<LuClipboard size={24} />} title={"Atendimentos"} />
 
       <section
         id="FuncHome"
@@ -184,31 +199,34 @@ export default function FuncAtend() {
                 </div>
               </div>
             </div>
-
-            <div className="flex gap-x-4 pt-6 md:hidden">
-              <button
-                className="w-1/2 py-4 px-4 border-2 border-transparent rounded-xl bg-evolutiLightGreen font-bold flex justify-center 
-                  items-center gap-x-2 shadow-md shadow-gray-600 transition-all ease-in-out hover:bg-evolutiGreen"
-              >
-                <FaLink size={20} />
-                Anexos
-              </button>
-              <button
-                className="w-1/2 py-4 px-4 border-2 border-transparent rounded-xl bg-evolutiLightBlueText font-bold flex 
-                justify-center items-center gap-x-2 shadow-md shadow-gray-600 transition-all ease-in-out hover:bg-evolutiBlueText"
-              >
-                <FaLink size={20} />
-                Histórico de Tratamento
-              </button>
-            </div>
-            <div className="md:hidden h-0.5 bg-gray-500 rounded-full my-6"></div>
-            <h1 className="md:hidden flex justify-center items-center gap-x-2 w-full text-center text-2xl font-bold text-evolutiLightGreen">
-              <FaPlus />
-              Novo Tratamento
-            </h1>
           </div>
         </div>
       </section>
+
+      {isModalOpen && selectedAtendimento && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full max-h-[80vh] overflow-y-auto">
+            <h2 className="text-xl font-bold mb-4">Detalhes do Atendimento</h2>
+            <p>
+              <strong>Data:</strong>{" "}
+              {format(
+                new Date(selectedAtendimento.data),
+                "dd MMMM yyyy HH:mm",
+                { locale: ptBR }
+              )}
+            </p>
+            <p>
+              <strong>Diagnóstico:</strong> {selectedAtendimento.diagnostico}
+            </p>
+            <button
+              className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg"
+              onClick={closeModal}
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

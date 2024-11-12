@@ -35,6 +35,7 @@ export default function Login() {
 
         sessionStorage.setItem('idClinica', usuario.fk_clinica);
         sessionStorage.setItem('idUsuario', usuario.id);
+        sessionStorage.setItem('id', 19);
 
         if (usuario.stats === false) {
           window.alert('Espere liberação de acesso de seu administrador');
@@ -42,6 +43,9 @@ export default function Login() {
           switch (nivel) {
             case 0:
               navigate('/AdminHome');
+              break;
+            case 1:
+              navigate('/OperadorHome');
               break;
             case 2:
               navigate('/FuncHome');

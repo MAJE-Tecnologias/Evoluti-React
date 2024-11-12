@@ -220,6 +220,7 @@ export default function FuncAtendForm() {
                 <button
                   className="w-full bg-evolutiGreen py-3 rounded-lg font-medium text-white 
                 transition-colors hover:bg-evolutiGreenDarker"
+                onSubmit={criarAtend}
                 >
                   Salvar Formulário
                 </button>

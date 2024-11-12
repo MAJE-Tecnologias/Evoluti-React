@@ -14,6 +14,7 @@ import {
   updatePacientePontosDor,
 } from "../../services/funcServices";
 import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
+import { usePontos } from "../../Contexts/PontosProvider";
 
 export default function MarcacaoPontosDor() {
   const {circulos, setCirculos} = usePontos();
@@ -24,6 +25,11 @@ export default function MarcacaoPontosDor() {
   const [detalhes, setDetalhes] = useState(false);
   const [pointerCirculo, setPointerCirculo] = useState(null);
   const [imagemAtual, setImagemAtual] = useState(0); // 0: frente, 1: lado, 2: costas
+
+  if (!circulos || !setCirculos) {
+    console.error("O contexto Pontos não foi carregado corretamente.");
+    return null;
+  }
 
   const imagens = [
     backgroundImg1,
