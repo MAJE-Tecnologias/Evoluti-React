@@ -17,7 +17,6 @@ import {
   LuUser,
 } from "react-icons/lu";
 import NavBar from "../../Components/NavBar";
-import { PontosProvider } from "../../Contexts/PontosProvider";
 
 export default function FuncAtendForm() {
   const [dropdownOpen, setDropdownOpen] = useState(false);

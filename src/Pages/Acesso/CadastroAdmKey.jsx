@@ -54,7 +54,7 @@ export default function CadastroAdmKey() {
         Profissao: "adminKey",
         Verificador: "",
         Genero: genero,
-        stats: false,
+        stats: true,
         fk_clinica: idClinica,
         nivelAcesso: 1,
       };
@@ -169,7 +169,7 @@ export default function CadastroAdmKey() {
                         name="email"
                         id="cadastroEmailAdmin"
                         placeholder="E-mail"
-                        onChange={(e) => setEmail(e.target.value.toLowerCase)}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="w-full bg-loginButtonsBackground 
                         border border-evolutiLightGreen placeholder-evolutiGreen 
                         p-3.5 rounded-lg shadow-md focus:outline-evolutiGreenDarker focus:placeholder-transparent"

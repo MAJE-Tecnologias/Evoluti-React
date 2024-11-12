@@ -18,9 +18,24 @@
       "nome": "Clinca Teste",
       "email": "Clinica@teste.com.br",
       "adicionadoEm": "2024-04-24T05:10:54.733Z",
-      "profissoes": ["Masso", "Fisio", "Estagiario", "Secretario"],
-      "verificadorProf": [true, true, false, false],
-      "nivel": [2, 0, 3, 1]
+      "profissoes": [
+        "Masso",
+        "Fisio",
+        "Estagiario",
+        "Secretario"
+      ],
+      "verificadorProf": [
+        true,
+        true,
+        false,
+        false
+      ],
+      "nivel": [
+        2,
+        0,
+        3,
+        1
+      ]
     },
     {
       "id": "36c4",
@@ -28,6 +43,53 @@
       "nome": "clinicamoraes",
       "email": "clinicamoraes@hotmail.com",
       "adicionadoEm": "2024-09-02T23:46:39.051Z"
+    },
+    {
+      "id": "b1d4",
+      "cnpj": "1234",
+      "nome": "teste",
+      "email": "teste@sim.com",
+      "adicionadoEm": "2024-11-12T20:04:05.421Z",
+      "profissoes": [
+        "Masso",
+        "Fisio",
+        "Estagiario",
+        "adminKey"
+      ],
+      "verificadorProf": [
+        true,
+        true,
+        false,
+        false
+      ],
+      "nivel": [
+        2,
+        0,
+        3,
+        1
+      ]
+    },
+    {
+      "id": "caf4",
+      "cnpj": "1234",
+      "nome": "teste",
+      "email": "tiros80532@edectus.com",
+      "adicionadoEm": "2024-11-12T20:12:41.479Z",
+      "profissoes": [
+        "Masso",
+        "Fisio",
+        "Estagiario"
+      ],
+      "verificadorProf": [
+        true,
+        true,
+        false
+      ],
+      "nivel": [
+        2,
+        0,
+        3
+      ]
     }
   ],
   "Usuario": [
@@ -39,7 +101,7 @@
       "Senha": "123",
       "RG": "123",
       "DataNascimento": "2005-01-30",
-      "Profissao": "Fisio",
+      "Profissao": "Masso",
       "Verificador": "185",
       "Genero": "1",
       "stats": true,
@@ -240,6 +302,21 @@
       "Genero": "1",
       "stats": true,
       "fk_clinica": "0c2b"
+    },
+    {
+      "id": "311",
+      "Nome": "sim",
+      "Email": "tiros80532@edectus.com",
+      "Telefone": "11971103001",
+      "Senha": "Eduardo3001",
+      "RG": "123456",
+      "DataNascimento": "2005-01-30",
+      "Profissao": "adminKey",
+      "Verificador": "",
+      "Genero": "1",
+      "stats": false,
+      "fk_clinica": "b1d4",
+      "nivelAcesso": 1
     }
   ],
   "Paciente": [
@@ -253,7 +330,12 @@
       "rg": "12345",
       "cpf": "1234",
       "fk_clinica": "0c2b",
-      "pontosDor": ["1", "2", "5", "1a51"]
+      "pontosDor": [
+        "1",
+        "2",
+        "5",
+        "1a51"
+      ]
     },
     {
       "id": "20",
