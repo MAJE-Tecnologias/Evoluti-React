@@ -21,17 +21,17 @@ const Modal = ({ show, onClose, onSubmit, selectedColor, onColorChange }) => {
 
   // Definindo cores de acordo com os níveis de dor
   const colorScale = [
-    { color: "#22c55e", label: "0" },
-    { color: "#22c55e", label: "1" },
-    { color: "#22c55e", label: "2" },
-    { color: "#22c55e", label: "3" },
-    { color: "#eab308", label: "4" },
-    { color: "#eab308", label: "5" },
-    { color: "#eab308", label: "6" },
-    { color: "#dc2626", label: "7" },
-    { color: "#dc2626", label: "8" },
-    { color: "#dc2626", label: "9" },
-    { color: "#dc2626", label: "10" },
+    { color: "#86efac", label: "0" }, // Verde claro
+    { color: "#4ade80", label: "1" }, // Verde um pouco mais escuro
+    { color: "#22c55e", label: "2" }, // Verde médio
+    { color: "#16a34a", label: "3" }, // Verde escuro
+    { color: "#eab308", label: "4" }, // Amarelo claro
+    { color: "#facc15", label: "5" }, // Amarelo mais forte
+    { color: "#fbbf24", label: "6" }, // Amarelo mais intenso
+    { color: "#dc2626", label: "7" }, // Vermelho claro
+    { color: "#b91c1c", label: "8" }, // Vermelho médio
+    { color: "#991b1b", label: "9" }, // Vermelho escuro
+    { color: "#7f1d1d", label: "10" }, // Vermelho bem escuro
   ];
 
   return (
@@ -148,11 +148,17 @@ const Modal = ({ show, onClose, onSubmit, selectedColor, onColorChange }) => {
 const ColorButton = ({ color, onClick, isSelected, label }) => {
   return (
     <button
-      className={`flex items-center justify-center w-12 h-12 rounded-lg border border-transparent transition-all
-        hover:brightness-75 hover:border-black hover:shadow-md`}
+      type="button"
+      className={`flex items-center justify-center w-12 h-12 rounded-lg border transition-all
+        hover:brightness-75 hover:shadow-md 
+        ${
+          isSelected
+            ? "border-black dark:border-white brightness-75 shadow-md"
+            : ""
+        }
+        hover:border-black hover:dark:border-white`}
       style={{
         backgroundColor: color,
-        border: isSelected ? "2px solid #333" : "",
       }}
       onClick={onClick}
     >

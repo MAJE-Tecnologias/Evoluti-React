@@ -196,62 +196,6 @@ export default function MarcacaoPontosDor() {
         />
       </div>
 
-      {/* <div
-        className="bg-white overflow-hidden border-l border-evolutiGreen w-1/2 
-      dark:bg-zinc-600 dark:border-gray-900"
-      >
-        <div className="h-full p-1">
-          <div className="relative w-full h-full overflow-y-scroll scrollable-container">
-            <div className="absolute w-full p-4">
-              <ul className="flex flex-col gap-y-4">
-                {circulos.map((circulo, indice) => (
-                  <div
-                    key={circulo.id}
-                    className="w-full bg-white border border-evolutiGreen p-2 rounded-xl shadow-lg"
-                  >
-                    <li className="truncate">
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-lg">Marcação #{indice + 1}</span>
-                        <div
-                          className="border-2 border-black w-5 h-5 rounded-full"
-                          style={{ backgroundColor: circulo.cor }}
-                        ></div>
-                      </div>
-                      <p className="font-bold font-poppins">Título: <span className="font-normal">{circulo.titulo}</span></p>
-                      <p className="font-bold font-poppins">Descrição do ponto de dor:</p>
-                      <span>{circulo.desc}</span>
-                      <div className="flex items-center gap-x-2">
-                        <button
-                          className="flex justify-center items-center px-2 py-1 border-2 border-black 
-                    rounded-xl bg-evolutiGreenDarker font-bold text-white gap-x-2 hover:brightness-90"
-                          onClick={() => lidarComCliqueCirculo(indice)}
-                        >
-                          <FaTrashAlt /> Remover
-                        </button>
-                        <button
-                          className="flex justify-center items-center px-2 py-1 border-2 border-black 
-                    rounded-xl bg-evolutiLightBlueText font-bold text-white gap-x-2 hover:brightness-90"
-                          onClick={() => showDetalhes(indice)}
-                        >
-                          <FaEdit /> Editar
-                        </button>
-                      </div>
-                    </li>
-                  </div>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-        {detalhes && (
-          <FuncionarioCardAtendimento
-            isOpen={detalhes}
-            hideDetalhes={hideDetalhes}
-            detalhes={circulos[pointerCirculo]}
-          />
-        )}
-      </div> */}
-
       <div className="absolute flex right-8 bottom-12 gap-x-2">
         <button
           onClick={prevImage}

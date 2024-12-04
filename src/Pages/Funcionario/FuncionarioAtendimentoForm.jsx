@@ -17,13 +17,16 @@ import {
   LuUser,
 } from "react-icons/lu";
 import NavBar from "../../Components/NavBar";
+import { usePontos } from "../../Contexts/PontosProvider";
 
 export default function FuncAtendForm() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownPontosDorOpen, setDropdownPontosDorOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [titulo, setTitulo] = useState("");
   const [diagnostico, setDiagnostico] = useState("");
   const [corpo, setCorpo] = useState("");
+  const { circulos } = usePontos();
 
   const navigate = useNavigate();
   const id = sessionStorage.getItem("id");
@@ -65,9 +68,8 @@ export default function FuncAtendForm() {
     setDropdownOpen(!dropdownOpen);
   };
 
-  const handleOptionClick = (option) => {
-    setSelectedOption(option.label);
-    setDropdownOpen(false);
+  const togglePontosDorDropdown = () => {
+    setDropdownPontosDorOpen(!dropdownPontosDorOpen); // Função para alternar o dropdown dos Pontos de Dor
   };
 
   const validaCadastro = () => {
@@ -220,7 +222,7 @@ export default function FuncAtendForm() {
                 <button
                   className="w-full bg-evolutiGreen py-3 rounded-lg font-medium text-white 
                 transition-colors hover:bg-evolutiGreenDarker"
-                onSubmit={criarAtend}
+                  onSubmit={criarAtend}
                 >
                   Salvar Formulário
                 </button>
@@ -229,8 +231,9 @@ export default function FuncAtendForm() {
           </AnimatePresence>
 
           <button
-            className="flex w-full h-[72px] border-y border-slate-200 px-8 gap-x-3 items-center 
-          hover:bg-slate-50 dark:hover:bg-neutral-800"
+            onClick={togglePontosDorDropdown}
+            className="relative z-10  bg-white flex w-full h-[72px] border-y border-slate-200 px-8 gap-x-3 items-center 
+          hover:bg-slate-50 dark:bg-neutral-900 dark:hover:bg-neutral-800"
           >
             <LuList size={32} className="text-evolutiGreen" />
             <span className="font-medium text-xl text-slate-500 dark:text-white">
@@ -238,6 +241,71 @@ export default function FuncAtendForm() {
             </span>
             <LuChevronDown className="ml-auto text-evolutiGreen" size={24} />
           </button>
+
+          <AnimatePresence>
+            {dropdownPontosDorOpen && (
+              <motion.div
+                initial={{ y: -72, height: 0 }}
+                animate={{ y: 0, height: "auto" }}
+                exit={{ y: -72, height: 0 }}
+                transition={{ duration: 0.2 }}
+                className="flex flex-col px-8 py-6 gap-y-4 overflow-hidden max-h-screen overflow-y-auto scrollable-container"
+                style={{ direction: "rtl" }}
+              >
+                <div
+                  className="flex flex-col gap-y-4 text-slate-500 dark:text-white"
+                  style={{ direction: "ltr" }}
+                >
+                  {/* Mensagem de instrução */}
+                  {circulos.length === 0 ? (
+                    <p className="text-center text-red-500">
+                      Nenhum ponto de dor cadastrado.
+                    </p>
+                  ) : (
+                    <>
+                      <p className="text-center text-slate-500 dark:text-white">
+                        Clique em um ponto de dor para ver mais detalhes,
+                        editá-lo ou excluí-lo.
+                      </p>
+                      {circulos.map((circulo, indice) => (
+                        <button
+                          key={circulo.id}
+                          className="w-full text-left bg-white border-2 py-4 px-7 rounded-lg transition-all truncate
+                          hover:bg-neutral-50 dark:bg-neutral-900 dark:hover:bg-neutral-800"
+                        >
+                          <div className="flex items-center justify-between pb-5">
+                            <span className="font-semibold text-xl">
+                              Marcação #{indice + 1}
+                            </span>
+                            <div
+                              className="flex items-center justify-center text-white w-6 h-6 rounded-lg font-bold"
+                              style={{ backgroundColor: circulo.cor }}
+                            >
+                              {indice + 1}
+                            </div>
+                          </div>
+
+                          <p className="font-medium font-poppins truncate text-slate-700 dark:text-slate-400 pb-2 ">
+                            Título:{" "}
+                            <span className="font-normal text-slate-400 dark:text-slate-300 ">
+                              {circulo.titulo}
+                            </span>
+                          </p>
+                          <p className="font-medium font-poppins truncate text-slate-700 dark:text-slate-400">
+                            Descrição do ponto de dor:{" "}
+                          </p>
+                          <span className="font-normal text-slate-400 dark:text-slate-300">
+                            {circulo.desc}
+                          </span>
+                        </button>
+                      ))}
+                    </>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <button
             className="flex w-full h-[72px] border-y border-slate-200 px-8 gap-x-3 items-center 
           hover:bg-slate-50 dark:hover:bg-neutral-800"
