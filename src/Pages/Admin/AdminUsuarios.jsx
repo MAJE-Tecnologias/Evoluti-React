@@ -6,6 +6,7 @@ import { fetchUsuarios } from "../../services/adminServices"; // Importar o serv
 import "../CSS/AnimacaoFlutuar.css";
 import { LuBookPlus, LuHome, LuUserCheck, LuUsers } from "react-icons/lu";
 import NavBar from "../../Components/NavBar";
+import { ItemsNavBar } from "../../Components/ItemsNavBar";
 
 export default function AdminUsuarios() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -137,11 +138,34 @@ export default function AdminUsuarios() {
           route={"/AdminPaciente"}
         />
       </Sidebar>
-      <NavBar icon={<LuUsers size={24} />} title={"Visualização de Usuários"} />
+      <NavBar icon={<LuUsers size={24} />} title={"Visualização de Usuários"}>
+        <ItemsNavBar
+          icon={<LuHome size={24} />}
+          text="Home"
+          route="/AdminHome"
+        />
+        <ItemsNavBar
+          icon={<LuUserCheck size={24} />}
+          text="Aceitar Usuários"
+          route={"/AdminAceitar"}
+          
+        />
+        <ItemsNavBar
+          icon={<LuBookPlus size={24} />}
+          text="Adicionar Profissão"
+          route={"/AdminAdd"}
+        />
+        <ItemsNavBar
+          icon={<LuUserCheck size={24} />}
+          text="Usuários"
+          route="/AdminUsuarios"
+          ativo
+        />
+      </NavBar>
 
       <section
         id="AdminHome"
-        className="flex md:flex-col flex-col h-screen pl-[89px] pt-[89px] items-center dark:bg-neutral-800"
+        className="flex md:flex-col flex-col h-full min-h-screen pl-[89px] pt-[89px] items-center dark:bg-neutral-800"
       >
         <div>
           <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">

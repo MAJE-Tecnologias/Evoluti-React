@@ -20,6 +20,7 @@ import {
   LuUsers,
 } from "react-icons/lu";
 import NavBar from "../../Components/NavBar";
+import { ItemsNavBar } from "../../Components/ItemsNavBar";
 
 export default function AdminAceitar() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -183,10 +184,29 @@ export default function AdminAceitar() {
         />
       </Sidebar>
 
-      <NavBar
-        icon={<LuUserCheck size={24} />}
-        title={"Aceitar Novos Usuários"}
-      />
+      <NavBar icon={<LuUserCheck size={24} />} title={"Aceitar Novos Usuários"}>
+        <ItemsNavBar
+          icon={<LuHome size={24} />}
+          text="Home"
+          route="/AdminHome"
+        />
+        <ItemsNavBar
+          icon={<LuUserCheck size={24} />}
+          text="Aceitar Usuários"
+          route={"/AdminAceitar"}
+          ativo
+        />
+        <ItemsNavBar
+          icon={<LuBookPlus size={24} />}
+          text="Adicionar Profissão"
+          route={"/AdminAdd"}
+        />
+        <ItemsNavBar
+          icon={<LuUserCheck size={24} />}
+          text="Usuários"
+          route="/AdminUsuarios"
+        />
+      </NavBar>
 
       <section
         id="AdminHome"

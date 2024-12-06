@@ -90,6 +90,28 @@
         0,
         3
       ]
+    },
+    {
+      "id": "7522",
+      "cnpj": "147899",
+      "nome": "Clinica Apresentação ",
+      "email": "clicateste@gmail.com",
+      "adicionadoEm": "2024-12-06T19:33:28.036Z",
+      "profissoes": [
+        "Masso",
+        "Fisio",
+        "Estagiario"
+      ],
+      "verificadorProf": [
+        true,
+        true,
+        false
+      ],
+      "nivel": [
+        2,
+        0,
+        3
+      ]
     }
   ],
   "Usuario": [
@@ -331,6 +353,21 @@
       "stats": false,
       "fk_clinica": "b1d4",
       "nivelAcesso": 1
+    },
+    {
+      "id": "3111",
+      "Nome": "Felipe Antunes",
+      "Email": "mixin45502@datingel.com",
+      "Telefone": "11912345678",
+      "Senha": "Eduardo3001",
+      "RG": "123456",
+      "DataNascimento": "2001-03-15",
+      "Profissao": "adminKey",
+      "Verificador": "",
+      "Genero": "2",
+      "stats": true,
+      "fk_clinica": "7522",
+      "nivelAcesso": 1
     }
   ],
   "Paciente": [
@@ -345,10 +382,9 @@
       "cpf": "1234",
       "fk_clinica": "0c2b",
       "pontosDor": [
-        "1",
-        "2",
-        "5",
-        "1a51"
+        "4d49",
+        "fe6b",
+        "1fce"
       ]
     },
     {
@@ -374,7 +410,7 @@
       "fk_clinica": "null"
     },
     {
-      "id": 22,
+      "id": "22",
       "nome": "Eu",
       "email": "teste@gmail.com",
       "data": "2005-01-30",
@@ -843,6 +879,26 @@
         "y": 31.800262812089358
       },
       "desc": "aaaaaaaaa",
+      "titulo": "teste",
+      "cor": "blue"
+    },
+    {
+      "id": "ba6e",
+      "cord": {
+        "x": 51.78678229665071,
+        "y": 24.441524310118265
+      },
+      "desc": "Muita dor",
+      "titulo": "Dor",
+      "cor": "#7f1d1d"
+    },
+    {
+      "id": "7c16",
+      "cord": {
+        "x": 52.85212320574163,
+        "y": 24.0473061760841
+      },
+      "desc": "teste",
       "titulo": "teste",
       "cor": "blue"
     }

@@ -14,6 +14,7 @@ import {
 import "../CSS/ScrollStyle.css";
 import { LuClipboard, LuHome } from "react-icons/lu";
 import NavBar from "../../Components/NavBar";
+import { ItemsNavBar } from "../../Components/ItemsNavBar";
 
 export default function FuncAtend() {
   const id = sessionStorage.getItem("id");
@@ -71,7 +72,8 @@ export default function FuncAtend() {
           atendimentos.map((atendimento) => (
             <div key={atendimento.id} className="py-2">
               <button
-                className="w-full text-left p-4 border-2 border-black rounded-2xl"
+                className="w-full text-left p-4 border border-slate-400 shadow-md rounded-2xl font-medium bg-white transition-all
+                hover:bg-slate-100"
                 onClick={() => openModal(atendimento)}
               >
                 {format(new Date(atendimento.data), "dd MMMM yyyy HH:mm", {
@@ -103,100 +105,117 @@ export default function FuncAtend() {
         <ItemsSidebar
           icon={<LuClipboard size={24} />}
           text="Atendimentos"
-          route="/FuncAtend"
+          route="/FuncPaciente"
           ativo
         />
       </Sidebar>
 
-      <NavBar icon={<LuClipboard size={24} />} title={"Atendimentos"} />
+      <NavBar icon={<LuHome size={24} />} title={"Atendimentos"}>
+        <ItemsNavBar
+          icon={<LuHome size={24} />}
+          text="Home"
+          route="/FuncHome"
+        />
+        <ItemsNavBar
+          icon={<LuClipboard size={24} />}
+          text="Atendimentos"
+          route="/FuncPaciente"
+          ativo
+        />
+      </NavBar>
 
       <section
         id="FuncHome"
-        className="flex md:flex-col flex-col h-screen pl-[89px] pt-[89px] justify-center items-center dark:bg-neutral-800"
+        className="flex flex-col h-full min-h-screen pl-0 sm:pl-[89px] pt-[89px] justify-center items-center dark:bg-neutral-800"
       >
         <div className="w-full h-full pt-20 md:px-10 md:pt-10">
           <div
-            className="bg-neutral-100 flex flex-col border-2 border-b-0 w-full h-full rounded-3xl rounded-bl-none rounded-br-none 
-            shadow-gray-500 shadow-md p-5 gap-x-8 md:gap-x-0 md:flex-row dark:bg-neutral-900 dark:border-transparent"
+            className="bg-white flex flex-col border-2 w-full h-full md:border-b-0 md:rounded-3xl
+            shadow-gray-500 p-5 gap-x-8 md:gap-x-0 md:flex-row dark:bg-neutral-900 dark:border-transparent"
           >
             <div className="flex flex-col items-center md:w-full">
-              <div
-                className="flex flex-col justify-center items-center text-center gap-x-2 
-                md:flex-row md:text-left md:justify-normal md:pb-8"
-              >
-                <div className="w-32 h-32 rounded-full bg-gray-400"></div>
-                <div className="flex flex-col justify-center dark:text-white">
-                  <h1 className="text-2xl font-bold pb-2 md:pb-0">
-                    {paciente ? paciente.nome : "Loading..."}
-                  </h1>
-                  <p>
-                    <b>Data de nascimento: </b>
-                    <span>
-                      {paciente
-                        ? format(new Date(paciente.nascimento), "dd/MM/yyyy", {
-                            locale: ptBR,
-                          })
-                        : "Loading..."}
-                    </span>
-                  </p>
-                  <p>
-                    <b>CPF: </b>
-                    <span>{paciente ? paciente.cpf : "Loading..."}</span>
-                  </p>
+              <div className="flex flex-col gap-y-4 md:gap-y-0 md:flex-row w-full">
+                <div className="w-full flex flex-col justify-center items-center text-center gap-x-2 md:mr-4 md:border-r-2">
+                  <div className="w-32 h-32 rounded-full bg-gray-400 mb-4"></div>
+                  <div className="flex flex-col justify-center dark:text-white">
+                    <h1 className="text-2xl font-bold pb-2 md:pb-0">
+                      {paciente ? paciente.nome : "Loading..."}
+                    </h1>
+                    <p>
+                      <b>Data de nascimento: </b>
+                      <span>
+                        {paciente
+                          ? format(
+                              new Date(paciente.nascimento),
+                              "dd/MM/yyyy",
+                              {
+                                locale: ptBR,
+                              }
+                            )
+                          : "Loading..."}
+                      </span>
+                    </p>
+                    <p>
+                      <b>CPF: </b>
+                      <span>{paciente ? paciente.cpf : "Loading..."}</span>
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="hidden md:flex flex-col w-full p-5 bg-EvolutiLightGreenLighter rounded-xl">
-                <div className="flex items-center py-2 border-b-2 border-gray-500">
-                  <button className="font-bold">Diagnósticos</button>
-                  <FaCaretDown size={20} />
-                </div>
-                <div className="flex items-center justify-between py-2 border-b-2 border-gray-500">
-                  <div className="flex items-center ">
-                    <button className="font-bold">Receitas</button>
+                <div className="md:flex flex-col w-full p-5 bg-EvolutiLightGreenLighter rounded-xl">
+                  <div className="flex items-center py-2 border-b-2 border-gray-500">
+                    <button className="font-bold">Diagnósticos</button>
                     <FaCaretDown size={20} />
                   </div>
-                  <CiPill size={25} className="mr-2" />
-                </div>
-                <div className="flex items-center justify-between py-2 border-b-2 border-gray-500">
-                  <div className="flex items-center ">
-                    <button className="font-bold">Pedidos de exame</button>
-                    <FaCaretDown size={20} />
+                  <div className="flex items-center justify-between py-2 border-b-2 border-gray-500">
+                    <div className="flex items-center ">
+                      <button className="font-bold">Receitas</button>
+                      <FaCaretDown size={20} />
+                    </div>
+                    <CiPill size={25} className="mr-2" />
                   </div>
-                  <FaStethoscope size={25} className="mr-2" />
-                </div>
-                <div className="flex items-center justify-between py-2 border-b-2 border-gray-500">
-                  <div className="flex items-center">
-                    <button className="font-bold">Questionários</button>
-                    <FaCaretDown size={20} />
+                  <div className="flex items-center justify-between py-2 border-b-2 border-gray-500">
+                    <div className="flex items-center ">
+                      <button className="font-bold">Pedidos de exame</button>
+                      <FaCaretDown size={20} />
+                    </div>
+                    <FaStethoscope size={25} className="mr-2" />
                   </div>
-                  <MdAssignment size={25} className="mr-2" />
-                </div>
-                <div className="flex items-center justify-between py-2 border-gray-500">
-                  <div className="flex items-center">
-                    <button className="font-bold">Arquivos atrelados</button>
-                    <FaCaretDown size={20} />
+                  <div className="flex items-center justify-between py-2 border-b-2 border-gray-500">
+                    <div className="flex items-center">
+                      <button className="font-bold">Questionários</button>
+                      <FaCaretDown size={20} />
+                    </div>
+                    <MdAssignment size={25} className="mr-2" />
                   </div>
-                  <AiFillFileAdd size={25} className="mr-2" />
+                  <div className="flex items-center justify-between py-2 border-gray-500">
+                    <div className="flex items-center">
+                      <button className="font-bold">Arquivos atrelados</button>
+                      <FaCaretDown size={20} />
+                    </div>
+                    <AiFillFileAdd size={25} className="mr-2" />
+                  </div>
                 </div>
               </div>
 
               <div
-                className="hidden md:flex flex-col w-full h-full p-5 mt-8 bg-[#D9D9D9] 
+                className="md:flex flex-col w-full h-full p-5 mt-8 bg-neutral-200
               rounded-xl"
               >
                 <h1 className="w-full text-xl text-center font-bold border-gray-500">
                   Histórico de tratamentos
                 </h1>
-                <div className="h-full flex flex-col overflow-y-scroll scrollable-container border-2 border-gray-500">
-                  {showAtendimentos(atendimentos)}
-                  <button
-                    className="bg-blue text-black border-2 border-black px-4 py-2 rounded-md mt-auto w-fit
-                    transition-colors hover:bg-black hover:text-white"
-                    onClick={redirectAtendimento}
-                  >
-                    Novo Tratamento
-                  </button>
+                <div className="border-2 border-gray-500 rounded-3xl p-3 my-4">
+                  <div className="max-h-[300px] flex flex-col overflow-y-auto scrollable-container border-2 p-3">
+                    {showAtendimentos(atendimentos)}
+                  </div>
                 </div>
+                <button
+                  className="bg-blue text-black border-2 border-black px-4 py-2 rounded-md mt-auto w-fit self-center
+                    transition-colors hover:bg-black hover:text-white"
+                  onClick={redirectAtendimento}
+                >
+                  Novo Tratamento
+                </button>
               </div>
             </div>
           </div>
@@ -204,9 +223,10 @@ export default function FuncAtend() {
       </section>
 
       {isModalOpen && selectedAtendimento && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full max-h-[80vh] overflow-y-auto">
-            <h2 className="text-xl font-bold mb-4">Detalhes do Atendimento</h2>
+            <h2 className="text-xl font-bold">Detalhes do Atendimento</h2>
+            <hr className="mb-4 bg-black"></hr>
             <p>
               <strong>Data:</strong>{" "}
               {format(

@@ -56,12 +56,12 @@ export const usePontos = () => {
 
 // Função auxiliar de fetch para usuário
 const fetchPacienteById = async (id) => {
-  const response = await axios.get(`http://localhost:3000/Usuario?id=${id}`);
+  const response = await axios.get(`http://localhost:3000/Paciente?id=${id}`);
   return response.data;
 };
 
 // Função auxiliar de fetch para pontos de dor
 const fetchPontosDor = async () => {
-  const response = await axios.get(`http://localhost:3000/pontosdor`);
+  const response = await axios.get(`http://localhost:3000/PontosDor`);
   return response.data;
 };

@@ -58,7 +58,7 @@ const Modal = ({ isOpen, onClose }) => {
               </button>
 
               <div className="relative w-full bg-evolutiGreenDarker h-36 rounded-t-xl text-center"></div>
-              <div className="absolute w-full h-full pb-16 top-16">
+              <div className="absolute w-full h-full pb-16 top-16 dark:text-black">
                 <div className="flex flex-col text-center items-center w-full pb-11 z-50">
                   <img
                     className="rounded-full h-36 w-36"

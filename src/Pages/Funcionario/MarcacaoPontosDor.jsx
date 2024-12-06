@@ -5,7 +5,6 @@ import backgroundImg1 from "../../assets/MDP_MasculinoFrente.png";
 import backgroundImg2 from "../../assets/MDP_MasculinoLadoD.png";
 import backgroundImg3 from "../../assets/MDP_MasculinoCostas.png";
 import backgroundImg4 from "../../assets/MDP_MasculinoLadoE.png";
-import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import {
   fetchPontosDor,
   fetchPacienteById,
@@ -17,13 +16,11 @@ import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
 import { usePontos } from "../../Contexts/PontosProvider";
 
 export default function MarcacaoPontosDor() {
-  const {circulos, setCirculos} = usePontos();
+  const { circulos, setCirculos } = usePontos();
   const [numCirculos, setNumCirculos] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [newCircle, setNewCircle] = useState(null);
   const [selectedColor, setSelectedColor] = useState("blue");
-  const [detalhes, setDetalhes] = useState(false);
-  const [pointerCirculo, setPointerCirculo] = useState(null);
   const [imagemAtual, setImagemAtual] = useState(0); // 0: frente, 1: lado, 2: costas
 
   if (!circulos || !setCirculos) {
@@ -48,7 +45,7 @@ export default function MarcacaoPontosDor() {
           const pontosDorData = await fetchPontosDor();
 
           const filteredData = pontosDorData.filter((item) =>
-            pacienteData.pontosDor.includes(item.id)
+            pacienteData[0].pontosDor.includes(item.id)
           );
 
           const circulosIniciais = filteredData.map((ponto) => ({
@@ -138,16 +135,6 @@ export default function MarcacaoPontosDor() {
 
   const closeModal = () => {
     setShowModal(false);
-  };
-
-  const showDetalhes = (index) => {
-    setPointerCirculo(index);
-    setDetalhes(true);
-  };
-
-  const hideDetalhes = () => {
-    setDetalhes(false);
-    setPointerCirculo(null);
   };
 
   const handleColorChange = (color) => {

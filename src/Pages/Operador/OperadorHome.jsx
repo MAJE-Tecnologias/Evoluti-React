@@ -31,7 +31,7 @@ export default function OperadorHome() {
           dark:bg-neutral-800 dark:text-white"
       >
         <img
-          src="src\assets\Logo_Sem_fundo.png"
+          src="src\assets\Nova_Logo_Verde.svg"
           alt="Logo"
           className="w-1/2 anima-flutuar"
         />
