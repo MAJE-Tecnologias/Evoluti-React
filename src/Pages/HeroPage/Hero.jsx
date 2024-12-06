@@ -17,20 +17,20 @@ export default function Hero() {
         <img
           src="src/assets/HeroImageNoCut.png"
           alt=""
-          className="filter brightness-75 md:rounded-t-3xl lg:hidden"
+          className="filter brightness-75 md:rounded-t-3xl md:hidden"
         />
 
         <img
           src="src/assets/HeroNewImage.png"
           alt=""
-          className="z-10 hidden lg:block"
+          className="z-10 hidden md:block"
         />
         <img
           src="src/assets/HeroNewImage2.png"
           alt=""
-          className="absolute top-0 w-full z-0 hidden lg:block"
+          className="absolute top-0 w-full z-0 hidden md:block"
         />
-        <div className="absolute z-10 bottom-8 left-1/2 hidden lg:block">
+        <div className="absolute z-10 bottom-8 left-1/2 hidden md:block">
           <HomeButton
             href="/cadastro"
             text="Começar"
@@ -64,7 +64,7 @@ export default function Hero() {
           </p>
         </div>
       </div>
-      <p className="text-4xl text-center text-white bg-evolutiDarkBlue py-4 lg:hidden">
+      <p className="text-4xl text-center text-white bg-evolutiDarkBlue py-4 md:hidden">
         A Evolução em cada passo.
       </p>
 
