@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import Sidebar, { ItemsSidebar } from "../../Components/SideBar";
 import "../CSS/AnimacaoFlutuar.css";
 
-import { FiPlusCircle } from "react-icons/fi";
-import { FaUsers, FaUserInjured, FaFileAlt, FaSearch, FaEye } from "react-icons/fa";
-import { VscGraph } from "react-icons/vsc";
+import {  FaSearch, FaEye } from "react-icons/fa";
+
 import { fetchPacientes } from "../../services/funcServices";
+import { LuClipboard, LuHome } from "react-icons/lu";
+import NavBar from "../../Components/NavBar";
+import { ItemsNavBar } from "../../Components/ItemsNavBar";
 
 export default function AdminUsuarios() {
   const idClinica = sessionStorage.getItem("idClinica");
@@ -79,35 +81,50 @@ export default function AdminUsuarios() {
     <>
       <Sidebar>
         <ItemsSidebar
-          icon={<FiPlusCircle size={24} />}
-          text="Cadastros"
-          route={"/AdminCadastro"}
+          icon={<LuHome size={24} />}
+          text="Home"
+          route="/FuncHome"
         />
         <ItemsSidebar
-          icon={<FaUsers size={24} />}
-          text="Usuários"
+          icon={<LuClipboard size={24} />}
+          text="Atendimentos"
+          route="/FuncPaciente"
           ativo
-          route={"/AdminUsuarios"}
         />
-        <ItemsSidebar icon={<FaUserInjured size={24} />} text="Pacientes" />
-        <ItemsSidebar icon={<FaFileAlt size={24} />} text="Documentos" />
-        <ItemsSidebar icon={<VscGraph size={24} />} text="Relatórios" />
       </Sidebar>
+
+      <NavBar icon={<LuHome size={24} />} title={"Funcionario - Atendimentos"}>
+        <ItemsNavBar
+          icon={<LuHome size={24} />}
+          text="Home"
+          route="/FuncHome"
+        />
+        <ItemsNavBar
+          icon={<LuClipboard size={24} />}
+          text="Atendimentos"
+          route="/FuncPaciente"
+          ativo
+        />
+      </NavBar>
 
       <section
         id="AdminHome"
-        className="flex md:flex-col flex-col h-full pl-[89px] pt-[89px] items-center dark:bg-neutral-800"
+        className="flex md:flex-col flex-col h-full min-h-screen sm:pl-[89px] pt-[89px] items-center dark:bg-neutral-800"
       >
         <div>
-          <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10">
-            <FaUsers size={40} /> Visualização de Usuários
+          <h1 className="flex justify-center items-center gap-x-2 text-4xl font-extrabold text-evolutiLightGreen pt-10 pb-4">
+            <LuClipboard size={40} /> Atendimentos
           </h1>
+
+          <p className="dark:text-white">
+            Selecione um usuário para realizar seu atendimento.
+          </p>
 
           <div className=" flex mt-10 justify-center items-center gap-x-3 dark:text-white">
             <FaSearch size={20} />
             <input
               type="text"
-              className="w-1/2 rounded py-1 px-4"
+              className="w-full rounded py-1 px-4 border"
               placeholder="Pesquisar usuário"
             ></input>
           </div>
