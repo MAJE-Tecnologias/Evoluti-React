@@ -18,7 +18,7 @@ export default function FuncionarioHome() {
         <ItemsSidebar
           icon={<LuClipboard size={24} />}
           text="Atendimentos"
-          route="/FuncAtend"
+          route="/FuncPaciente"
         />
       </Sidebar>
 

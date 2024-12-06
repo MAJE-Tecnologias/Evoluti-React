@@ -103,7 +103,7 @@ export default function FuncAtend() {
         <ItemsSidebar
           icon={<LuClipboard size={24} />}
           text="Atendimentos"
-          route="/FuncAtend"
+          route="/FuncPaciente"
           ativo
         />
       </Sidebar>
