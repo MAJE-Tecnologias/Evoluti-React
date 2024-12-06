@@ -50,16 +50,13 @@ export default function SobreNos() {
             sm:gap-y-12 sm:text-5xl
             md:flex md:flex-row md:gap-x-2 md:text-4xl"
             >
-              <a href="https://www.linkedin.com/in/carolina-pavan-570a0a215/">
+              <a href="">
                 <FaLinkedin />
               </a>
-              <a href="https://github.com/RenatoAC2004">
-                <FaGithub />
-              </a>
-              <a href="l1nk.dev/linkedinlucas">
+              <a href="">
                 <FaInstagram />
               </a>
-              <a href="l1nk.dev/linkedinlucas">
+              <a href="">
                 <FaDribbble />
               </a>
             </p>
@@ -76,13 +73,13 @@ export default function SobreNos() {
               className="flex flex-col gap-y-6 text-4xl justify-center  text-evolutiGolden
             sm:gap-y-12 sm:text-5xl"
             >
-              <a href="https://www.linkedin.com/in/carolina-pavan-570a0a215/">
+              <a href="">
                 <FaLinkedin />
               </a>
-              <a href="https://github.com/RenatoAC2004">
+              <a href="">
                 <FaGithub />
               </a>
-              <a href="l1nk.dev/linkedinlucas">
+              <a href="">
                 <FaInstagram />
               </a>
             </p>
@@ -106,25 +103,25 @@ export default function SobreNos() {
             </div>
 
             <p className="flex justify-center text-4xl text-evolutiGolden gap-x-2">
-              <a href="https://www.linkedin.com/in/carolina-pavan-570a0a215/">
+              <a href="https://www.linkedin.com/in/renato-c-b0798a205">
                 <FaLinkedin />
               </a>
               <a href="https://github.com/RenatoAC2004">
                 <FaGithub />
               </a>
-              <a href="l1nk.dev/linkedinlucas">
+              <a href="">
                 <FaInstagram />
               </a>
             </p>
           </div>
         </div>
-        <div className="flex-col justify-center items-center hidden md:block">
-          <p className="font-bold text-5xl mb-4 text-evolutiLightGreen flex-col justify-center items-center">
+        <div className="flex-col justify-center items-center hidden px-4 md:block">
+          <p className="font-bold text-right text-5xl mb-4 text-evolutiLightGreen flex-col justify-center items-center">
             MAJE
             <br></br>
             <span className="text-evolutiLightGreen"> Tecnologias</span>
           </p>
-          <p className="text-white text-center">
+          <p className="text-white text-left">
             Nosso compromisso com a excelência clínica é inabalável. Trabalhamos
             em estreita colaboração com fisioterapeutas e profissionais de saúde
             para garantir que nossos métodos e recursos sejam baseados nas
@@ -140,19 +137,19 @@ export default function SobreNos() {
           <h1 className="flex text-white font-bold text-center mb-4 text-2xl">
             Eduardo Pielich
           </h1>
-          <div className="flex-col text-base">
+          <div className="flex-col text-base pb-8 md:pb-0">
             <div className="text-center text-white mb-4">
               <p>Programador Back-End</p>
             </div>
 
             <p className="flex justify-center text-4xl text-evolutiGolden gap-x-2">
-              <a href="https://www.linkedin.com/in/carolina-pavan-570a0a215/">
+              <a href="">
                 <FaLinkedin />
               </a>
-              <a href="https://github.com/RenatoAC2004">
+              <a href="">
                 <FaGithub />
               </a>
-              <a href="l1nk.dev/linkedinlucas">
+              <a href="">
                 <FaInstagram />
               </a>
             </p>
@@ -170,13 +167,13 @@ export default function SobreNos() {
             </div>
 
             <p className="flex justify-center text-4xl text-evolutiGolden gap-x-2">
-              <a href="https://www.linkedin.com/in/carolina-pavan-570a0a215/">
+              <a href="">
                 <FaLinkedin />
               </a>
-              <a href="https://github.com/RenatoAC2004">
+              <a href="">
                 <FaGithub />
               </a>
-              <a href="l1nk.dev/linkedinlucas">
+              <a href="">
                 <FaInstagram />
               </a>
             </p>
